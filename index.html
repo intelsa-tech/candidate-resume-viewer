@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Candidate Resumes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Neutral Professional -->
+    <!-- Application Structure Plan: The application is designed as a clean, tabbed document viewer. A top navigation bar with buttons for each candidate allows the user to switch between full resume views. This structure is optimal for presenting long-form text documents like resumes within a single page, as it keeps the interface uncluttered and focuses the user's attention on one complete document at a time. This is more effective than a dashboard for this specific purpose, as the goal is in-depth review, not high-level data visualization. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Full resume text for each candidate. Goal: Inform/Organize. Viz/Presentation Method: Structured HTML with Tailwind CSS for clean typography and layout. Interaction: Clickable tabs/buttons to switch between candidate views. Justification: For presenting dense, text-based information, a well-formatted document layout is superior to charts or graphs. The primary interaction is navigation between these documents, which is handled efficiently by a simple tab system. Library/Method: HTML/Tailwind/Vanilla JS.
+        - Report Info: Technical skills. Goal: Inform. Viz/Presentation Method: Styled tags (pills). Interaction: N/A. Justification: Tags allow for quick visual scanning of key skills within the resume text. Method: HTML/Tailwind.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #f8fafc; /* slate-50 */
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-button {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-button.active {
+            border-bottom-color: #4f46e5; /* indigo-600 */
+            color: #1e1b4b; /* indigo-950 */
+        }
+        .skill-tag {
+            display: inline-block;
+            background-color: #eef2ff; /* indigo-100 */
+            color: #4338ca; /* indigo-700 */
+            padding: 0.25rem 0.75rem;
+            margin: 0.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b; /* slate-800 */
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0; /* slate-200 */
+        }
+        .content-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #334155; /* slate-700 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-card ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        .content-card li {
+            margin-bottom: 0.5rem;
+            color: #475569; /* slate-600 */
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Candidate Resume Viewer</h1>
+            <p class="mt-2 text-lg text-slate-500">Select a candidate to view their complete professional profile.</p>
+        </header>
+
+        <div id="candidate-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
+            <div class="border-b border-slate-200">
+                <nav id="candidate-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Tabs">
+                    <!-- Navigation buttons will be injected here -->
+                </nav>
+            </div>
+        </div>
+
+        <main id="candidate-content">
+            <!-- Candidate content will be injected here -->
+        </main>
+
+    </div>
+
+    <script>
+        const candidates = [
+            {
+                id: 1,
+                name: "Candidate 1",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Professional Summary</h3>
+                            <p>Dynamic Software Developer with 10+ years of experience building scalable applications and AI-powered systems using Python (Django, Flask, FastAPI). Expert in RESTful APIs, asynchronous services, and multi-threaded applications to improve performance and reduce latency. Skilled in AI/ML model development with TensorFlow, PyTorch, and Scikit-Learn, delivering predictive insights and automation. Experienced in designing microservices with FastAPI, Docker, Kubernetes, and AWS, ensuring 99.99% uptime. Has built scalable Django applications, optimized databases (PostgreSQL, MongoDB, Redis), and integrated third-party services (Stripe, Twilio, AWS S3). Adept at writing clean, maintainable code with TDD and design patterns (MVC, MVT) for reliable systems. Passionate about delivering AI solutions with NLP, computer vision, and data analytics for real-world use.</p>
+                        </div>
+                        <div>
+                            <h3>Technical Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">Django</span> <span class="skill-tag">Flask</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">React.js</span> <span class="skill-tag">Vue.js</span> <span class="skill-tag">Node.js</span> <span class="skill-tag">AWS</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">TensorFlow</span> <span class="skill-tag">PyTorch</span> <span class="skill-tag">Scikit-Learn</span> <span class="skill-tag">OpenCV</span> <span class="skill-tag">Pandas</span> <span class="skill-tag">Terraform</span> <span class="skill-tag">Jenkins</span> <span class="skill-tag">Pytest</span></p>
+                        </div>
+                        <div>
+                            <h3>Professional Experience</h3>
+                            <h4>Senior Python Developer (Django, AI/ML)</h4>
+                            <p class="font-medium text-slate-600">REALTECH, United States (Nov 2020 - May 2025)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Architected Django web applications for 500K+ daily users, increasing content delivery speeds by 30% with database optimizations and Redis caching.</li>
+                                <li>Developed REST APIs with DRF and FastAPI, improving microservice communication by 50% and API response times.</li>
+                                <li>Designed AI-powered recommendation systems with TensorFlow and PyTorch, driving a 20% boost in customer engagement.</li>
+                                <li>Built NLP features with Hugging Face and NLTK, achieving 95% accuracy in chatbots and search functionalities.</li>
+                                <li>Automated image recognition workflows with OpenCV and PyTorch, reducing manual automation time by 40%.</li>
+                                <li>Wrote unit and integration tests with Pytest, achieving 98% test coverage across Python services.</li>
+                            </ul>
+                            <h4>Senior Python Developer (Flask / Data Analytics)</h4>
+                            <p class="font-medium text-slate-600">Experis, Colombia (Apr 2016 - Oct 2020)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Designed Flask-based dashboards to process 1M+ IoT records daily, delivering actionable insights.</li>
+                                <li>Developed real-time financial forecasting pipelines with Scikit-Learn, saving 20+ hours/week on manual analysis.</li>
+                                <li>Deployed Flask APIs with Docker on AWS ECS, reducing compute costs by 25% via auto-scaling.</li>
+                            </ul>
+                            <h4>Python Developer</h4>
+                            <p class="font-medium text-slate-600">Tech Innovations Inc. Brazil (Jun 2014 - Mar 2016)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Migrated monolithic Django systems to microservices with FastAPI, improving deployment speed by 60%.</li>
+                                <li>Designed serverless AI workflows with AWS Lambda, cutting operational costs by 20%.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Bachelor of Computer Science - National University of Singapore (NUS) (2010-2014)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                name: "Candidate 2",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Professional Summary</h3>
+                            <p>Systems Engineer (UIS), 6 years of experience. Self-taught, fast learner, team player, fluent in English (C1). "I don't want to create software that is merely useful; I want to develop software that endures and continues evolving." Delivered 5+ high-performance apps (3 as tech lead) using NestJS, FastAPI, Python, TypeScript, and SQL. Specialized in scalable APIs, backend reengineering, and cloud infrastructure (Docker, CI/CD, GCP, AWS, Terraform, Pulumi). Optimized systems with 10M+ records, improved endpoint speed and comms, automated tasks via Lambdas and Pub/Sub, and ensured high availability. Experience in Web3 (Solidity, Web3JS, EthersJS) and AI (ML, RL with Python). Builder, mentor, and problem-solver.</p>
+                        </div>
+                        <div>
+                            <h3>Key Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">Django/DRF</span> <span class="skill-tag">Node.js</span> <span class="skill-tag">NestJS</span> <span class="skill-tag">TypeScript</span> <span class="skill-tag">AWS</span> <span class="skill-tag">GCP</span> <span class="skill-tag">Docker</span> <span class="skill-tag">CI/CD</span> <span class="skill-tag">Terraform</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">Web3</span> <span class="skill-tag">Agile</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>Backend Engineer</h4>
+                            <p class="font-medium text-slate-600">Cashea Remote (Sep 2024 - Present)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Engineering scalable fintech systems serving millions of records and high-volume transactions. Led backend re-architecture to boost performance and communication efficiency.</li>
+                            </ul>
+                            <h4>Software Engineer</h4>
+                            <p class="font-medium text-slate-600">Seek International Remote (Jan 2024 - Aug 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Built Web3-native energy solutions for global clients. Delivered microservices with NestJS, UIs with ReactJS, and deployed infrastructure via AWS (EC2, Route 53, Nginx).</li>
+                            </ul>
+                            <h4>Backend Developer</h4>
+                            <p class="font-medium text-slate-600">Olive Tree Holdings, New York, USA Remote (Oct 2022 - Dec 2023)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Automated key operations for a major U.S. real estate firm. Led microservice architecture with REST, webhooks, and CI/CD pipelines.</li>
+                            </ul>
+                            <h4>Advanced Backend Developer</h4>
+                            <p class="font-medium text-slate-600">Dualboot Partners, North Carolina, USA Remote (Jun 2022 - Sep 2022)</p>
+                             <ul class="list-disc mt-2">
+                                <li>Architected cost-optimized microservices for a U.S. fintech. Designed relational models (PostgreSQL), deployed scalable APIs (Django/DRF), and managed infra on AWS with Docker and GitLab CI/CD.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Systems Engineer - Universidad Industrial de Santander (UIS) (2015-2021). Final project on reinforcement learning for LLN networks (AI - MACHINE LEARNING).</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                name: "Candidate 3",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Professional Summary</h3>
+                            <p>Senior Software Engineer. Software developer with a passion for building scalable, high-quality systems. Focused on delivering impactful software solutions and mentoring teams while continuously advancing my skills.</p>
+                        </div>
+                        <div>
+                            <h3>Technologies and Languages</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">Java</span> <span class="skill-tag">C#</span> <span class="skill-tag">TypeScript</span> <span class="skill-tag">SQL</span> <span class="skill-tag">Django</span> <span class="skill-tag">Flask</span> <span class="skill-tag">.NET Core</span> <span class="skill-tag">AWS</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">Apache Spark</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">TDD</span> <span class="skill-tag">CI/CD</span> <span class="skill-tag">IaC</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>Senior Software Engineer</h4>
+                            <p class="font-medium text-slate-600">EPAM Systems, Medellín, Colombia (April 2023 - Present)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Developed and maintained AI-powered agents processing multi-platform messages (e.g., Slack) using AWS Lex, LlamaIndex, Django, and the Bolt framework, improving response accuracy by 35%.</li>
+                                <li>Architected and deployed scalable web applications using Python, Django, and AWS services.</li>
+                                <li>Led deployment and scaling efforts using Docker and Kubernetes, ensuring high availability and reducing infrastructure costs by 20%.</li>
+                            </ul>
+                            <h4>Software Engineer II</h4>
+                            <p class="font-medium text-slate-600">Masiv, Medellín, Colombia (2022 - 2023)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Spearheaded microservice decoupling, reducing service dependencies by 10% through code refactoring of Django and .NET applications.</li>
+                                <li>Built ETL pipelines with AWS Glue, Redshift, Kinesis, and Lambda.</li>
+                                <li>Utilized Apache Flink and Spark for high-volume data processing.</li>
+                            </ul>
+                            <h4>Python Teacher</h4>
+                             <p class="font-medium text-slate-600">Coderhouse, Medellín, Colombia (2021 - 2022)</p>
+                             <ul class="list-disc mt-2">
+                                <li>Taught comprehensive software development courses on Python, covering foundational concepts, best practices, and modern frameworks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                name: "Candidate 4",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Summary</h3>
+                            <p>Highly skilled in Python, with extensive experience in building web applications and APIs using Django, Flask, and FastAPI. Distinguished in integrating AI/ML algorithms, bringing advanced data analysis and intelligent automation. Experienced in automating, configuring, and deploying instances in AWS, Azure environments, and data centers. Possesses expertise in front-end development with a focus on React, Vue, and Angular. Dedicated to using agile techniques and continuous education to improve software development.</p>
+                        </div>
+                        <div>
+                            <h3>Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">Django</span> <span class="skill-tag">Flask</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">React</span> <span class="skill-tag">Vue.js</span> <span class="skill-tag">Angular</span> <span class="skill-tag">LLM</span> <span class="skill-tag">NLP</span> <span class="skill-tag">AWS EC2</span> <span class="skill-tag">Azure</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">MongoDB</span></p>
+                        </div>
+                         <div>
+                            <h3>Experience</h3>
+                            <h4>Senior Python Developer | Data Engineer</h4>
+                            <p class="font-medium text-slate-600">Symphony Solutions, Boston, MA (Jun 2021 - Mar 2025)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Created APIs, database models, and views using Python, developing responsive web applications with a 90% responsiveness rate using React and Next.js.</li>
+                                <li>Designed a Machine Learning model that improved the efficiency of Google's search accuracy by 30%.</li>
+                                <li>Architected and implemented a cutting-edge multi-modal LLM pipeline, integrating vision, audio, and text processing capabilities.</li>
+                                <li>Developed a multi-tier architecture strategy on AWS that improved system scalability and availability by 67%.</li>
+                            </ul>
+                            <h4>Python Full-Stack Developer</h4>
+                            <p class="font-medium text-slate-600">Devsinc, San Francisco, CA (Aug 2017 - May 2021)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Leveraged FastAPI to build a high-performance backend system that reduced response times by 50%.</li>
+                                <li>Implemented Azure DevOps for CI/CD pipelines.</li>
+                                <li>Designed an innovative algorithm that automated the resume review process, increasing productivity by 30%.</li>
+                            </ul>
+                            <h4>Junior Python Developer</h4>
+                            <p class="font-medium text-slate-600">Expert Soft, Austin, TX (Sep 2014 - Jul 2017)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Developed the API, backend, and frontend for a single-page application within the first 30+ days of joining the team.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Bachelor of Science, Computer Science - Baylor University, Waco, TX (Sep 2010 - Aug 2014)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                name: "Candidate 5",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Professional Summary</h3>
+                            <p>Results-driven Senior Web Developer with over a decade of experience architecting, developing, and delivering scalable, high-performance web applications. Specializes in crafting intuitive, responsive user interfaces using React.js and building resilient backend systems with Python Django, Django REST Framework, Flask, FastAPI and cloud-native architectures. Brings full-lifecycle expertise—from requirements gathering and system design to CI/CD implementation, automated testing, and long-term support. Thrives in Agile, cross-functional environments, fostering collaboration, rapid iteration, and strong alignment with business and product goals.</p>
+                        </div>
+                        <div>
+                            <h3>Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">Django</span> <span class="skill-tag">Flask</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">React.js</span> <span class="skill-tag">TypeScript</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">AWS</span> <span class="skill-tag">Azure</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">Agile</span> <span class="skill-tag">TDD</span> <span class="skill-tag">CI/CD</span> <span class="skill-tag">Al-enabled chatbots</span></p>
+                        </div>
+                        <div>
+                            <h3>Professional Experience</h3>
+                            <h4>Senior Software Engineer</h4>
+                            <p class="font-medium text-slate-600">UST (June 2022 - June 2025)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Collaborated in a cross-functional Agile (Scrum) team, mentoring junior developers and conducting detailed code reviews emphasizing SOLID principles.</li>
+                                <li>Led the modernization of a high-traffic customer-facing platform using React.js, significantly enhancing accessibility, responsiveness, and client-side rendering.</li>
+                                <li>Architected a resilient microservices ecosystem on Azure Kubernetes Service (AKS), leveraging Azure Service Bus for asynchronous communication.</li>
+                                <li>Spearheaded the development of an AI-enabled chatbot using Azure Cognitive Services, Azure Functions, and Cosmos DB, delivering intelligent, real-time interactions and significantly enhancing customer support efficiency.</li>
+                                <li>Implemented and maintained robust CI/CD pipelines using Azure DevOps, integrating automated testing, linting, and deployment workflows.</li>
+                            </ul>
+                            <h4>Full Stack Engineer</h4>
+                            <p class="font-medium text-slate-600">Gorilla Logic (February 2018 - May 2022)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Designed and developed responsive, mobile-first user interfaces using React.js, TypeScript, and SCSS, resulting in a 40% increase in mobile user retention.</li>
+                                <li>Engineered secure, high-performance backend services with Python frameworks including Django, Flask, and FastAPI, applying microservices principles and integrating Apache Kafka to support real-time, event-driven communication.</li>
+                                <li>Automated infrastructure provisioning with AWS CloudFormation and deployed containerized services via Docker on AWS ECS.</li>
+                                <li>Designed and implemented real-time analytics and sentiment analysis pipelines using AWS Lambda, S3, and DynamoDB.</li>
+                            </ul>
+                            <h4>Senior Web Developer</h4>
+                            <p class="font-medium text-slate-600">Sophos Solutions (September 2015 - February 2018)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Contributed to the development of a high-performance Single Page Application (SPA) for a financial services platform using React.js, Redux, and React Hooks.</li>
+                                <li>Refactored legacy PHP and Laravel systems into modular frontend components and transitioned backend services with Python frameworks.</li>
+                            </ul>
+                            <h4>Web Developer</h4>
+                            <p class="font-medium text-slate-600">Sophos Solutions (September 2012 - February 2015)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Engineered modular and reusable React components using functional programming, hooks, and context-based state management.</li>
+                                <li>Built robust, scalable RESTful APIs with .NET MVC Web API, implementing asynchronous patterns and middleware pipelines.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Bachelor of Computer Science - Universidad Católica de Pereira (2005-2012)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                name: "Candidate 6",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <h3>Professional Summary</h3>
+                            <p>Senior Software Engineer - Data Platform Infrastructure at Godaddy. Owns the company-wide data-lake platform (AWS Lake Formation, Glue, Athena, EMR/Spark) serving 2000+ tables for 40+ data teams. Partners with Data Engineers to unlock new analytics use cases and solve their requirements.</p>
+                            <ul class="list-disc mt-2">
+                                <li>Shipped AI-driven Github Action, that uses GPT model, to perform SQL schema validation that blocks non-compliant PRs, cutting data-schema defects by 90%, saving 10h per day for the data governance team.</li>
+                                <li>Expanded lake-management API (Flask → AWS Step Functions → AWS Lambda) with DynamoDB metadata store, provisioning new tables and permissions; 85% unit-test coverage using Pytest. Using OOP best practices. Using redis for caching.</li>
+                                <li>Refactored GitHub Actions and AWS CloudFormation (IaC) stacks templates, trimming CI/CD times by 50-80% by using cache strategies.</li>
+                                <li>Built end-to-end CloudWatch dashboard (latency, error rate, Lambda health) reducing issue-detection from days to minutes.</li>
+                                <li>Rotating on-call engineer for Tier-2 data services (99.99% availability).</li>
+                                <li>Mentors junior engineers through task scoping, code reviews, and cross-team collaboration, accelerating delivery of new datasets and platform features.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Languages and Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">Flask</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">ExpressJS</span> <span class="skill-tag">VueJS</span> <span class="skill-tag">AWS</span> <span class="skill-tag">Azure</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">MySQL</span> <span class="skill-tag">Redis</span> <span class="skill-tag">CI/CD</span> <span class="skill-tag">IaC</span> <span class="skill-tag">AI/ML</span> <span class="skill-tag">TDD</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>Backend Developer</h4>
+                            <p class="font-medium text-slate-600">Ressolve (September 2022 - May 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Designed high-performance ExpressJS API (p95 < 120 ms) for speech-analytics SaaS; followed SOLID and Jest-backed TDD. Creating new PostgreSQL queries, triggers and functions.</li>
+                                <li>Architected NLP audio-processing pipeline on AWS Batch & Azure Al, scaling to 10 K audio hours/day with observer-pattern daemons.</li>
+                                <li>Orchestrated processing tasks with AWS Batch and used AWS ECR to deploy custom Docker images.</li>
+                                <li>Automated Excel-to-Power BI reporting via Python scripts and SharePoint integration, enabling real-time customer dashboards.</li>
+                            </ul>
+                            <h4>Software Engineer</h4>
+                            <p class="font-medium text-slate-600">Sueep (September 2021 - September 2022)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Pioneered the software engineering department as the first software engineer at the company.</li>
+                                <li>Developed an API using FastAPI, streamlining the project assignment process based on painters' geolocation.</li>
+                                <li>Led a 3-Person Project to create a quoting tool using VueJS and FASTAPI, resulting in a 50% reduction in project quoting time.</li>
+                            </ul>
+                            <h4>FullStack Developer</h4>
+                            <p class="font-medium text-slate-600">theautoglass.ca (September 2019 - July 2022)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Modernized service scheduling by delivering a PHP + jQuery calendar app on MySQL.</li>
+                                <li>Automated invoicing and QuickBooks-synced profit report.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>B.S. Computer Science & Systems Engineering - Pontificia Universidad Javeriana (Cali), 2024</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        const navContainer = document.getElementById('candidate-nav');
+        const contentContainer = document.getElementById('candidate-content');
+
+        function displayContent(candidateId) {
+            const candidate = candidates.find(c => c.id === candidateId);
+            if (!candidate) return;
+
+            // Update content
+            contentContainer.innerHTML = `
+                <div id="candidate-${candidate.id}-content" class="candidate-panel bg-white rounded-lg shadow-md p-6 lg:p-8 content-card">
+                    ${candidate.content}
+                </div>
+            `;
+
+            // Update active button
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.dataset.candidateId) === candidateId) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function setupNavigation() {
+            navContainer.innerHTML = '';
+            candidates.forEach(candidate => {
+                const button = document.createElement('button');
+                button.className = 'nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
+                button.textContent = candidate.name;
+                button.dataset.candidateId = candidate.id;
+                button.addEventListener('click', () => displayContent(candidate.id));
+                navContainer.appendChild(button);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+            // Display the first candidate by default
+            if (candidates.length > 0) {
+                displayContent(candidates[0].id);
+            }
+        });
+    </script>
+
+</body>
+</html>

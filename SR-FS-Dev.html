@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Full Stack Developer Candidates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-button {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-button.active {
+            border-bottom-color: #4f46e5;
+            color: #1e1b4b;
+        }
+        .skill-tag {
+            display: inline-block;
+            background-color: #eef2ff;
+            color: #4338ca;
+            padding: 0.25rem 0.75rem;
+            margin: 0.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .content-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #334155;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-card ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        .content-card li {
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Senior Full Stack Developer</h1>
+            <p class="mt-2 text-lg text-slate-500">
+                Analizando los candidatos para el puesto de Senior Full Stack Developer, hemos identificado a Fabio Cuello, Dick Arrieta y Kaito Mets como los más adecuados, basándonos en los requisitos de la oferta laboral. Sus perfiles demuestran una fuerte experiencia en las tecnologías clave y en el liderazgo de proyectos.
+            </p>
+        </header>
+
+        <div id="candidate-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
+            <div class="border-b border-slate-200">
+                <nav id="candidate-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Tabs">
+                                    </nav>
+            </div>
+        </div>
+
+        <main id="candidate-content">
+                    </main>
+
+    </div>
+
+    <script>
+        const candidates = [
+            {
+                id: 1,
+                name: "Fabio Cuello",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-lg font-bold text-slate-900">Fabio Cuello</p>
+                            <p class="text-sm text-slate-500">Colombia | +57 3042454274 | fabiocuellohernandez@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3>Perfil Profesional</h3>
+                            <p>Ingeniero FullStack dinámico y orientado a resultados, con más de 5 años de experiencia, enamorado de Node + React + Typescript. Posee un sólido dominio del ciclo de vida del desarrollo de software y su calidad. Excelente para enfrentar desafíos complejos y llevar proyectos a una conclusión exitosa.</p>
+                        </div>
+                        <div>
+                            <h3>Habilidades Clave</h3>
+                            <p>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">Next.js</span>
+                                <span class="skill-tag">Microservices</span>
+                                <span class="skill-tag">APIs</span>
+                                <span class="skill-tag">Redis</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Experiencia Profesional Relevante</h3>
+                            <h4>Senior (initially Middle) FullStack Engineer - Alohome (Sep 2021 - Present)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Arquitecto y desarrollador de la infraestructura web desde cero, usando servicios de AWS para optimizar la escalabilidad.</li>
+                                <li>Lideró la transición a una arquitectura de microservicios.</li>
+                            </ul>
+                            <h4>Web Developer - Quick (Dec 2020 - Sep 2021)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Lideró el desarrollo de aplicaciones web con SvelteJS en proyectos de prototipos.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Comentarios del Analista</h3>
+                            <p class="mb-0">Fabio tiene una alineación casi perfecta con el puesto. Su experiencia en liderazgo de proyectos, desarrollo con Node.js y React, y su profundo conocimiento de AWS y Docker lo convierten en un candidato ideal. Ha demostrado ser capaz de liderar iniciativas de arquitectura y mejorar la eficiencia del equipo, lo cual es fundamental para el rol de Senior Full Stack Developer. Su experiencia con microservicios y bases de datos como PostgreSQL y Redis es una ventaja.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                name: "Dick Arrieta",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-lg font-bold text-slate-900">Dick Arrieta</p>
+                            <p class="text-sm text-slate-500">Cartagena, Bolívar, Colombia | +57 3126261567 | arrietadick35@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3>Perfil Profesional</h3>
+                            <p>Ingeniero Full-Stack y defensor de DevOps con más de 7 años de experiencia desarrollando y escalando plataformas web, utilizando React/Next.js para el front-end y Node.js/Express para el back-end en AWS, Kubernetes y Docker. Ha liderado equipos remotos y se destaca en la mentoría y la resolución de problemas complejos.</p>
+                        </div>
+                        <div>
+                            <h3>Habilidades Clave</h3>
+                            <p>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Express.js</span>
+                                <span class="skill-tag">NestJS</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Next.js</span>
+                                <span class="skill-tag">DevOps</span>
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">Kubernetes</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">CI/CD</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">MongoDB</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Experiencia Profesional Relevante</h3>
+                            <h4>Lead Full Stack Developer & DevOps Engineer - Synergie Canada (Jan 2023 - May 2025)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Arquitecto de una plataforma de e-commerce global usando Next.js y Express.js.</li>
+                                <li>Gestionó la pila de AWS y construyó pipelines de GitOps con GitHub Actions.</li>
+                            </ul>
+                            <h4>Full Stack Developer & DevOps Specialist - Metro de Bogotá (Jul 2020 - Dec 2022)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Lideró un equipo de 5 ingenieros en la construcción de microservicios con Node.js/Express.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Comentarios del Analista</h3>
+                            <p class="mb-0">La experiencia de Dick Arrieta en el liderazgo de equipos y su sólido enfoque en DevOps complementan a la perfección sus habilidades como desarrollador Full Stack. Su capacidad para trabajar con Node.js, React, Next.js y una amplia gama de tecnologías de AWS, Kubernetes y Docker, lo convierten en un candidato muy valioso. Su experiencia en la implementación de pipelines de CI/CD y en la mentoría de desarrolladores junior demuestra que puede asumir el rol de Senior con total confianza.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                name: "Kaito Mets",
+                content: `
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-lg font-bold text-slate-900">Kaito Mets</p>
+                            <p class="text-sm text-slate-500">Neira, Caldas, Colombia | kaito.mets.im@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3>Perfil Profesional</h3>
+                            <p>Desarrollador Full-Stack con más de 9 años de experiencia en la construcción de aplicaciones web escalables y de alto rendimiento. Altamente competente en diseño de bases de datos, APIs RESTful, microservicios y pipelines de CI/CD. Se enfoca en código limpio y un diseño centrado en el usuario.</p>
+                        </div>
+                        <div>
+                            <h3>Habilidades Clave</h3>
+                            <p>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">React.JS</span>
+                                <span class="skill-tag">Next.JS</span>
+                                <span class="skill-tag">Node.JS</span>
+                                <span class="skill-tag">Nest.JS</span>
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">CI/CD</span>
+                                <span class="skill-tag">MongoDB</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Experiencia Profesional Relevante</h3>
+                            <h4>Full Stack Engineer - Bewe (Aug 2022 - Jan 2024)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Contribuyó al desarrollo de una plataforma de venta de entradas utilizando Flask y React.js.</li>
+                                <li>Diseñó e implementó APIs RESTful y funciones en tiempo real.</li>
+                            </ul>
+                            <h4>Full Stack Developer - Erevu techworks (Feb 2017 - Sep 2017)</h4>
+                            <ul class="list-disc mt-2">
+                                <li>Desarrolló aplicaciones web dinámicas con Angular para el frontend y MySQL para el backend.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Comentarios del Analista</h3>
+                            <p class="mb-0">Kaito Mets cuenta con una extensa trayectoria profesional y un conjunto de habilidades muy versátil. Su experiencia en tecnologías como Node.js, Nest.js, React y Next.js es directamente aplicable a la oferta. Además, su dominio de DevOps, CI/CD y bases de datos como MongoDB y PostgreSQL lo convierte en un candidato completo. Su experiencia en proyectos de código abierto y su enfoque en arquitecturas de microservicios demuestran un compromiso con las prácticas modernas de desarrollo de software.</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        const navContainer = document.getElementById('candidate-nav');
+        const contentContainer = document.getElementById('candidate-content');
+
+        function displayContent(candidateId) {
+            const candidate = candidates.find(c => c.id === candidateId);
+            if (!candidate) return;
+
+            // Update content
+            contentContainer.innerHTML = `
+                <div id="candidate-${candidate.id}-content" class="candidate-panel bg-white rounded-lg shadow-md p-6 lg:p-8 content-card">
+                    ${candidate.content}
+                </div>
+            `;
+
+            // Update active button
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.dataset.candidateId) === candidateId) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function setupNavigation() {
+            navContainer.innerHTML = '';
+            candidates.forEach(candidate => {
+                const button = document.createElement('button');
+                button.className = 'nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
+                button.textContent = candidate.name;
+                button.dataset.candidateId = candidate.id;
+                button.addEventListener('click', () => displayContent(candidate.id));
+                navContainer.appendChild(button);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+            // Display the first candidate by default
+            if (candidates.length > 0) {
+                displayContent(candidates[0].id);
+            }
+        });
+    </script>
+</body>
+</html>

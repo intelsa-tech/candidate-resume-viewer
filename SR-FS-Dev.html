@@ -6,19 +6,30 @@
     <title>Senior Full Stack Developer Candidate Resumes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chosen Palette: Neutral Professional -->
-    <!-- Application Structure Plan: The application is designed as a clean, tabbed document viewer. A top navigation bar with buttons for each candidate allows the user to switch between full resume views. This structure is optimal for presenting long-form text documents like resumes within a single page, as it keeps the interface uncluttered and focuses the user's attention on one complete document at a time. This is more effective than a dashboard for this specific purpose, as the goal is in-depth review, not high-level data visualization. -->
-    <!-- Visualization & Content Choices: Report Info: Full resume text for each candidate. Goal: Inform/Organize. Viz/Presentation Method: Structured HTML with Tailwind CSS for clean typography and layout. Interaction: Clickable tabs/buttons to switch between candidate views. Justification: For presenting dense, text-based information, a well-formatted document layout is superior to charts or graphs. The primary interaction is navigation between these documents, which is handled efficiently by a simple tab system. Library/Method: HTML/Tailwind/Vanilla JS. - Report Info: Technical skills. Goal: Inform. Viz/Presentation Method: Styled tags (pills). Interaction: N/A. Justification: Tags allow for quick visual scanning of key skills within the resume text. Method: HTML/Tailwind. - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Application Structure Plan: The application is designed with two main tabbed sections, "Delivery 1" and "Delivery 2," to logically group different sets of candidate profiles. This allows for a clean separation of deliverables while keeping all information in a single interactive page. Within each delivery tab, a sub-navigation bar presents individual candidate resumes as separate tabs. This layered tab structure is highly effective for managing large volumes of text-based information, preventing clutter and guiding the user through distinct collections of documents. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Full resume text for each candidate. Goal: Inform/Organize. Viz/Presentation Method: Structured HTML with Tailwind CSS for clean typography and layout. Interaction: Clickable tabs/buttons to switch between candidate views. Justification: For presenting dense, text-based information, a well-formatted document layout is superior to charts or graphs. The primary interaction is navigation between these documents, which is handled efficiently by a simple tab system. Library/Method: HTML/Tailwind/Vanilla JS.
+        - Report Info: Technical skills. Goal: Inform. Viz/Presentation Method: Styled tags (pills). Interaction: N/A. Justification: Tags allow for quick visual scanning of key skills within the resume text. Method: HTML/Tailwind.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             background-color: #f8fafc; /* slate-50 */
             font-family: 'Inter', sans-serif;
         }
-        .nav-button {
+        .main-nav-button {
             transition: all 0.2s ease-in-out;
             border-bottom: 3px solid transparent;
         }
-        .nav-button.active {
+        .main-nav-button.active {
             border-bottom-color: #4f46e5; /* indigo-600 */
+            color: #1e1b4b; /* indigo-950 */
+        }
+        .sub-nav-button {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .sub-nav-button.active {
+            border-bottom-color: #3b82f6; /* blue-500 */
             color: #1e1b4b; /* indigo-950 */
         }
         .skill-tag {
@@ -65,277 +76,433 @@
         
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Candidate Resume Viewer</h1>
-            <p class="mt-2 text-lg text-slate-500">Select a candidate to view their complete professional profile.</p>
+            <p class="mt-2 text-lg text-slate-500">Select a delivery tab and a candidate to view their complete professional profile.</p>
         </header>
 
-        <div id="candidate-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
+        <div id="main-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
             <div class="border-b border-slate-200">
-                <nav id="candidate-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Tabs">
-                    <!-- Navigation buttons will be injected here -->
+                <nav id="main-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Main Tabs">
+                    <button class="main-nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700 active" data-tab="delivery-1">Delivery 1</button>
+                    <button class="main-nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700" data-tab="delivery-2">Delivery 2</button>
                 </nav>
             </div>
         </div>
 
-        <main id="candidate-content">
-            <!-- Candidate content will be injected here -->
-        </main>
+        <main id="delivery-content-container">
+            <div id="delivery-1-content" class="delivery-tab-content">
+                <div class="mb-8">
+                    <div class="border-b border-slate-200">
+                        <nav id="delivery-1-subnav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Candidate Tabs"></nav>
+                    </div>
+                </div>
+                <div id="delivery-1-candidate-content"></div>
+            </div>
 
+            <div id="delivery-2-content" class="delivery-tab-content hidden">
+                <div class="mb-8">
+                    <div class="border-b border-slate-200">
+                        <nav id="delivery-2-subnav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Candidate Tabs"></nav>
+                    </div>
+                </div>
+                <div id="delivery-2-candidate-content"></div>
+            </div>
+        </main>
     </div>
 
     <script>
-        const candidates = [
-            {
-                id: 1,
-                name: "Candidate 1",
-                content: `
-                    <div class="space-y-6">
-                        <div>
-                            <p class="text-lg font-bold text-slate-900">Fabio | Colombia.</p>
-                        </div>
-                        <div>
-                            <h3>Professional Profile - Monthly Fee USD $3.700</h3>
-                            <p>I'm a dynamic and results-driven FullStack Engineer in love with Node + React + Typescript with over 5 years of experience. I'm excellent to tackle complex challenges and drive projects to successful completion, as well as possessing a strong command of the software development lifecycle and its quality.</p>
-                        </div>
-                        <div>
-                            <h3>Skills</h3>
-                            <p>
-                                <span class="skill-tag">AWS</span>
-                                <span class="skill-tag">Node.js</span>
-                                <span class="skill-tag">React</span>
-                                <span class="skill-tag">Git</span>
-                                <span class="skill-tag">SQL</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">HTML & CSS</span>
-                                <span class="skill-tag">NoSQL</span>
-                                <span class="skill-tag">Docker</span>
-                                <span class="skill-tag">TypeScript</span>
-                                <span class="skill-tag">Next</span>
-                                <span class="skill-tag">PostgreSQL</span>
-                                <span class="skill-tag">Tailwind</span>
-                                <span class="skill-tag">MaterialUI</span>
-                                <span class="skill-tag">Redis</span>
-                                <span class="skill-tag">Sass</span>
-                                <span class="skill-tag">XState</span>
-                            </p>
-                        </div>
-                        <div>
-                            <h3>Employment History</h3>
-                            <h4>Senior (initially Middle) FullStack Engineer - Alohome (Sep 2021 - Present)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Revolutionized the PropTech industry by architecting, developing, and launching RealGuru, a pioneering AI Chatbot, in under 3 months.</li>
-                                <li>Spearheaded the design and development of the web infrastructure from the ground up, leveraging AWS services to optimize scalability and robustness, achieving a 99.9% uptime.</li>
-                                <li>Played a pivotal role in decision-making with the product team to strategize the development of features, balancing time constraints and quality standards. Thereby improving project alignment and delivery timelines by 30%. </li>
-                                <li>Transformed the core architecture by leading the shift to a microservices model with an event-driven approach.</li>
-                                <li>Developed both secure internal APIs and public-facing APIs. enabling users to interact with our products efficiently. This dual approach ensured robust internal operations while extending our product's reach and usability</li>
-                                <li>Create an internal library for the engineering team to accelerate development times and standardize practices across microservices, enhancing code reusability and reducing the Backend development cycles.</li>
-                                <li>Developed integrations with various CRMs, including Hubspot, Salesforce, Salesup and Odoo, to ensure seamless traceability of operations between our products and our clients' processes.</li>
-                                <li>Developed bespoke tools for real estate developers to build their websites, manage inventory, administer leads, and analyze growth reports, directly contributing to increase client operational efficiency.</li>
-                            </ul>
-                            <h4>Web Developer - Quick (Dec 2020 - Sep 2021)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Elevated web interface design by converting mockups into dynamic, user-centric web interfaces.</li>
-                                <li>Led the initiative in developing web applications using state machines, aiming to find alternatives to traditional state libraries like Redux.</li>
-                                <li>Pioneered the adoption of SvelteJS in prototype projects, leading to a 25% improvement in development speed and application performance.</li>
-                                <li>Enhanced application stability and performance by leading cross-functional bug resolution efforts, reducing bug reports by 30%.</li>
-                                <li>Proposed tech alternatives and ideas to the development team, leading to the implementation of innovative technologies that streamlined development processes and improved product quality.</li>
-                                <li>Contributed in the refactor of App Quick. A logistics application to schedule national shipments.</li>
-                            </ul>
-                        </div>
-                         <div>
-                            <h3>Education</h3>
-                            <p>Electronic Engineer - Universidad del Norte (Jan 2016 - Nov 2020)</p>
-                        </div>
-                        <div>
-                            <h3>Analyst Comments</h3>
-                            <p class="mb-0">Fabio's profile is an excellent match for the position. His project leadership, deep expertise in Node.js and React, and strong knowledge of AWS, Docker, and microservices make him a top candidate. His experience in architecting solutions and improving team efficiency is highly relevant for a senior role.</p>
-                        </div>
-                    </div>
-                `
-            },
-            {
-                id: 2,
-                name: "Candidate 2",
-                content: `
-                    <div class="space-y-6">
-                        <div>
-                            <p class="text-lg font-bold text-slate-900">Dick | Cartagena, Colombia</p>
-                        </div>
-                        <div>
-                            <h3>Professional Profile - Monthly Fee USD $4.000</h3>
-                            <p>Experienced Full-Stack Engineer and DevOps advocate with over 7 years in developing and scaling web platforms, utilizing React/Next.js for front-end and Node.js/Express for back-end on AWS, Kubernetes, and Docker. Known for automating workflows through Terraform and GitOps, enabling zero-downtime releases, and maintaining system health with Prometheus and Grafana. Thrives in cross-functional teams, with a passion for mentoring peers, simplifying complex problems, and delivering elegant solutions.</p>
-                        </div>
-                        <div>
-                            <h3>Skills</h3>
-                            <p>
-                                <span class="skill-tag">Node/Express/NestJS</span>
-                                <span class="skill-tag">Python/Django/DRF</span>
-                                <span class="skill-tag">React/Next.JS</span>
-                                <span class="skill-tag">Angular</span>
-                                <span class="skill-tag">HTML/CSS/SCSS</span>
-                                <span class="skill-tag">AWS (EC2, EKS, Lambda)</span>
-                                <span class="skill-tag">Terraform</span>
-                                <span class="skill-tag">Kubernetes</span>
-                                <span class="skill-tag">Docker</span>
-                                <span class="skill-tag">GitHub Actions</span>
-                                <span class="skill-tag">CI/CD</span>
-                                <span class="skill-tag">PostgreSQL</span>
-                                <span class="skill-tag">MongoDB</span>
-                            </p>
-                        </div>
-                        <div>
-                            <h3>Professional Experience</h3>
-                            <h4>Lead Full Stack Developer & DevOps Engineer - Synergie Canada (Jan 2023 - May 2025)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Architected a global e-commerce platform using Next.js & Express.js.</li>
-                                <li>Designed & optimized PostgreSQL schemas for high-volume traffic</li>
-                                <li>Managed AWS stack (ECS, RDS, CloudFront, Lambda, API Gateway).</li>
-                                <li>Built GitOps pipelines with GitHub Actions; automated tests with Jest & Cypress.</li>
-                                <li>Containerized with Docker and deployed to EKS; enforced Blue/Green rollouts.</li>
-                                <li>Mentored junior devs and ran cross-functional agile ceremonies across time zones.</li>
-                            </ul>
-                            <h4>Full Stack Developer & DevOps Specialist - Metro de Bogotá (Jul 2020 - Dec 2022)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Led a 5-engineer squad building Node.js/Express microservices.</li>
-                                <li>Architected event-driven pipelines with Kafka & RabbitMQ.</li>
-                                <li>Managed GKE clusters and wrote IaC with Terraform & CloudFormation.</li>
-                                <li>Integrated Vault for secrets management and security hardening.</li>
-                                <li>Set up observability with the ELK stack + Datadog dashboards.</li>
-                            </ul>
-                            <h4>Full Stack Engineer - Invest in Bogotá (Mar 2018 - Jun 2020)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Built responsive web apps with React, Node.js & Express.</li>
-                                <li>Containerized services in Docker, orchestrated with Kubernetes on AWS EKS.</li>
-                                <li>Automated deployments via Jenkins pipelines, cutting deploy time by 50%.</li>
-                                <li>Provisioned infra as code using Terraform & Ansible</li>
-                                <li>•Implemented monitoring(Prometheus + Grafana), archiving 99.9% uptime.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Education</h3>
-                            <p>Bachelor's Degree in Computer Science - Université du Québec en Outaouais (UQO) (Aug 2013 - Dec 2017)</p>
-                            <ul class="list-disc mt-2">
-                                <li>ACompleted a rigorous curriculum covering algorithms, data structures, operating
-systems, databases and software engineering. Led a capstone team project to build a realtime chat application with React, Node.js and WebSocket. Contributed to an open-source
-ML research plugin for TensorFlow.</li>
+        const allCandidates = {
+            'delivery-1': [
+                {
+                    id: 1,
+                    name: "Fabio",
+                    content: `
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-lg font-bold text-slate-900">Fabio | Colombia.</p>
+                            </div>
+                            <div>
+                                <h3>Professional Profile - Monthly Fee USD $3.700</h3>
+                                <p>I'm a dynamic and results-driven FullStack Engineer in love with Node + React + Typescript with over 5 years of experience. I'm excellent to tackle complex challenges and drive projects to successful completion, as well as possessing a strong command of the software development lifecycle and its quality.</p>
+                            </div>
+                            <div>
+                                <h3>Skills</h3>
+                                <p>
+                                    <span class="skill-tag">AWS</span>
+                                    <span class="skill-tag">Node.js</span>
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">Git</span>
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">JavaScript</span>
+                                    <span class="skill-tag">HTML & CSS</span>
+                                    <span class="skill-tag">NoSQL</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">TypeScript</span>
+                                    <span class="skill-tag">Next</span>
+                                    <span class="skill-tag">PostgreSQL</span>
+                                    <span class="skill-tag">Tailwind</span>
+                                    <span class="skill-tag">MaterialUI</span>
+                                    <span class="skill-tag">Redis</span>
+                                    <span class="skill-tag">Sass</span>
+                                    <span class="skill-tag">XState</span>
+                                </p>
+                            </div>
+                            <div>
+                                <h3>Employment History</h3>
+                                <h4>Senior (initially Middle) FullStack Engineer - Alohome (Sep 2021 - Present)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Revolutionized the PropTech industry by architecting, developing, and launching RealGuru, a pioneering AI Chatbot, in under 3 months.</li>
+                                    <li>Spearheaded the design and development of the web infrastructure from the ground up, leveraging AWS services to optimize scalability and robustness, achieving a 99.9% uptime.</li>
+                                    <li>Played a pivotal role in decision-making with the product team to strategize the development of features, balancing time constraints and quality standards. Thereby improving project alignment and delivery timelines by 30%. </li>
+                                    <li>Transformed the core architecture by leading the shift to a microservices model with an event-driven approach.</li>
+                                    <li>Developed both secure internal APIs and public-facing APIs. enabling users to interact with our products efficiently. This dual approach ensured robust internal operations while extending our product's reach and usability</li>
+                                    <li>Create an internal library for the engineering team to accelerate development times and standardize practices across microservices, enhancing code reusability and reducing the Backend development cycles.</li>
+                                    <li>Developed integrations with various CRMs, including Hubspot, Salesforce, Salesup and Odoo, to ensure seamless traceability of operations between our products and our clients' processes.</li>
+                                    <li>Developed bespoke tools for real estate developers to build their websites, manage inventory, administer leads, and analyze growth reports, directly contributing to increase client operational efficiency.</li>
                                 </ul>
+                                <h4>Web Developer - Quick (Dec 2020 - Sep 2021)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Elevated web interface design by converting mockups into dynamic, user-centric web interfaces.</li>
+                                    <li>Led the initiative in developing web applications using state machines, aiming to find alternatives to traditional state libraries like Redux.</li>
+                                    <li>Pioneered the adoption of SvelteJS in prototype projects, leading to a 25% improvement in development speed and application performance.</li>
+                                    <li>Enhanced application stability and performance by leading cross-functional bug resolution efforts, reducing bug reports by 30%.</li>
+                                    <li>Proposed tech alternatives and ideas to the development team, leading to the implementation of innovative technologies that streamlined development processes and improved product quality.</li>
+                                    <li>Contributed in the refactor of App Quick. A logistics application to schedule national shipments.</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3>Education</h3>
+                                <p>Electronic Engineer - Universidad del Norte (Jan 2016 - Nov 2020)</p>
+                            </div>
+                            <div>
+                                <h3>Analyst Comments</h3>
+                                <p class="mb-0">Fabio's profile is an excellent match for the position. His project leadership, deep expertise in Node.js and React, and strong knowledge of AWS, Docker, and microservices make him a top candidate. His experience in architecting solutions and improving team efficiency is highly relevant for a senior role.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Analyst Comments</h3>
-                            <p class="mb-0">Dick's extensive experience as a lead developer and his strong focus on DevOps make him a very valuable candidate. His skills in Node.js, React, Next.js, and a wide array of AWS technologies, Kubernetes, and Docker align perfectly with the role. His experience in implementing CI/CD pipelines and mentoring others demonstrates his readiness for a senior position.</p>
+                    `
+                },
+                {
+                    id: 2,
+                    name: "Dick",
+                    content: `
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-lg font-bold text-slate-900">Dick | Cartagena, Colombia</p>
+                            </div>
+                            <div>
+                                <h3>Professional Profile - Monthly Fee USD $4.000</h3>
+                                <p>Experienced Full-Stack Engineer and DevOps advocate with over 7 years in developing and scaling web platforms, utilizing React/Next.js for front-end and Node.js/Express for back-end on AWS, Kubernetes, and Docker. Known for automating workflows through Terraform and GitOps, enabling zero-downtime releases, and maintaining system health with Prometheus and Grafana. Thrives in cross-functional teams, with a passion for mentoring peers, simplifying complex problems, and delivering elegant solutions.</p>
+                            </div>
+                            <div>
+                                <h3>Skills</h3>
+                                <p>
+                                    <span class="skill-tag">Node/Express/NestJS</span>
+                                    <span class="skill-tag">Python/Django/DRF</span>
+                                    <span class="skill-tag">React/Next.JS</span>
+                                    <span class="skill-tag">Angular</span>
+                                    <span class="skill-tag">HTML/CSS/SCSS</span>
+                                    <span class="skill-tag">AWS (EC2, EKS, Lambda)</span>
+                                    <span class="skill-tag">Terraform</span>
+                                    <span class="skill-tag">Kubernetes</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">GitHub Actions</span>
+                                    <span class="skill-tag">CI/CD</span>
+                                    <span class="skill-tag">PostgreSQL</span>
+                                    <span class="skill-tag">MongoDB</span>
+                                </p>
+                            </div>
+                            <div>
+                                <h3>Professional Experience</h3>
+                                <h4>Lead Full Stack Developer & DevOps Engineer - Synergie Canada (Jan 2023 - May 2025)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Architected a global e-commerce platform using Next.js & Express.js.</li>
+                                    <li>Designed & optimized PostgreSQL schemas for high-volume traffic</li>
+                                    <li>Managed AWS stack (ECS, RDS, CloudFront, Lambda, API Gateway).</li>
+                                    <li>Built GitOps pipelines with GitHub Actions; automated tests with Jest & Cypress.</li>
+                                    <li>Containerized with Docker and deployed to EKS; enforced Blue/Green rollouts.</li>
+                                    <li>Mentored junior devs and ran cross-functional agile ceremonies across time zones.</li>
+                                </ul>
+                                <h4>Full Stack Developer & DevOps Specialist - Metro de Bogotá (Jul 2020 - Dec 2022)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Led a 5-engineer squad building Node.js/Express microservices.</li>
+                                    <li>Architected event-driven pipelines with Kafka & RabbitMQ.</li>
+                                    <li>Managed GKE clusters and wrote IaC with Terraform & CloudFormation.</li>
+                                    <li>Integrated Vault for secrets management and security hardening.</li>
+                                    <li>Set up observability with the ELK stack + Datadog dashboards.</li>
+                                </ul>
+                                <h4>Full Stack Engineer - Invest in Bogotá (Mar 2018 - Jun 2020)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Built responsive web apps with React, Node.js & Express.</li>
+                                    <li>Containerized services in Docker, orchestrated with Kubernetes on AWS EKS.</li>
+                                    <li>Automated deployments via Jenkins pipelines, cutting deploy time by 50%.</li>
+                                    <li>Provisioned infra as code using Terraform & Ansible</li>
+                                    <li>•Implemented monitoring(Prometheus + Grafana), archiving 99.9% uptime.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Education</h3>
+                                <p>Bachelor's Degree in Computer Science - Université du Québec en Outaouais (UQO) (Aug 2013 - Dec 2017)</p>
+                                <ul class="list-disc mt-2">
+                                    <li>ACompleted a rigorous curriculum covering algorithms, data structures, operating systems, databases and software engineering. Led a capstone team project to build a realtime chat application with React, Node.js and WebSocket. Contributed to an open-source ML research plugin for TensorFlow.</li>
+                                    </ul>
+                            </div>
+                            <div>
+                                <h3>Analyst Comments</h3>
+                                <p class="mb-0">Dick's extensive experience as a lead developer and his strong focus on DevOps make him a very valuable candidate. His skills in Node.js, React, Next.js, and a wide array of AWS technologies, Kubernetes, and Docker align perfectly with the role. His experience in implementing CI/CD pipelines and mentoring others demonstrates his readiness for a senior position.</p>
+                            </div>
                         </div>
-                    </div>
-                `
-            },
-            {
-                id: 3,
-                name: "Candidate 3",
-                content: `
-                    <div class="space-y-6">
-                        <div>
-                            <p class="text-lg font-bold text-slate-900">Kaito | Neira, Colombia.</p>
+                    `
+                },
+                {
+                    id: 3,
+                    name: "Fabio",
+                    content: `
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-lg font-bold text-slate-900">Kaito | Neira, Colombia.</p>
+                            </div>
+                            <div>
+                                <h3>Professional Profile - Monthly Fee USD $4.700 </h3>
+                                <p>Full-Stack Python, JavaScript Developer with 9+ years of experience building scalable and performant web applications using JavaScript Frameworks, and Python Frameworks. Highly proficient in Database Design, and RESTful API design. Skilled in crafting responsive UIs, optimizing server-side performance, and deploying full-stack apps in cloud environments. Adept in DevOps, microservices architecture, and CI/CD pipelines, with a strong focus on clean, maintainable code and user-centered design.</p>
+                            </div>
+                            <div>
+                                <h3>Skills</h3>
+                                <p>
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">JavaScript</span>
+                                    <span class="skill-tag">TypeScript</span>
+                                    <span class="skill-tag">React.JS</span>
+                                    <span class="skill-tag">Next.JS</span>
+                                    <span class="skill-tag">Node.JS</span>
+                                    <span class="skill-tag">Nest.JS</span>
+                                    <span class="skill-tag">Django</span>
+                                    <span class="skill-tag">Flask</span>
+                                    <span class="skill-tag">AWS</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">Kubernetes</span>
+                                    <span class="skill-tag">CI/CD</span>
+                                    <span class="skill-tag">MongoDB</span>
+                                    <span class="skill-tag">PostgreSQL</span>
+                                </p>
+                            </div>
+                            <div>
+                                <h3>Professional Experience</h3>
+                                <h4>Full Stack Engineer - Nix (Mar 2025 - Jul 2025)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Upgraded a large-scale application stack by migrating the frontend from Next.js 13.4 to 15.3.5 and the backend from Django 4.0 to 5.2, ensuring enhanced performance, maintainability, and long-term framework support</li>
+                                    <li>Integrated APIs and implemented the Next.js App Router and updated layout system, improving navigation performance and frontend scalability.</li>
+                                    <li>Designed and deployed Apache Kafka pipelines to enable near-real-time analysis of user engagement in the newly enhanced booking system, supporting fraud detection and improving platform security.</li>
+                                </ul>
+                                <h4>JavaScript Engineer (Self-Employed) - Uncappedtheory (Mar 2024 - Sep 2024)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Created a self-employed project with a frontend built with React.js and a backend with NestJS and TypeScript.</li>
+                                    <li>The frontend was built with React.js for a dynamic and user-friendly interface, while the backend used NestJS with TypeScript to handle complex data processing; the challenge was ensuring efficient real-time communication and delivering accurate strategy recommendations based on historical data.</li>
+                                </ul>
+                                <h4>Full Stack Engineer - Bewe (Aug 2022 - Jan 2024)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Contributed to the development of a ticket-selling platform using Flask for backend services and React.js for the frontend, enhancing overall user experience and system scalability.</li>
+                                    <li>Designed and implemented RESTful APIs in Flask to manage ticket inventory, bookings, user authentication, and payment processing, ensuring efficient data handling and security.</li>
+                                    <li>Developed real-time features on the React.js frontend, providing live updates on ticket availability and booking statuses, enhancing customer engagement and reducing bounce rates.</li>
+                                    <li>Integrated third-party payment gateways (Stripe) to facilitate seamless and secure transactions for users.</li>
+                                    <li>Collaborated closely with UI/UX designers to refine the platform's user interface, focusing on intuitive navigation and responsive design for desktop and mobile users.</li>
+                                    <li>Wrote unit and integration tests using pytest and Jest to ensure the stability and reliability of the system, reducing bugs and downtime.</li>
+                                </ul>
+                                <h4>Python Web Scraping Developer - YIELDIFY (Sep 2021 - Dec 2021)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Developed and maintained robust web scraping solutions using Python and Selenium, and Scrapy to extract large volumes of data from dynamic websites and APIs.</li>
+                                    <li>Created automated scripts for data extraction from structured and unstructured websites, ensuring efficient parsing, cleaning, and storage of extracted data</li>
+                                    <li>Integrated scraped data into databases (SQL/NoSQL) and performed data analysis using Pandas and NumPy to derive actionable insights for business decision-making</li>
+                                    <li>Ensured compliance with legal and ethical standards of web scraping, including managing rate-limiting, robots.txt adherence, and handling IP rotation for anonymity and to avoid blocking.</li>
+                                    <li>Collaborated closely with UI/UX designers to refine the platform's user interface, focusing on intuitive navigation and responsive design for desktop and mobile users.</li>
+                                    <li>Built custom web scraping tools to track competitor pricing, market trends, and customer sentiment, driving business strategy and increasing operational efficiency.</li>
+                                </ul>
+                                <h4>Junior Software Developer - RADIXWEB (Feb 2017 - Sep 2017)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Got experience developing sophisticated, dynamic web applications. With Angular, created create large-scale applications with reusable components, routing, and state management.</li>
+                                    <li>As a Full Stack Developer, Taken the responsible for building both the client-side and server-side of web applications. This includes working with both Angular (for frontend) and MySQL/OOP (for backend).</li>
+                                    <li>With WebSocket, Got the experience in building real-time applications like chat apps, live notifications, collaborative tools, or gaming apps where continuous interaction between the client and server is needed.</li>
+                                </ul>
+                                <h4>Angular Developer - EREVU TECHWORKS (Jan 2018 - Jun 2020)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Used React.JS for building dynamic, interactive user interfaces, for data visualization, libraries like Chart.js or D3.js.</li>
+                                    <li>It was class component React.js project, and for state management, used Redux (react-chunk) to manage application state globally and applied HOC pattern in React.JS development.</li>
+                                    <li>Used Python libraries like Pandas, NumPy, or Scikit-learn for data processing and mining tasks in Django framework.</li>
+                                </ul>
+                                <h4>Software Developer (Internship) - GOOGLE (Oct 2016 - Nov 2016)</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Mastered common data structures like trees, graphs, heaps, hash tables, and dynamic programming techniques.</li>
+                                    <li>Worked on system design exercises and get exposed to designing large-scale, distributed systems.</li>
+                                    <li>Got exposure to Google’s internal tools and infrastructure, including Google's internal search systems, cloud tools, data pipelines, and development environments.</li>
+                                    <li>Built a professional network by meeting and collaborating with fellow interns, full-time engineers, and managers at Google.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Education</h3>
+                                <p>Bachelor of Science in Computer Science - Nagoya University, Japan (2012 - 2016)</p>
+                            </div>
+                            <div>
+                                <h3>Analyst Comments</h3>
+                                <p class="mb-0">Kaito has a very extensive professional background and a versatile skill set that directly applies to the job offer. His experience with Node.js, Nest.js, React, and Next.js is highly relevant. His mastery of DevOps, CI/CD, and databases like MongoDB and PostgreSQL makes him a comprehensive candidate. His work on personal projects and open-source contributions demonstrates a strong commitment to modern software development practices.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Professional Profile - Monthly Fee USD $4.700 </h3>
-                            <p>Full-Stack Python, JavaScript Developer with 9+ years of experience building scalable and performant web applications using JavaScript Frameworks, and Python Frameworks. Highly proficient in Database Design, and RESTful API design. Skilled in crafting responsive UIs, optimizing server-side performance, and deploying full-stack apps in cloud environments. Adept in DevOps, microservices architecture, and CI/CD pipelines, with a strong focus on clean, maintainable code and user-centered design.</p>
+                    `
+                }
+            ],
+            'delivery-2': [
+                {
+                    id: 4,
+                    name: "Jhon",
+                    content: `
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-lg font-bold text-slate-900">Dick | Cali, Colombia</p>
+                            </div>
+                            <div>
+                                <h3>Professional Profile - Monthly Fee USD $5.500</h3>
+                                <p>Experienced Full-Stack Developer with 14+ years specializing in JavaScript, ReactJS, Redux, PHP, NodeJS, and Al integrations like OpenAI API. Proven leader and mentor with a track record in high-profile projects for companies such as Globant, Walgreens, and Disney. Strong technical, problem-solving, and collaborative skills, fluent in English and Spanish.</p>
+                            </div>
+                            <div>
+                                <h3>Additional Skills</h3>
+                                <h4>AI-driven Solutions</h4>
+                                <ul class="list-disc mt-2">
+                                    <li>Development of Generative AI Applications</li>
+                                    <li>Integration with OpenAI API</li>
+                                    <li>Natural Language Processing (NLP) Solutions</li>
+                                    <li>AI-enhanced Applications and Tools</li>
+                                    <li>Model Context Protocol (MCP) Servers Integration</li>
+                                </ul>
+                                <h4>Frontend Development</h4>
+                                <p><span class="skill-tag">React.js (Redux, Context API)</span> <span class="skill-tag">Modern JavaScript (ES6+), TypeScript</span> <span class="skill-tag">Responsive Web Design (HTML5, CSS3, SASS, LESS)</span> <span class="skill-tag">Data Management via GraphQL and RESTful APIs</span></p>
+                                <h4>Backend Development</h4>
+                                <p><span class="skill-tag">Node.js with Express.js</span> <span class="skill-tag">PHP and Python Development</span> <span class="skill-tag">Database Management (MySQL, PostgreSQL, Firebase)</span></p>
+                                <h4>DevOps & Cloud Infrastructure</h4>
+                                <p><span class="skill-tag">AWS Cloud Services (S3, ECS, Lambda, EC2)</span> <span class="skill-tag">Continuous Integration and Delivery (Jenkins, GitLab CI, AWS CodePipeline)</span> <span class="skill-tag">Containerization with Docker</span></p>
+                                <h4>Mobile Development</h4>
+                                <p><span class="skill-tag">React Native</span> <span class="skill-tag">API integrations and push notifications</span></p>
+                                <h4>Fintech & Payments</h4>
+                                <p><span class="skill-tag">Payment Gateway Integrations</span> <span class="skill-tag">Digital Wallet Development</span> <span class="skill-tag">Regulatory & Compliance</span></p>
+                                <h4>Testing & Quality Assurance</h4>
+                                <p><span class="skill-tag">Unit and Integration Testing (React Testing Library, Jest)</span> <span class="skill-tag">End-to-End Testing (Cypress, Selenium)</span> <span class="skill-tag">Component Testing (Enzyme)</span></p>
+                                <h4>Performance Optimization</h4>
+                                <p><span class="skill-tag">CDN Implementation (AWS CloudFront)</span> <span class="skill-tag">Advanced Caching Techniques</span> <span class="skill-tag">Optimized Web Performance (lazy loading, code-splitting)</span></p>
+                            </div>
+                            <div>
+                                <h3>Professional Experience</h3>
+                                <h4>Software Engineer</h4>
+                                <p class="font-medium text-slate-600">ENCORA, Cali, Colombia (January 2025 - July 2025)</p>
+                                <ul class="list-disc mt-2">
+                                    <li>Reduced initial load time by 35% through implementation of lazy loading and code splitting.</li>
+                                    <li>Designed and developed a component-based design system in ReactJS.</li>
+                                    <li>Integrated multiple GraphQL and RESTful APIs, increasing communication efficiency by 25%.</li>
+                                    <li>Improved accessibility (WCAG compliance) to 95%.</li>
+                                    <li>Raised test coverage to over 90% with Jest and React Testing Library.</li>
+                                </ul>
+                                <h4>Software Engineer</h4>
+                                <p class="font-medium text-slate-600">Globant, Cali, Colombia (July 2024-January 2025)</p>
+                                <ul class="list-disc mt-2">
+                                    <li>Built performant React applications handling traffic up to 500K users without degradation.</li>
+                                    <li>Integrated AWS services like S3 and Lambda, achieving cost efficiency and scalability.</li>
+                                    <li>Helped implement CI/CD pipelines with Jenkins and GitLab CI, reducing deployment time by 70%.</li>
+                                </ul>
+                                <h4>FrontEnd Engineer</h4>
+                                <p class="font-medium text-slate-600">Lean Tech, Medellin, Colombia (March 2022-July 2022)</p>
+                                <ul class="list-disc mt-2">
+                                    <li>Developed modular VueJS components, reducing page development time by 30%.</li>
+                                    <li>Applied advanced caching and CDN strategies (CloudFront) to decrease load times in key LATAM regions.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Education</h3>
+                                <p>BS, Computer Science Engineer - UNIVERSIDAD DEL VALLE, Cali, Colombia (February 2012)</p>
+                                <p>BA, Information System Tec. - UNIVERSIDAD DEL VALLE, Cali, Colombia (June 2009)</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Skills</h3>
-                            <p>
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">TypeScript</span>
-                                <span class="skill-tag">React.JS</span>
-                                <span class="skill-tag">Next.JS</span>
-                                <span class="skill-tag">Node.JS</span>
-                                <span class="skill-tag">Nest.JS</span>
-                                <span class="skill-tag">Django</span>
-                                <span class="skill-tag">Flask</span>
-                                <span class="skill-tag">AWS</span>
-                                <span class="skill-tag">Docker</span>
-                                <span class="skill-tag">Kubernetes</span>
-                                <span class="skill-tag">CI/CD</span>
-                                <span class="skill-tag">MongoDB</span>
-                                <span class="skill-tag">PostgreSQL</span>
-                            </p>
+                    `
+                },
+                {
+                    id: 5,
+                    name: "Edwin",
+                    content: `
+                        <div class="space-y-6">
+                              <div>
+                                <p class="text-lg font-bold text-slate-900">Dick | Medellín, Colombia</p>
+                            </div>
+                            <div>
+                                <h3>Professional Profile - Monthly Fee USD $5.500</h3>
+                            <div>
+                                <h3>Professional Summary</h3>
+                                <p>Full Stack Engineer with 15+ years of experience designing and scaling SaaS platforms and data-driven web applications across healthcare, fintech (microcredit), real estate, and cybersecurity. I specialize in end-to-end development, building clean, component-based UIs with React, Next.js, Vue.js, and leveraging modern design systems. I build performant, maintainable backends with Node.js, Express, and microservices, following clean architecture and API-first principles. I'm experienced in designing robust APIs with REST, GraphQL, and tRPC. My backend toolkit includes PostgreSQL, MySQL, SQL Server, SQLite, MongoDB, Redis, and DynamoDB. I integrate CI/CD workflows, maintain high-quality standards with Jest, React Testing Library, Cypress, and Playwright. Beyond web development, I also work with Ruby on Rails and am currently developing machine learning models using Python to analyze table tennis matches, combining statistical modeling and real-time data analysis. I thrive in cross-functional, fast-paced environments-building full stack products that scale, perform, and actually ship.</p>
+                            </div>
+                            <div>
+                                <h3>Key Skills</h3>
+                                <p><span class="skill-tag">Next.js</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">React</span> <span class="skill-tag">Vue.js</span> <span class="skill-tag">Node.js</span> <span class="skill-tag">Express</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">MySQL</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">Redis</span> <span class="skill-tag">Ruby on Rails</span> <span class="skill-tag">Python</span> <span class="skill-tag">Machine Learning</span> <span class="skill-tag">CI/CD</span></p>
+                            </div>
+                            <div>
+                                <h3>Professional Experience</h3>
+                                <h4>Full Stack Developer</h4>
+                                <p class="font-medium text-slate-600">Remedy Product Studio, New York City Metropolitan Area (May 2023 - Present)</p>
+                                <p class="font-medium text-slate-600">Full Stack Engineer, South Geeks (January 2020 - February 2023)</p>
+                                <p class="font-medium text-slate-600">Full Stack Engineer, Exabeam, Medellin, Antioquia, Colombia (January 2020 - April 2022)</p>
+                                <p class="font-medium text-slate-600">Full Stack Engineer, UrulT, Medellin, Colombia (September 2016 - December 2019)</p>
+                                <p class="font-medium text-slate-600">Senior Software Developer, Betiply.com, Medellin, Colombia (October 2015 - July 2016)</p>
+                                <p class="font-medium text-slate-600">Senior Developer, Yuxi Pacific, LLC (July 2011 - September 2015)</p>
+                                <p class="font-medium text-slate-600">Software developer, IMS Health (2011 - 2014)</p>
+                                <p class="font-medium text-slate-600">Web Developer, 3eyegroup (June 2010 - May 2011)</p>
+                                <p class="font-medium text-slate-600">Web Developer, Mieu Consulting LLC (October 2009 - June 2010)</p>
+                            </div>
+                            <div>
+                                <h3>Education</h3>
+                                <p>Instituto Tecnológico Metropolitano (ITM) (2004-2009)</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Professional Experience</h3>
-                            <h4>Full Stack Engineer - Nix (Mar 2025 - Jul 2025)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Upgraded a large-scale application stack by migrating the frontend from Next.js 13.4 to 15.3.5 and the backend from Django 4.0 to 5.2, ensuring enhanced performance, maintainability, and long-term framework support</li>
-                                <li>Integrated APIs and implemented the Next.js App Router and updated layout system, improving navigation performance and frontend scalability.</li>
-                                <li>Designed and deployed Apache Kafka pipelines to enable near-real-time analysis of user engagement in the newly enhanced booking system, supporting fraud detection and improving platform security.</li>
-                            </ul>
-                            <h4>JavaScript Engineer (Self-Employed) - Uncappedtheory (Mar 2024 - Sep 2024)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Created a self-employed project with a frontend built with React.js and a backend with NestJS and TypeScript.</li>
-                                <li>The frontend was built with React.js for a dynamic and user-friendly interface, while the backend used NestJS with TypeScript to handle complex data processing; the challenge was ensuring efficient real-time communication and delivering accurate strategy recommendations based on historical data.</li>
-                            </ul>
-                            <h4>Full Stack Engineer - Bewe (Aug 2022 - Jan 2024)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Contributed to the development of a ticket-selling platform using Flask for backend services and React.js for the frontend, enhancing overall user experience and system scalability.</li>
-                                <li>Designed and implemented RESTful APIs in Flask to manage ticket inventory, bookings, user authentication, and payment processing, ensuring efficient data handling and security.</li>
-                                <li>Developed real-time features on the React.js frontend, providing live updates on ticket availability and booking statuses, enhancing customer engagement and reducing bounce rates.</li>
-                                <li>Integrated third-party payment gateways (Stripe) to facilitate seamless and secure transactions for users.</li>
-                                <li>Collaborated closely with UI/UX designers to refine the platform's user interface, focusing on intuitive navigation and responsive design for desktop and mobile users.</li>
-                                <li>Wrote unit and integration tests using pytest and Jest to ensure the stability and reliability of the system, reducing bugs and downtime.</li>
-                            </ul>
-                            <h4>Python Web Scraping Developer - YIELDIFY (Sep 2021 - Dec 2021)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Developed and maintained robust web scraping solutions using Python and Selenium, and Scrapy to extract large volumes of data from dynamic websites and APIs.</li>
-                                <li>Created automated scripts for data extraction from structured and unstructured websites, ensuring efficient parsing, cleaning, and storage of extracted data</li>
-                                <li>Integrated scraped data into databases (SQL/NoSQL) and performed data analysis using Pandas and NumPy to derive actionable insights for business decision-making</li>
-                                <li>Ensured compliance with legal and ethical standards of web scraping, including managing rate-limiting, robots.txt adherence, and handling IP rotation for anonymity and to avoid blocking.</li>
-                                <li>Collaborated closely with UI/UX designers to refine the platform's user interface, focusing on intuitive navigation and responsive design for desktop and mobile users.</li>
-                                <li>Built custom web scraping tools to track competitor pricing, market trends, and customer sentiment, driving business strategy and increasing operational efficiency.</li>
-                            </ul>
-                            <h4>Junior Software Developer - RADIXWEB (Feb 2017 - Sep 2017)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Got experience developing sophisticated, dynamic web applications. With Angular, created create large-scale applications with reusable components, routing, and state management.</li>
-                                <li>As a Full Stack Developer, Taken the responsible for building both the client-side and server-side of web applications. This includes working with both Angular (for frontend) and MySQL/OOP (for backend).</li>
-                                <li>With WebSocket, Got the experience in building real-time applications like chat apps, live notifications, collaborative tools, or gaming apps where continuous interaction between the client and server is needed.</li>
-                            </ul>
-                            <h4>Angular Developer - EREVU TECHWORKS (Jan 2018 - Jun 2020)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Used React.JS for building dynamic, interactive user interfaces, for data visualization, libraries like Chart.js or D3.js.</li>
-                                <li>It was class component React.js project, and for state management, used Redux (react-chunk) to manage application state globally and applied HOC pattern in React.JS development.</li>
-                                <li>Used Python libraries like Pandas, NumPy, or Scikit-learn for data processing and mining tasks in Django framework.</li>
-                            </ul>
-                            <h4>Software Developer (Internship) - GOOGLE (Oct 2016 - Nov 2016)</h4>
-                            <ul class="list-disc mt-2">
-                                <li>Mastered common data structures like trees, graphs, heaps, hash tables, and dynamic programming techniques.</li>
-                                <li>Worked on system design exercises and get exposed to designing large-scale, distributed systems.</li>
-                                <li>Got exposure to Google’s internal tools and infrastructure, including Google's internal search systems, cloud tools, data pipelines, and development environments.</li>
-                                <li>Built a professional network by meeting and collaborating with fellow interns, full-time engineers, and managers at Google.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Education</h3>
-                            <p>Bachelor of Science in Computer Science - Nagoya University, Japan (2012 - 2016)</p>
-                        </div>
-                        <div>
-                            <h3>Analyst Comments</h3>
-                            <p class="mb-0">Kaito has a very extensive professional background and a versatile skill set that directly applies to the job offer. His experience with Node.js, Nest.js, React, and Next.js is highly relevant. His mastery of DevOps, CI/CD, and databases like MongoDB and PostgreSQL makes him a comprehensive candidate. His work on personal projects and open-source contributions demonstrates a strong commitment to modern software development practices.</p>
-                        </div>
-                    </div>
-                `
+                    `
+                }
+            ]
+        };
+
+        function displayDelivery(deliveryId) {
+            document.querySelectorAll('.delivery-tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            document.getElementById(deliveryId + '-content').classList.remove('hidden');
+
+            document.querySelectorAll('.main-nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.main-nav-button[data-tab='${deliveryId}']`).classList.add('active');
+            
+            setupSubNavigation(deliveryId);
+            const candidatesInDelivery = allCandidates[deliveryId];
+            if (candidatesInDelivery.length > 0) {
+                displayCandidate(deliveryId, candidatesInDelivery[0].id);
             }
-        ];
+        }
 
-        const navContainer = document.getElementById('candidate-nav');
-        const contentContainer = document.getElementById('candidate-content');
+        function setupSubNavigation(deliveryId) {
+            const subNavContainer = document.getElementById(deliveryId + '-subnav');
+            subNavContainer.innerHTML = '';
+            const candidates = allCandidates[deliveryId];
+            candidates.forEach((candidate, index) => {
+                const button = document.createElement('button');
+                button.className = 'sub-nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
+                button.textContent = candidate.name;
+                button.dataset.candidateId = candidate.id;
+                button.addEventListener('click', () => displayCandidate(deliveryId, candidate.id));
+                subNavContainer.appendChild(button);
+            });
+        }
 
-        function displayContent(candidateId) {
-            const candidate = candidates.find(c => c.id === candidateId);
+        function displayCandidate(deliveryId, candidateId) {
+            const candidate = allCandidates[deliveryId].find(c => c.id === candidateId);
             if (!candidate) return;
 
+            const contentContainer = document.getElementById(deliveryId + '-candidate-content');
             contentContainer.innerHTML = `
                 <div id="candidate-${candidate.id}-content" class="candidate-panel bg-white rounded-lg shadow-md p-6 lg:p-8 content-card">
                     ${candidate.content}
                 </div>
             `;
-
-            document.querySelectorAll('.nav-button').forEach(btn => {
+            
+            document.querySelectorAll(`#${deliveryId}-subnav .sub-nav-button`).forEach(btn => {
                 btn.classList.remove('active');
                 if (parseInt(btn.dataset.candidateId) === candidateId) {
                     btn.classList.add('active');
@@ -343,23 +510,13 @@ ML research plugin for TensorFlow.</li>
             });
         }
 
-        function setupNavigation() {
-            navContainer.innerHTML = '';
-            candidates.forEach(candidate => {
-                const button = document.createElement('button');
-                button.className = 'nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
-                button.textContent = candidate.name;
-                button.dataset.candidateId = candidate.id;
-                button.addEventListener('click', () => displayContent(candidate.id));
-                navContainer.appendChild(button);
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            setupNavigation();
-            if (candidates.length > 0) {
-                displayContent(candidates[0].id);
-            }
+            document.querySelectorAll('.main-nav-button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    displayDelivery(e.target.dataset.tab);
+                });
+            });
+            displayDelivery('delivery-1');
         });
     </script>
 </body>

@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Candidate Resumes</title>
+    <title>Senior Full Stack Developer Candidate Resumes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chosen Palette: Neutral Professional -->
-    <!-- Application Structure Plan: The application is designed as a clean, tabbed document viewer. A top navigation bar with buttons for each candidate allows the user to switch between full resume views. This structure is optimal for presenting long-form text documents like resumes within a single page, as it keeps the interface uncluttered and focuses the user's attention on one complete document at a time. This is more effective than a dashboard for this specific purpose, as the goal is in-depth review, not high-level data visualization. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Full resume text for each candidate. Goal: Inform/Organize. Viz/Presentation Method: Structured HTML with Tailwind CSS for clean typography and layout. Interaction: Clickable tabs/buttons to switch between candidate views. Justification: For presenting dense, text-based information, a well-formatted document layout is superior to charts or graphs. The primary interaction is navigation between these documents, which is handled efficiently by a simple tab system. Library/Method: HTML/Tailwind/Vanilla JS.
-        - Report Info: Technical skills. Goal: Inform. Viz/Presentation Method: Styled tags (pills). Interaction: N/A. Justification: Tags allow for quick visual scanning of key skills within the resume text. Method: HTML/Tailwind.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Application Structure Plan: The application is designed with a two-level tabbed navigation. The top level ("Delivery 1", "Delivery 2") organizes candidates into groups, while the second level displays individual candidate resumes. This structure provides a clear, hierarchical flow for the user, allowing them to first select a batch of candidates and then review each one in detail, which is more effective for a large number of resumes. -->
+    <!-- Visualization & Content Choices: Report Info: Full resume text for each candidate. Goal: Inform/Organize. Viz/Presentation Method: Structured HTML with Tailwind CSS for clean typography and layout. Interaction: Clickable tabs/buttons to switch between candidate views. Justification: For presenting a large volume of text, a well-formatted document layout is superior. The two-level tab system efficiently handles navigation for multiple candidate groups. Library/Method: HTML/Tailwind/Vanilla JS. - Report Info: Technical skills. Goal: Inform. Viz/Presentation Method: Styled tags (pills). Interaction: N/A. Justification: Tags allow for quick visual scanning of key skills within the resume text. Method: HTML/Tailwind. - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             background-color: #f8fafc; /* slate-50 */
@@ -67,14 +64,23 @@
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
         
         <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Candidate Resume Viewer</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Senior Backend Software Engineer</h1>
             <p class="mt-2 text-lg text-slate-500">Select a candidate to view their complete professional profile.</p>
         </header>
 
-        <div id="candidate-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
+        <div id="delivery-nav-container" class="sticky top-0 bg-slate-50/80 backdrop-blur-lg z-20 mb-4">
             <div class="border-b border-slate-200">
-                <nav id="candidate-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Tabs">
-                    <!-- Navigation buttons will be injected here -->
+                <nav id="delivery-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Delivery Tabs">
+                    <button class="delivery-button nav-button whitespace-nowrap py-4 px-1 text-base font-medium active" data-delivery-id="delivery1">Delivery 1</button>
+                    <button class="delivery-button nav-button whitespace-nowrap py-4 px-1 text-base font-medium" data-delivery-id="delivery2">Delivery 2</button>
+                </nav>
+            </div>
+        </div>
+
+        <div id="candidate-nav-container" class="sticky top-[72px] bg-slate-50/80 backdrop-blur-lg z-10 mb-8">
+            <div class="border-b border-slate-200">
+                <nav id="candidate-nav" class="flex justify-center -mb-px space-x-4 sm:space-x-8" aria-label="Candidate Tabs">
+                    <!-- Navigation buttons for candidates will be injected here -->
                 </nav>
             </div>
         </div>
@@ -86,7 +92,8 @@
     </div>
 
     <script>
-        const candidates = [
+        const candidates = {
+            delivery1: [
             {
                 id: 1,
                 name: "Candidate 1",
@@ -353,24 +360,204 @@
                     </div>
                 `
             }
-        ];
+        ],
+            delivery2: [
+            {
+                id: 6,
+                name: "Candidate 6",
+                content: `
+                    <div class="space-y-6">
+                    <div>
+                            <h3>Sergio | Lima, Perú</h3>
+                        </div>  
+                      <div>
+                            <h3> Professional Summary - Monthly Fee USD $6.000 </h3>
+                            <p>Senior Machine Learning Engineer with over 10 years of experience in data science and AI product development across industries including tech, legal, and consumer services. Core tech stack includes Python, LangChain, LLMs, GCP, AWS Lambda, Kubeflow, Flask, PostgreSQL, and scikit-learn, with hands-on experience in MLOps, OCR, semantic search, and recommendation systems. Recently led AI initiatives at Zazmic Inc and Perpetual Labs, including the development of LLM-based pipelines and AI-powered platforms for document transcription, chatbot interaction, and image generation. Holds an MSc in ICT in Business from Universiteit Leiden and a BSc in Computer Science from Webster University Vienna, along with an MBA from European Business School (EBS). Fluent in Spanish, English (C2), and German (C1).</p>
+                        </div>
+                        <div>
+                            <h3>Technical Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">R</span> <span class="skill-tag">CSS</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">Azure</span> <span class="skill-tag">Google Cloud Platform</span> <span class="skill-tag">ML</span> <span class="skill-tag">NLP</span> <span class="skill-tag">LLM</span> <span class="skill-tag">LangChain</span> <span class="skill-tag">Kubeflow</span> <span class="skill-tag">Flask</span> <span class="skill-tag">Scikit-learn</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>Machine Learning Engineer</h4>
+                            <p class="font-medium text-slate-600">Zazmic Inc (Oct 2024 to date)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Spearheaded the development of an OCR and LLM-based pipeline for historical document transcription, resulting in enhanced search capabilities and information extraction accuracy.</li>
+                                <li>Led the architecture and implementation of an AI image generation system for children's storybooks.</li>
+                                <li>Designed and implemented an end-to-end MLOps pipeline using Kubeflow for the textile industry.</li>
+                            </ul>
+                            <h4>Machine Learning Engineer</h4>
+                            <p class="font-medium text-slate-600">Perpetual Labs (Apr 2024 to Sep 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Developed and deployed an LLM-powered RAG platform to enhance customer service information delivery for hotel clients.</li>
+                                <li>Architected and deployed a serverless Lambda function system to automate document vector embeddings through S3 triggers.</li>
+                            </ul>
+                            <h4>Machine Learning Engineer</h4>
+                            <p class="font-medium text-slate-600">NutriCo (Jun 2023 to Apr 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Developed a recommendation system that sped up food ideation by 50%.</li>
+                                <li>Implemented a new database for storing ingredients and in turn increased available ingredients for ideation by 1000%.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>MSc. ICT in Business - Universiteit Leiden, The Netherlands (2005-2005)</p>
+                            <p>BSc. Computer Science - Webster University Vienna, Austria (2002-2002)</p>
+                            <p>MBA - European Business School (EBS), Germany (2012)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                name: "Candidate 7",
+                content: `
+                    <div class="space-y-6">
+                    <div>
+                            <h3>Emiliano | Merida, México</h3>
+                        </div>  
+                      <div>
+                            <h3> Professional Summary - Monthly Fee USD $6.000 </h3>
+                            <p>Software Engineer and Machine Learning Engineer with a strong background in scalable architectures, product optimization, and technical leadership in high-impact environments. Experienced in full-stack development with technologies like TypeScript, NestJS, NextJS, React, and PostgreSQL. With a solid background in Computer Systems Engineering and AI research experience, applies agile methodologies and a data-driven approach to strategic decision-making. Passionate about leveraging expertise in software and machine learning to develop innovative and scalable solutions.</p>
+                        </div>
+                        <div>
+                            <h3>Key Skills</h3>
+                            <p><span class="skill-tag">Typescript</span> <span class="skill-tag">Javascript</span> <span class="skill-tag">Python</span> <span class="skill-tag">React</span> <span class="skill-tag">Nextjs</span> <span class="skill-tag">Nodejs</span> <span class="skill-tag">Nestjs</span> <span class="skill-tag">PostgreSQL</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">GraphQL</span> <span class="skill-tag">Docker</span> <span class="skill-tag">AWS</span> <span class="skill-tag">AI</span> <span class="skill-tag">RAG</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>Senior Software Engineer</h4>
+                            <p class="font-medium text-slate-600">Stealth Startup (Apr 2025 to date)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Led the development of a financial advisor chatbot using Retrieval-Augmented Generation (RAG) to answer questions from 1,000+ NASDAQ financial reports.</li>
+                                <li>Delivered a home credit risk prediction model as squad lead, training Random Forest, XGBoost, and LightGBM models on 350,000+ transactions.</li>
+                            </ul>
+                            <h4>Software Engineer</h4>
+                            <p class="font-medium text-slate-600">Territory Foods (Now Mealogic) (Jan 2022 to Nov 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Supported the company wide effort to pivot from a B2C system to a B2B multi-tenant microservices architecture.</li>
+                                <li>Led the build out of the multi-tenant returning customer experience the most visited page of the platform (> 1M visits monthly).</li>
+                                <li>Proposed and implemented initiative of integrating e2e tests in CD, leading to 40% less regressions in production.</li>
+                            </ul>
+                            <h4>Fullstack Engineer</h4>
+                            <p class="font-medium text-slate-600">Lynit (Feb 2021 to Dec 2021)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Proposed and built a multi-page onboarding experience as a means to increase retention, leading to a 42% increase in retention rate.</li>
+                                <li>Identified and implemented a fix for a performance bottleneck, improving the big O notation from O(n) to O(1).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Bachelor of Science, Computer Systems Engineering - UTEL (2017-2022)</p>
+                            <p>Bachelor of Science, Energy and Petroleum Engineering - Universidad Modelo (Mérida, México) (2015-2019)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                name: "Candidate 8",
+                content: `
+                    <div class="space-y-6">
+                    <div>
+                            <h3>Yamil | Cordoba, Argentina</h3>
+                        </div>  
+                      <div>
+                            <h3> Professional Summary - Monthly Fee USD $6.000 </h3>
+                            <p>Machine Learning Engineer with 5+ years of experience in AI, embedded systems, and industrial IoT solutions. Core technologies include Python, SQL, JavaScript, TensorFlow, PyTorch, LangChain, Docker, and AWS, with additional experience in LLMs, edge AI, and data pipelines. Currently working at Perpetual Labs on LLM and RAG-based chatbot systems, and previously led AI projects at Webee, delivering real-time analytics and computer vision tools for industrial clients. Developed and deployed multiple ML models at AnyoneAI, including image classifiers, NLP sentiment analysis, and credit risk scoring tools for high-volume data environments. Fluent in Spanish and English (C1), with advanced certifications in RLHF, NLP, and Machine Learning.</p>
+                        </div>
+                        <div>
+                            <h3>Technical Skills</h3>
+                            <p><span class="skill-tag">Python</span> <span class="skill-tag">SQL</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">TensorFlow</span> <span class="skill-tag">PyTorch</span> <span class="skill-tag">LangChain</span> <span class="skill-tag">Docker</span> <span class="skill-tag">AWS</span> <span class="skill-tag">LLMs</span> <span class="skill-tag">RAG</span> <span class="skill-tag">NLP</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">Kubernetes</span> <span class="skill-tag">Airflow</span></p>
+                        </div>
+                        <div>
+                            <h3>Work Experience</h3>
+                            <h4>AI Engineer</h4>
+                            <p class="font-medium text-slate-600">Perpetual Labs (Apr 2024 to date)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Developed and integrated solutions incorporating Large Language Model (LLM) and Retrieval-Augmented Generation (RAG) for a prominent company.</li>
+                                <li>Responsible for architecting and implementing software to enhance client customer experience and operational efficiency.</li>
+                            </ul>
+                            <h4>Machine Learning Engineer</h4>
+                            <p class="font-medium text-slate-600">AnyoneAI (Oct 2023 to May 2024)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Built and deployed multiple image classification systems using CNNs and TensorFlow, including one for vehicle make/model prediction.</li>
+                                <li>Led a home loan risk analysis project, processing 350,000+ transactions and training models (DecisionTree, XGBoost, LightGBM).</li>
+                                <li>Built NLP models for sentiment analysis on streaming service product reviews and created an internal chatbot with RAG and LangChain.</li>
+                            </ul>
+                            <h4>Solutions Architect</h4>
+                            <p class="font-medium text-slate-600">Webee (Aug 2021 to Nov 2023)</p>
+                            <ul class="list-disc mt-2">
+                                <li>Led the development of Al-powered Industry 5.0 solutions across 10+ client projects, delivering measurable impact in energy savings, productivity, and real-time operational insights.</li>
+                                <li>Directed a computer vision initiative using NVIDIA Jetson Nano to detect piglet crushing events via image recognition, showcasing innovative application of edge AI in agriculture.</li>
+                                <li>Mentored and orchestrated teams of 12 data science students at Purdue University.</li>
+                            </ul>
+                            <h4>Embedded Systems Engineer</h4>
+                            <p class="font-medium text-slate-600">VOLT MOTORS (Aug 2019 to Oct 2021)</p>
+                        </div>
+                        <div>
+                            <h3>Education</h3>
+                            <p>Bachelor of Artificial Intelligence and Robotics - Siglo 21 University (2021-2024)</p>
+                            <p>Undergraduate Bachelor of Electronic Engineer - National Technological University (2013-2021)</p>
+                        </div>
+                    </div>
+                `
+            }
+        ]
+        };
 
-        const navContainer = document.getElementById('candidate-nav');
+        const deliveryNavContainer = document.getElementById('delivery-nav');
+        const candidateNavContainer = document.getElementById('candidate-nav');
         const contentContainer = document.getElementById('candidate-content');
 
-        function displayContent(candidateId) {
-            const candidate = candidates.find(c => c.id === candidateId);
-            if (!candidate) return;
+        function setupDeliveryNavigation() {
+            document.querySelectorAll('.delivery-button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.delivery-button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const deliveryId = btn.dataset.deliveryId;
+                    setupCandidateNavigation(candidates[deliveryId]);
+                    if (candidates[deliveryId].length > 0) {
+                        displayContent(candidates[deliveryId][0].id);
+                    }
+                });
+            });
+        }
 
-            // Update content
+        function setupCandidateNavigation(candidateList) {
+            candidateNavContainer.innerHTML = '';
+            candidateList.forEach(candidate => {
+                const button = document.createElement('button');
+                button.className = 'nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
+                button.textContent = candidate.name;
+                button.dataset.candidateId = candidate.id;
+                button.addEventListener('click', () => {
+                    displayContent(candidate.id);
+                });
+                candidateNavContainer.appendChild(button);
+            });
+        }
+
+        function displayContent(candidateId) {
+            let selectedCandidate = null;
+            for (const delivery in candidates) {
+                const found = candidates[delivery].find(c => c.id === candidateId);
+                if (found) {
+                    selectedCandidate = found;
+                    break;
+                }
+            }
+
+            if (!selectedCandidate) return;
+
             contentContainer.innerHTML = `
-                <div id="candidate-${candidate.id}-content" class="candidate-panel bg-white rounded-lg shadow-md p-6 lg:p-8 content-card">
-                    ${candidate.content}
+                <div id="candidate-${selectedCandidate.id}-content" class="candidate-panel bg-white rounded-lg shadow-md p-6 lg:p-8 content-card">
+                    ${selectedCandidate.content}
                 </div>
             `;
 
-            // Update active button
-            document.querySelectorAll('.nav-button').forEach(btn => {
+            document.querySelectorAll('#candidate-nav .nav-button').forEach(btn => {
                 btn.classList.remove('active');
                 if (parseInt(btn.dataset.candidateId) === candidateId) {
                     btn.classList.add('active');
@@ -378,26 +565,13 @@
             });
         }
 
-        function setupNavigation() {
-            navContainer.innerHTML = '';
-            candidates.forEach(candidate => {
-                const button = document.createElement('button');
-                button.className = 'nav-button whitespace-nowrap py-4 px-1 text-base font-medium text-slate-500 hover:text-slate-700';
-                button.textContent = candidate.name;
-                button.dataset.candidateId = candidate.id;
-                button.addEventListener('click', () => displayContent(candidate.id));
-                navContainer.appendChild(button);
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            setupNavigation();
-            // Display the first candidate by default
-            if (candidates.length > 0) {
-                displayContent(candidates[0].id);
+            setupDeliveryNavigation();
+            setupCandidateNavigation(candidates.delivery1);
+            if (candidates.delivery1.length > 0) {
+                displayContent(candidates.delivery1[0].id);
             }
         });
     </script>
-
 </body>
 </html>

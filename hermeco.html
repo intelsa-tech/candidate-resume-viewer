@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offcorss: Estrategia de Crecimiento Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Subtle Blue -->
+    <!-- Application Structure Plan: Se ha diseñado una SPA temática con una barra de navegación fija para facilitar la exploración no lineal. La estructura sigue un flujo lógico: 1. Diagnóstico del problema (comparación interactiva de canales), 2. Presentación de la solución (WhatsApp, con KPIs destacados), 3. Detalle de la estrategia (pestañas interactivas para campañas de pauta), 4. Visualización del impacto (gráfica de rendimiento y proyecciones), y 5. Plan de acción (hoja de ruta visual). Esta arquitectura fue elegida para transformar un informe denso en una experiencia digerible y persuasiva, guiando al usuario desde el problema hasta la solución y sus resultados de manera intuitiva y atractiva. -->
+    <!-- Visualization & Content Choices: 1. Tabla Comparativa -> Objetivo: Comparar -> Presentación: Tarjetas interactivas lado a lado -> Interacción: Hover para resaltar ventajas -> Justificación: Más dinámico y visual que una tabla estática. 2. KPIs de WhatsApp -> Objetivo: Informar/Impactar -> Presentación: Tarjetas de métricas grandes -> Interacción: Estática -> Justificación: Resalta rápidamente la magnitud de la oportunidad. 3. Tabla de Campañas -> Objetivo: Organizar -> Presentación: Sistema de pestañas -> Interacción: Clic para cambiar de campaña -> Justificación: Evita la sobrecarga de información, permitiendo al usuario enfocarse en una estrategia a la vez. 4. Proyecciones de Rendimiento -> Objetivo: Persuadir/Comparar -> Presentación: Gráfico de barras (Chart.js) -> Interacción: Tooltips al pasar el mouse -> Justificación: Una comparación visual es mucho más poderosa para demostrar la eficiencia de la nueva estrategia frente a la tradicional. 5. Plan de Acción -> Objetivo: Guiar -> Presentación: Diagrama de flujo/timeline horizontal -> Interacción: Estática -> Justificación: Presenta la hoja de ruta de forma clara y secuencial. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #3D405B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3D405B;
+            border-bottom-color: #81B29A;
+        }
+        .tab-btn.active {
+            background-color: #3D405B;
+            color: #FDFBF8;
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-[#3D405B]">Offcorss</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#diagnostico" class="nav-link text-gray-600 font-semibold">Diagnóstico</a>
+                <a href="#solucion" class="nav-link text-gray-600 font-semibold">La Solución</a>
+                <a href="#estrategia" class="nav-link text-gray-600 font-semibold">Estrategia</a>
+                <a href="#resultados" class="nav-link text-gray-600 font-semibold">Resultados</a>
+                <a href="#plan" class="nav-link text-gray-600 font-semibold">Plan de Acción</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-16">
+        
+        <section class="text-center mb-16 md:mb-24">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#3D405B]">Estrategia de Crecimiento Digital</h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                Cómo Offcorss puede vender más a un menor costo integrando E-commerce, WhatsApp y Pauta Digital para crear una experiencia de cliente unificada y altamente efectiva.
+            </p>
+        </section>
+
+        <section id="diagnostico" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-[#3D405B] mb-2">Diagnóstico: El Puente entre lo Físico y Digital</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">El e-commerce ofrece un alcance inigualable, pero carece de la experiencia sensorial y la asesoría personalizada que el público de Offcorss valora. La clave está en fusionar lo mejor de ambos mundos para eliminar la fricción en la compra online.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h4 class="text-2xl font-bold mb-4 text-center">🏪 Canal Físico</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><div><strong class="font-semibold">Ventaja:</strong> Experiencia sensorial y trato personal que genera confianza.</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><div><strong class="font-semibold">Ventaja:</strong> Facilita la decisión de compra inmediata y refuerza la credibilidad.</div></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">✗</span><div><strong class="font-semibold">Desventaja:</strong> Alcance geográfico limitado y altos costos operativos.</div></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">✗</span><div><strong class="font-semibold">Desventaja:</strong> Horarios restringidos que no siempre se adaptan al cliente.</div></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h4 class="text-2xl font-bold mb-4 text-center">💻 Canal Digital (E-commerce)</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><div><strong class="font-semibold">Ventaja:</strong> Alcance global ilimitado y disponibilidad 24/7.</div></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><div><strong class="font-semibold">Ventaja:</strong> Bajos costos operativos y alta escalabilidad.</div></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">✗</span><div><strong class="font-semibold">Desventaja:</strong> Falta de experiencia sensorial directa, generando dudas sobre tallas y materiales.</div></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">✗</span><div><strong class="font-semibold">Desventaja:</strong> La ausencia de asistencia inmediata puede causar abandono.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucion" class="mb-16 md:mb-24 bg-[#E0FBFC] p-8 md:p-12 rounded-2xl">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-[#3D405B] mb-2">La Solución: WhatsApp como Canal Relacional</h3>
+                <p class="text-gray-700 max-w-3xl mx-auto">WhatsApp no es solo un chat, es la herramienta para trasladar la calidez y el servicio personalizado de la tienda física al entorno digital. Resuelve dudas al instante, construye relaciones y transforma la desconfianza en conversión.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="kpi-card">
+                    <div class="text-4xl font-bold text-[#81B29A] mb-2">+2 Mil Millones</div>
+                    <div class="text-gray-600">de usuarios activos globales, garantizando una alta penetración en el público objetivo.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="text-4xl font-bold text-[#81B29A] mb-2">20%</div>
+                    <div class="text-gray-600">de las interacciones con clientes a través de WhatsApp se convierten en ventas directas.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="text-4xl font-bold text-[#81B29A] mb-2">+15%</div>
+                    <div class="text-gray-600">de aumento potencial en las ventas globales de la empresa al integrar este canal.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="estrategia" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-[#3D405B] mb-2">Estrategia de Pauta: "Click to WhatsApp"</h3>
+                <p class="text-gray-600 max-w-3xl mx-auto">Utilizamos anuncios en Facebook e Instagram para llevar a los clientes directamente a una conversación en WhatsApp, eliminando pasos y reduciendo la fricción. A continuación, se detallan las campañas clave para maximizar ventas y optimizar costos.</p>
+            </div>
+            <div>
+                <div class="mb-6 flex justify-center flex-wrap gap-2 md:gap-4" id="tabs-container">
+                    <button class="tab-btn active px-4 py-2 rounded-full font-semibold transition bg-white border border-gray-300" data-tab="recuperacion">Recuperación de Carrito</button>
+                    <button class="tab-btn px-4 py-2 rounded-full font-semibold transition bg-white border border-gray-300" data-tab="lanzamiento">Lanzamiento de Colección</button>
+                    <button class="tab-btn px-4 py-2 rounded-full font-semibold transition bg-white border border-gray-300" data-tab="promociones">Promociones Exclusivas</button>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 min-h-[250px]">
+                    <div id="recuperacion" class="tab-content">
+                        <h4 class="text-xl font-bold mb-4">Recuperación de Carrito Abandonado</h4>
+                        <p class="text-gray-600 mb-4">Re-impactar a usuarios que agregaron productos al carrito pero no compraron, ofreciendo asistencia directa para resolver sus dudas finales.</p>
+                        <ul class="space-y-2">
+                            <li><strong>🎯 Audiencia:</strong> Retargeting de visitantes del e-commerce que no finalizaron la compra.</li>
+                            <li><strong>🎨 Contenido:</strong> Carrusel con los productos abandonados y un descuento especial.</li>
+                            <li><strong>📣 CTA:</strong> "Chatea con Nosotros", "Finaliza tu compra con un descuento".</li>
+                        </ul>
+                    </div>
+                    <div id="lanzamiento" class="tab-content hidden">
+                        <h4 class="text-xl font-bold mb-4">Lanzamiento de Nueva Colección</h4>
+                        <p class="text-gray-600 mb-4">Generar expectativa y ventas inmediatas para las nuevas colecciones mensuales, llegando a un público con alta probabilidad de compra.</p>
+                        <ul class="space-y-2">
+                            <li><strong>🎯 Audiencia:</strong> Público "Lookalike" (similar) a los compradores existentes de Offcorss.</li>
+                            <li><strong>🎨 Contenido:</strong> Video atractivo de la nueva colección o carrusel con prendas destacadas.</li>
+                            <li><strong>📣 CTA:</strong> "Ver Catálogo en WhatsApp", "Sé el primero en comprar".</li>
+                        </ul>
+                    </div>
+                    <div id="promociones" class="tab-content hidden">
+                        <h4 class="text-xl font-bold mb-4">Promociones Exclusivas</h4>
+                        <p class="text-gray-600 mb-4">Fidelizar a la base de clientes actual con ofertas únicas y personalizadas, incentivando la recompra.</p>
+                        <ul class="space-y-2">
+                            <li><strong>🎯 Audiencia:</strong> Base de datos de clientes existentes de Offcorss.</li>
+                            <li><strong>🎨 Contenido:</strong> Imágenes o videos con ofertas por tiempo limitado, exclusivas para el canal.</li>
+                            <li><strong>📣 CTA:</strong> "Obtén tu Descuento VIP en WhatsApp", "Pregunta por tu talla".</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultados" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-[#3D405B] mb-2">Resultados Proyectados: Mayor Eficiencia y ROI</h3>
+                <p class="text-gray-600 max-w-3xl mx-auto">La estrategia no solo aumenta las ventas, sino que optimiza drásticamente la inversión. Las métricas proyectadas, basadas en benchmarks de la industria, demuestran un rendimiento superior en comparación con canales tradicionales.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <div class="lg:col-span-3">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="kpi-card text-left">
+                        <div class="text-3xl font-bold text-[#81B29A]">>20%</div>
+                        <div class="font-semibold text-gray-700">Tasa de Conversión a Venta</div>
+                        <p class="text-sm text-gray-500">De conversaciones iniciadas a compras finalizadas.</p>
+                    </div>
+                    <div class="kpi-card text-left">
+                        <div class="text-3xl font-bold text-[#81B29A]">$0.0085 USD</div>
+                        <div class="font-semibold text-gray-700">Costo por Conversación</div>
+                        <p class="text-sm text-gray-500">Excepcionalmente bajo en Colombia, maximizando el ROI.</p>
+                    </div>
+                     <div class="kpi-card text-left">
+                        <div class="text-3xl font-bold text-[#81B29A]">Menor CAC</div>
+                        <div class="font-semibold text-gray-700">Costo de Adquisición de Cliente</div>
+                        <p class="text-sm text-gray-500">Significativamente más bajo que el e-commerce tradicional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plan" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-[#3D405B] mb-2">Plan de Acción: Hoja de Ruta Estratégica</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">Una implementación por fases para asegurar una transición fluida, validar el modelo y escalar el crecimiento de manera sostenible.</p>
+            </div>
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 -translate-y-1/2"></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="relative bg-white p-6 rounded-lg shadow border border-gray-200">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3D405B] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                        <h4 class="font-bold text-lg mt-4 mb-2">Corto Plazo (0-3 Meses)</h4>
+                        <p class="text-sm text-gray-600">Configuración de la API de WhatsApp Business, creación de catálogos y lanzamiento de una campaña piloto de recuperación de carritos para validar KPIs.</p>
+                    </div>
+                    <div class="relative bg-white p-6 rounded-lg shadow border border-gray-200">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3D405B] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                        <h4 class="font-bold text-lg mt-4 mb-2">Mediano Plazo (3-12 Meses)</h4>
+                        <p class="text-sm text-gray-600">Implementación de chatbots para automatizar respuestas frecuentes e integración con el CRM para hiperpersonalizar la comunicación.</p>
+                    </div>
+                    <div class="relative bg-white p-6 rounded-lg shadow border border-gray-200">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3D405B] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                        <h4 class="font-bold text-lg mt-4 mb-2">Largo Plazo (12+ Meses)</h4>
+                        <p class="text-sm text-gray-600">Expansión de campañas a audiencias más amplias (Lookalike), uso del canal para todo el ciclo de vida del cliente y programas de lealtad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p>&copy; 2024 Propuesta de Estrategia Digital para Offcorss. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const tabsContainer = document.getElementById('tabs-container');
+            const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-btn')) {
+                    const tabId = e.target.dataset.tab;
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Tasa de Apertura', 'Tasa de Clics (CTR)'],
+                    datasets: [
+                        {
+                            label: 'Canal Tradicional (Email/PPC)',
+                            data: [20, 2],
+                            backgroundColor: '#F4A261',
+                            borderColor: '#F4A261',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Estrategia WhatsApp',
+                            data: [85, 15],
+                            backgroundColor: '#81B29A',
+                            borderColor: '#81B29A',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Rendimiento Comparativo de Canales (%)',
+                            font: {
+                                size: 16
+                            },
+                            padding: {
+                                bottom: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: '#e5e7eb'
+                            }
+                        },
+                        x: {
+                             grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

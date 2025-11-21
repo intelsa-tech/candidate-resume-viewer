@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal: Digital Marketing Specialist | INTELSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .tier-card.selected {
+            border-color: #3b82f6;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(1.05);
+            z-index: 10;
+            background-color: white;
+        }
+        .tier-card {
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        .tier-card:hover, .tier-card.selected {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="text-2xl font-bold tracking-tight text-slate-900">
+                    INTELSA BPO
+                </div>
+                <span class="hidden md:inline-block text-xs font-medium bg-slate-100 text-slate-500 px-2 py-1 rounded ml-4">
+                    Staffing Proposal
+                </span>
+            </div>
+            <div class="flex items-center gap-6">
+                <span class="text-sm text-slate-500">Prepared for <span class="font-semibold text-slate-900">DRBhatt Realty</span></span>
+                <a href="https://outlook.office.com/bookwithme/user/26b691c240b2448db2604169321f02b7%40intelsa.co?anonymous&ismsaljsauthenabled=true" target="_blank" class="flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl">
+                  Book Implementation Call 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative overflow-hidden pt-20 pb-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    Talent Ready for Deployment
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6 leading-tight">
+                    Scale your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Digital Growth</span> with dedicated talent.
+                </h1>
+                <p class="text-xl text-slate-500 mb-10 leading-relaxed max-w-2xl">
+                    A strategic proposal to integrate a high-performance <strong>Bilingual Digital Marketing Specialist</strong> into your operation. 
+                    <br>
+                    Managed by INTELSA, directed by you.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 text-sm font-medium text-slate-600">
+                    <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        Remote (LATAM)
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        9:00 AM - 5:00 PM EST
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                        Fully Compliant
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MARKET INSIGHTS (CHART) -->
+    <section class="py-20 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                
+                <!-- Text Context -->
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Market Intelligence: Salary Spectrum</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        We analyzed the LATAM talent market to identify the sweet spot between cost efficiency and high-performance reliability.
+                    </p>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        <strong>The Intelsa Standard:</strong> We position our talent in the <strong>$1,700 - $2,500</strong> range (Mid-High tier). This ensures we attract professionals with proven tenure, not transient freelancers.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 p-1 bg-red-50 rounded text-red-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-900">Low Tier ($1,000 range)</h4>
+                                <p class="text-sm text-slate-500">High churn risk, moonlighting issues, no equipment support.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 p-1 bg-green-100 rounded text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-900">Mid-High Tier ($1,700+)</h4>
+                                <p class="text-sm text-slate-500">Dedicated career professionals, full benefits, stability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISUAL CHART - 10 COLUMNS -->
+                <div class="md:w-1/2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative w-full">
+                    <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-8 flex items-center justify-between">
+                        <span>Monthly Compensation Distribution (USD)</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                    </h3>
+                    
+                    <!-- The 10 Columns Graph Container -->
+                    <div class="flex items-end justify-between h-64 gap-2 md:gap-3 relative">
+                        <!-- Background Grid Lines -->
+                        <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-30">
+                            <div class="border-t border-slate-200 w-full h-0"></div>
+                            <div class="border-t border-slate-200 w-full h-0"></div>
+                            <div class="border-t border-slate-200 w-full h-0"></div>
+                            <div class="border-t border-slate-200 w-full h-0"></div>
+                        </div>
+
+                        <!-- Bars -->
+                        <!-- Bar 1 -->
+                        <div class="w-full flex flex-col justify-end group h-full">
+                            <div class="w-full rounded-t-md bg-slate-200 h-[20%] group-hover:bg-slate-300 transition-all"></div>
+                            <div class="mt-3 text-center text-[10px] font-bold text-slate-400 uppercase tracking-tight">Low<br><span class="text-slate-600">$1k</span></div>
+                        </div>
+                        <!-- Bar 2 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-slate-200 h-[35%] group-hover:bg-slate-300 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 3 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-slate-200 h-[50%] group-hover:bg-slate-300 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 4 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-slate-200 h-[65%] group-hover:bg-slate-300 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 5 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-slate-200 h-[80%] group-hover:bg-slate-300 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        
+                        <!-- Bar 6 (TARGET - $1700) -->
+                        <div class="w-full flex flex-col justify-end group h-full relative">
+                             <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] py-1 px-2 rounded whitespace-nowrap font-bold shadow-lg">INTELSA</div>
+                            <div class="w-full rounded-t-md bg-blue-600 h-[100%] shadow-lg shadow-blue-200"></div>
+                            <div class="mt-3 text-center text-[10px] font-bold text-blue-600 uppercase tracking-tight scale-110">Mid<br><span class="text-blue-700">$1.7k</span></div>
+                        </div>
+
+                        <!-- Bar 7 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-blue-400 h-[90%] group-hover:bg-blue-500 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 8 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-blue-300 h-[75%] group-hover:bg-blue-400 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 9 -->
+                        <div class="w-full flex flex-col justify-end group h-full"><div class="w-full rounded-t-md bg-blue-200 h-[50%] group-hover:bg-blue-300 transition-all"></div><div class="mt-3 h-4"></div></div>
+                        <!-- Bar 10 (High) -->
+                        <div class="w-full flex flex-col justify-end group h-full">
+                            <div class="w-full rounded-t-md bg-slate-200 h-[30%] group-hover:bg-slate-300 transition-all"></div>
+                            <div class="mt-3 text-center text-[10px] font-bold text-slate-400 uppercase tracking-tight">High<br><span class="text-slate-600">$2.5k</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100 flex gap-3 items-start">
+                         <div class="text-blue-600 pt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         </div>
+                         <p class="text-xs text-blue-900 leading-relaxed">
+                           <strong>Market Insight:</strong> While you can find talent at <strong>$1,000</strong> (Low Tier), reliability peaks at the <strong>$1,700</strong> mark (Mid Tier). Intelsa targets this "Performance Zone" to guarantee ROI.
+                         </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- AI VETTING DEMO -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Validated by AI. Approved by Experts.</h2>
+            <p class="text-slate-600">We use advanced AI Voice & Skill analysis to pre-vet candidates before they ever reach your inbox.</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-800 relative">
+                <!-- Mock Video Interface -->
+                <div id="videoPlayer" class="aspect-video bg-slate-800 relative flex items-center justify-center group cursor-pointer">
+                    
+                    <!-- Thumbnail State -->
+                    <div id="videoThumbnail" class="absolute inset-0 w-full h-full z-20" onclick="toggleVideo()">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
+                        <!-- Placeholder Image -->
+                        <div class="w-full h-full bg-slate-700 flex items-center justify-center text-slate-600 font-bold text-4xl select-none">CANDIDATE</div>
+                        
+                        <div class="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md rounded-full p-6 border border-white/20 group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                        <div class="absolute bottom-6 left-6 z-20 text-left">
+                            <div class="text-white font-bold text-lg">Candidate: Kevin M.</div>
+                            <div class="text-blue-300 text-sm flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span> C1 English Verified
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Playing State (Hidden by default) -->
+                    <div id="videoContent" class="hidden w-full h-full bg-slate-900 z-10">
+                         <video id="proposalVideo" controls class="w-full h-full object-contain">
+                            <source src="https://daily-co-call-recordings.s3.us-west-2.amazonaws.com/vapi/Ut8e1FjTarGo5FhZKZJS/1758295132197" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                
+                <!-- Analysis Stats -->
+                <div class="bg-slate-950 p-6 grid grid-cols-3 gap-4 border-t border-slate-800">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400">94%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mt-1">English Fluency</div>
+                    </div>
+                    <div class="text-center border-x border-slate-800">
+                        <div class="text-2xl font-bold text-blue-400">8.5/10</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mt-1">Tech Proficiency</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-400">High</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mt-1">Problem Solving</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="py-24 bg-slate-50" id="pricing">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Transparent Staffing Models</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Choose the level of seniority that matches your team's speed. All plans include full legal compliance, payroll, and HR management.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
+                
+                <!-- TIER 1: Growth -->
+                <div id="tier-growth" onclick="selectTier('growth')" class="tier-card relative bg-white rounded-2xl p-8 shadow-sm border border-slate-200 cursor-pointer">
+                    <h3 class="text-lg font-bold text-slate-900">Growth</h3>
+                    <div class="mt-4 flex items-baseline text-slate-900">
+                        <span class="text-4xl font-bold tracking-tight">$1,750</span>
+                        <span class="ml-1 text-xl font-semibold text-slate-500">/mo</span>
+                    </div>
+                    <p class="mt-2 text-sm text-slate-500">USD Flat Fee</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <div class="text-sm font-medium text-slate-900 mb-2">Experience</div>
+                        <div class="text-sm text-slate-600 mb-4 bg-slate-100 inline-block px-2 py-1 rounded">2-3 Years</div>
+                        <p class="text-sm text-slate-600 italic mb-6">"Solid execution for consistent output."</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Content Creation
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Community Mgmt
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Basic Ads Support
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+                <!-- TIER 2: Professional (Default) -->
+                <div id="tier-professional" onclick="selectTier('professional')" class="tier-card selected relative bg-white rounded-2xl p-8 border-2 border-blue-500 cursor-pointer z-10 transform scale-105 shadow-xl">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Most Popular</div>
+                    <h3 class="text-lg font-bold text-slate-900">Professional</h3>
+                    <div class="mt-4 flex items-baseline text-slate-900">
+                        <span class="text-4xl font-bold tracking-tight">$2,000</span>
+                        <span class="ml-1 text-xl font-semibold text-slate-500">/mo</span>
+                    </div>
+                    <p class="mt-2 text-sm text-slate-500">USD Flat Fee</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <div class="text-sm font-medium text-slate-900 mb-2">Experience</div>
+                        <div class="text-sm text-slate-600 mb-4 bg-slate-100 inline-block px-2 py-1 rounded">3-5 Years</div>
+                        <p class="text-sm text-slate-600 italic mb-6">"Autonomous optimization & strategy."</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Advanced Strategy
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Full Google Ads Mgmt
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> A/B Testing & Opt
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+                <!-- TIER 3: Strategist -->
+                <div id="tier-strategist" onclick="selectTier('strategist')" class="tier-card relative bg-white rounded-2xl p-8 shadow-sm border border-slate-200 cursor-pointer">
+                    <h3 class="text-lg font-bold text-slate-900">Strategist</h3>
+                    <div class="mt-4 flex items-baseline text-slate-900">
+                        <span class="text-4xl font-bold tracking-tight">$2,250</span>
+                        <span class="ml-1 text-xl font-semibold text-slate-500">/mo</span>
+                    </div>
+                    <p class="mt-2 text-sm text-slate-500">USD Flat Fee</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <div class="text-sm font-medium text-slate-900 mb-2">Experience</div>
+                        <div class="text-sm text-slate-600 mb-4 bg-slate-100 inline-block px-2 py-1 rounded">5+ Years</div>
+                        <p class="text-sm text-slate-600 italic mb-6">"Leadership & full-funnel analytics."</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Cross-channel Strategy
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> High-budget Ads
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> ROI & LTV Analysis
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- JOB SCOPE & FOOTER -->
+    <section class="py-20 bg-white border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold text-slate-900 mb-8">Ready to see the full technical scope?</h2>
+            
+            <div class="bg-slate-50 rounded-xl p-8 mb-10 text-left border border-slate-100">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Role: Bilingual Digital Marketing VA
+                </h3>
+                <p class="text-slate-600 mb-6">
+                    This professional will handle end-to-end social media content creation, Google Ads management (keywords, targeting, optimization), and graphic design tasks. Ideal for scaling operations without management overhead.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-medium text-slate-600">Social Media Planning</span>
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-medium text-slate-600">Google Ads Manager</span>
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-medium text-slate-600">Canva / Adobe Suite</span>
+                    <span class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-medium text-slate-600">Reporting & Analytics</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    
+              <a href="https://outlook.office.com/bookwithme/user/26b691c240b2448db2604169321f02b7%40intelsa.co?anonymous&ismsaljsauthenabled=true" target="_blank" class="flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl">
+                  Book Implementation Call 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+          
+              <a href="https://d28xo2phpjy0uj.cloudfront.net/candidates/files/Virtual%20Assistant%20JD-3QzEVim1gv.pdf" download="Virtual_Assistant_JD.pdf" class="flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-900 border-2 border-slate-200 rounded-xl font-bold hover:border-slate-900 transition-all">
+                  Download Full JD 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              </a>
+          </div>
+            
+            <p class="mt-8 text-sm text-slate-400">
+                Proposal ID: INT-2024-MKT • Valid for 15 days from issuance.<br/>
+                © 2024 INTELSA. All rights reserved.
+            </p>
+        </div>
+    </section>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        function selectTier(tierId) {
+            // Reset all cards
+            const cards = document.querySelectorAll('.tier-card');
+            cards.forEach(card => {
+                card.classList.remove('selected', 'border-2', 'border-blue-500', 'z-10', 'transform', 'scale-105', 'shadow-xl');
+                card.classList.add('border', 'border-slate-200');
+                
+                // Reset button text and style
+                const btn = card.querySelector('.btn-select');
+                btn.textContent = "Select " + card.querySelector('h3').textContent;
+                btn.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+                btn.classList.add('bg-slate-100', 'text-slate-900', 'hover:bg-slate-200');
+            });
+
+            // Highlight selected card
+            const selected = document.getElementById('tier-' + tierId);
+            selected.classList.add('selected', 'border-2', 'border-blue-500', 'z-10', 'transform', 'scale-105', 'shadow-xl');
+            selected.classList.remove('border', 'border-slate-200');
+
+            // Update Button style
+            const activeBtn = selected.querySelector('.btn-select');
+            activeBtn.textContent = "Selected";
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-900', 'hover:bg-slate-200');
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+        }
+
+        function toggleVideo() {
+            const thumb = document.getElementById('videoThumbnail');
+            const content = document.getElementById('videoContent');
+            const video = document.getElementById('proposalVideo');
+            
+            if (content.classList.contains('hidden')) {
+                thumb.classList.add('hidden');
+                content.classList.remove('hidden');
+                video.play().catch(e => console.log("Autoplay prevented:", e));
+            } else {
+                // Optional: clicking again could pause/hide, but standard video controls handle pause.
+                // This logic handles if you wanted a dedicated "close" button.
+            }
+        }
+    </script>
+</body>
+</html>

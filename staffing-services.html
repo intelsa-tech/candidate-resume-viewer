@@ -1,0 +1,349 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Users, 
+  Briefcase, 
+  Globe, 
+  Clock, 
+  CheckCircle, 
+  TrendingUp, 
+  Shield, 
+  Cpu, 
+  FileText, 
+  UserCheck, 
+  Award,
+  ChevronRight,
+  Zap,
+  ArrowRight
+} from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+
+// --- Components ---
+
+const Section = ({ children, className = "" }) => (
+  <section className={`py-20 px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
+    {children}
+  </section>
+);
+
+const FadeIn = ({ children, delay = 0 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+  return (
+    <div className={`transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      {children}
+    </div>
+  );
+};
+
+const RoleCard = ({ title, icon: Icon, description }) => (
+  <div className="group p-8 bg-gray-50 rounded-3xl hover:bg-white hover:shadow-2xl transition-all duration-300 border border-transparent hover:border-gray-100 cursor-default">
+    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+      <Icon className="w-6 h-6 text-blue-600" />
+    </div>
+    <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
+    <p className="text-gray-500 leading-relaxed text-sm">{description}</p>
+  </div>
+);
+
+const Step = ({ number, title, description, icon: Icon, isLast }) => (
+  <div className="relative flex gap-8 pb-12 last:pb-0">
+    {!isLast && (
+      <div className="absolute left-[27px] top-14 bottom-0 w-0.5 bg-gray-200" />
+    )}
+    <div className="relative z-10 flex-shrink-0">
+      <div className="w-14 h-14 rounded-full bg-white border-2 border-gray-100 shadow-md flex items-center justify-center text-blue-600 font-bold text-lg">
+        {Icon ? <Icon size={24} /> : number}
+      </div>
+    </div>
+    <div className="pt-2">
+      <h4 className="text-xl font-bold text-gray-900 mb-2">{title}</h4>
+      <p className="text-gray-500 max-w-lg leading-relaxed">{description}</p>
+    </div>
+  </div>
+);
+
+// --- Data for Charts ---
+
+const salaryData = [
+  { name: 'US/EU Cost', cost: 100, fill: '#94a3b8' }, // Gray
+  { name: 'Latam Staffing', cost: 45, fill: '#2563eb' }, // Blue
+];
+
+const rolesData = [
+  { title: "Admin Staff", icon: FileText, desc: "Executive assistants, data entry, and bilingual administrative support." },
+  { title: "Jr. Accountant", icon: TrendingUp, desc: "Financial and accounting analysts knowledgeable in international standards." },
+  { title: "Human Resources", icon: Users, desc: "Recruiters, generalists, and organizational culture specialists." },
+  { title: "Sales", icon: Zap, desc: "SDRs, Account Executives, and business development representatives." },
+  { title: "Marketing", icon: Globe, desc: "Specialists in digital marketing, content creation, and social media management." },
+];
+
+// --- Main Application ---
+
+export default function StaffingLanding() {
+  const [activeTab, setActiveTab] = useState('intelsa');
+
+  return (
+    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-100">
+      
+      {/* Navigation (Simple) */}
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="text-2xl font-bold tracking-tighter text-gray-900">intelsa<span className="text-blue-600">.</span></div>
+          <a href="#contact" className="text-sm font-medium bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-colors">
+            Contact Us
+          </a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto text-center">
+        <FadeIn>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-medium mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            New Strategic Staffing Solution
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-8 max-w-4xl mx-auto leading-[1.1]">
+            Global Talent. <br/>
+            <span className="text-gray-400">No Boundaries.</span>
+          </h1>
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Scale your team with specialized roles in Latam. 
+            Admin, Finance, HR, and Sales, seamlessly integrated into your workflow.
+          </p>
+          <div className="flex justify-center gap-4">
+             <button className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 flex items-center gap-2">
+               Start Process <ArrowRight size={20}/>
+             </button>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Value Proposition Grid */}
+      <Section className="bg-gray-50 rounded-[3rem] my-12">
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="text-center md:text-left">
+            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6 mx-auto md:mx-0">
+              <Clock size={24} />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">Same Time Zone</h3>
+            <p className="text-gray-500">Real-time collaboration. Our teams operate in time zones aligned with EST/CST, eliminating delays.</p>
+          </div>
+          <div className="text-center md:text-left">
+            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6 mx-auto md:mx-0">
+              <Award size={24} />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">Cultural Affinity</h3>
+            <p className="text-gray-500">Talent with service DNA. Bilingual professionals with high Western cultural adaptability.</p>
+          </div>
+          <div className="text-center md:text-left">
+            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6 mx-auto md:mx-0">
+              <TrendingUp size={24} />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">Cost Efficiency</h3>
+            <p className="text-gray-500">Optimize your operating budget by accessing senior talent for a fraction of the local cost.</p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Dynamic Roles Section */}
+      <Section>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold tracking-tight mb-4">Specialized Roles</h2>
+          <p className="text-gray-500 text-lg">Pre-qualified profiles ready to integrate into your operation.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {rolesData.map((role, index) => (
+            <RoleCard key={index} {...role} />
+          ))}
+          <div className="group p-8 bg-blue-600 rounded-3xl flex flex-col justify-center items-center text-center text-white cursor-pointer hover:bg-blue-700 transition-colors">
+            <h3 className="text-xl font-semibold mb-2">Need another role?</h3>
+            <p className="text-blue-100 mb-4">Our Headhunting team can find it.</p>
+            <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </Section>
+
+      {/* The Workflow - Core Requirement */}
+      <Section className="bg-white">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="sticky top-32">
+            <h2 className="text-4xl font-bold tracking-tight mb-6">An Optimized Selection Workflow.</h2>
+            <p className="text-xl text-gray-500 mb-8 leading-relaxed">
+              We have designed a process that respects your time. We use AI and agile methodologies to present only the candidates that matter.
+            </p>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+              <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Zap size={20} className="text-yellow-500 fill-current" />
+                Immediate Impact
+              </h4>
+              <p className="text-gray-600 text-sm">
+                Our Pre-screening SLA is just <span className="font-bold text-gray-900">48 Hours</span>. 
+                Your operations team won't waste time reviewing unqualified resumes.
+              </p>
+            </div>
+          </div>
+
+          {/* Timeline */}
+          <div className="pl-4 md:pl-0">
+            <Step 
+              number="1" 
+              title="Requirement Definition" 
+              description="Client sends the desired profile and technical requirements." 
+              icon={FileText}
+            />
+            <Step 
+              number="2" 
+              title="Intelsa Pre-screening (48 Hrs)" 
+              description="We activate our network. Filtering initial candidates in record time." 
+              icon={Clock}
+            />
+            <Step 
+              number="3" 
+              title="AI Interviews" 
+              description="Objective evaluation of language and soft skills using Artificial Intelligence tools." 
+              icon={Cpu}
+            />
+            <Step 
+              number="4" 
+              title="Shortlist Submission" 
+              description="We present only candidates who meet profile, language, and cultural fit criteria." 
+              icon={UserCheck}
+            />
+            <Step 
+              number="5" 
+              title="Client Selection" 
+              description="You decide who to continue with. Optional: Specific technical evaluation." 
+              icon={Users}
+            />
+            <Step 
+              number="6" 
+              title="Rigorous Validation" 
+              description="Background checks, experience validation, and academic verification." 
+              icon={Shield}
+            />
+            <Step 
+              number="7" 
+              title="Hiring & Onboarding" 
+              description="Intelsa manages legal contracting and immediate deployment." 
+              icon={CheckCircle}
+              isLast={true}
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Responsibility Comparison & Data */}
+      <div className="bg-gray-900 text-white py-24 rounded-t-[3rem] mt-12">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">Operational Clarity</h2>
+            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
+              You focus on business growth. We handle the administrative complexity.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Interactive Toggle Card */}
+            <div className="bg-gray-800 rounded-3xl p-2 overflow-hidden shadow-2xl border border-gray-700">
+              <div className="flex p-1 bg-gray-900/50 rounded-2xl mb-6">
+                <button 
+                  onClick={() => setActiveTab('intelsa')}
+                  className={`flex-1 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${activeTab === 'intelsa' ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Intelsa Responsibility
+                </button>
+                <button 
+                  onClick={() => setActiveTab('client')}
+                  className={`flex-1 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${activeTab === 'client' ? 'bg-white text-black shadow-lg' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Client Responsibility
+                </button>
+              </div>
+
+              <div className="px-6 pb-8 min-h-[280px]">
+                {activeTab === 'intelsa' ? (
+                  <div className="animate-fadeIn">
+                    <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                      <Shield className="text-blue-400" /> Comprehensive Management
+                    </h3>
+                    <ul className="space-y-4 text-gray-300">
+                      <li className="flex items-start gap-3"><CheckCircle size={18} className="text-blue-500 mt-1"/> Legal hiring and Latam labor compliance.</li>
+                      <li className="flex items-start gap-3"><CheckCircle size={18} className="text-blue-500 mt-1"/> Payroll, social security, and benefits management.</li>
+                      <li className="flex items-start gap-3"><CheckCircle size={18} className="text-blue-500 mt-1"/> Continuous recruitment and replacements for attrition.</li>
+                      <li className="flex items-start gap-3"><CheckCircle size={18} className="text-blue-500 mt-1"/> IT equipment and local support.</li>
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="animate-fadeIn">
+                     <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-white">
+                      <Briefcase className="text-white" /> Operational Leadership
+                    </h3>
+                    <ul className="space-y-4 text-gray-300">
+                      <li className="flex items-start gap-3"><div className="w-4 h-4 rounded-full border border-white mt-1 flex items-center justify-center"><div className="w-2 h-2 bg-white rounded-full"></div></div> Defining KPIs and daily objectives.</li>
+                      <li className="flex items-start gap-3"><div className="w-4 h-4 rounded-full border border-white mt-1 flex items-center justify-center"><div className="w-2 h-2 bg-white rounded-full"></div></div> Training on proprietary business tools.</li>
+                      <li className="flex items-start gap-3"><div className="w-4 h-4 rounded-full border border-white mt-1 flex items-center justify-center"><div className="w-2 h-2 bg-white rounded-full"></div></div> Task assignment and functional supervision.</li>
+                      <li className="flex items-start gap-3"><div className="w-4 h-4 rounded-full border border-white mt-1 flex items-center justify-center"><div className="w-2 h-2 bg-white rounded-full"></div></div> Performance feedback and cultural integration.</li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Chart Section */}
+            <div className="bg-white text-gray-900 rounded-3xl p-8 shadow-2xl">
+              <h3 className="text-xl font-bold mb-2">Investment Efficiency</h3>
+              <p className="text-sm text-gray-500 mb-8">Total cost comparison (Salary + Burden + Overhead) vs Intelsa Staffing Model.</p>
+              
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={salaryData} layout="vertical" barSize={40}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e5e7eb"/>
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="name" width={100} tick={{fontSize: 12, fill: '#6b7280'}} axisLine={false} tickLine={false}/>
+                    <Tooltip 
+                      cursor={{fill: 'transparent'}}
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
+                    />
+                    <Bar dataKey="cost" radius={[0, 20, 20, 0]}>
+                        {salaryData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.fill} />
+                        ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-4 flex items-center justify-between text-sm bg-blue-50 p-4 rounded-xl text-blue-800">
+                <span className="font-semibold">Estimated Savings</span>
+                <span className="text-2xl font-bold">~55%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Footer */}
+      <section id="contact" className="py-24 px-6 text-center">
+        <h2 className="text-5xl font-bold tracking-tight mb-6">Ready to scale your team?</h2>
+        <p className="text-xl text-gray-500 mb-10 max-w-2xl mx-auto">
+          Start with a strategic consultation. No strings attached.
+        </p>
+        <button className="bg-black text-white px-10 py-4 rounded-full text-lg font-medium hover:scale-105 transition-transform duration-300 shadow-2xl">
+          Schedule Meeting
+        </button>
+        <p className="mt-8 text-sm text-gray-400">
+          © {new Date().getFullYear()} Intelsa. All rights reserved.
+        </p>
+      </section>
+
+    </div>
+  );
+}

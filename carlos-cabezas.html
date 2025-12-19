@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje para Carlos</title>
+    <style>
+        /* Estilos generales de la página */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Contenedor principal (tarjeta) */
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Estilo del texto */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        /* Contenedor responsivo para el video */
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #000;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Botón opcional (por si quieres agregar una acción después) */
+        .footer-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hola Carlos, este es un mensaje de agradecimiento para ti y el video:</h1>
+        
+        <div class="video-responsive">
+            <iframe 
+                src="https://inteligenciatecnologica-my.sharepoint.com/personal/mdigital_intelsa_co/_layouts/15/embed.aspx?UniqueId=59a5fd28-a520-4d6b-a0ae-b5c07e113b74&embed=%7B%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" 
+                width="640" 
+                height="360" 
+                frameborder="0" 
+                scrolling="no" 
+                allowfullscreen 
+                title="Dec_16__1504_56s_202512191226_ccqgd.mp4">
+            </iframe>
+        </div>
+        
+        <p class="footer-note">Intelsa BPO - KlimbUp</p>
+    </div>
+
+</body>
+</html>

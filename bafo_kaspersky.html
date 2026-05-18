@@ -1,0 +1,327 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:13px}
+.tabs{display:flex;gap:5px;margin-bottom:1.25rem;border-bottom:1px solid var(--color-border-tertiary);padding-bottom:0}
+.tab{padding:6px 14px;font-size:11.5px;font-weight:500;color:var(--color-text-secondary);border:0.5px solid transparent;border-bottom:none;border-radius:6px 6px 0 0;cursor:pointer;margin-bottom:-1px;background:transparent}
+.tab.active{background:var(--color-background-primary);color:var(--color-text-primary);border-color:var(--color-border-tertiary);border-bottom-color:var(--color-background-primary)}
+.panel{display:none}.panel.active{display:block}
+.sec-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.875rem 1.125rem;margin-bottom:.875rem}
+.card-title{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{padding:6px 8px;text-align:left;font-size:10px;font-weight:500;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+th.r{text-align:right}th.c{text-align:center}
+td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:middle}
+td.r{text-align:right;font-family:var(--font-mono);font-size:11px}td.c{text-align:center}
+td.cop{text-align:right;font-family:var(--font-mono);font-size:10px;color:var(--color-text-secondary)}
+td.old{text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);text-decoration:line-through}
+tr:last-child td{border-bottom:none}
+.total-row td{font-weight:500;background:var(--color-background-secondary);border-top:1px solid var(--color-border-tertiary)}
+.highlight-row td{background:#E6F1FB}
+.bafo-row td{background:#EAF3DE}
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500}
+.tok{background:#EAF3DE;color:#27500A}.twarn{background:#FAEEDA;color:#633806}.tbad{background:#FCEBEB;color:#A32D2D}.tblu{background:#E6F1FB;color:#0C447C}
+.flag{border-radius:var(--border-radius-md);padding:.625rem .875rem;margin-bottom:.5rem;display:flex;gap:.75rem;align-items:flex-start}
+.fi{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;margin-top:1px}
+.fi.ok{background:#EAF3DE;color:#27500A}.fi.warn{background:#FAEEDA;color:#633806}.fi.bad{background:#FCEBEB;color:#A32D2D}.fi.blu{background:#E6F1FB;color:#0C447C}
+.ft{font-size:12px;color:var(--color-text-primary);line-height:1.55}
+.ft strong{font-weight:500}
+.ft .note{font-size:10.5px;color:var(--color-text-secondary);margin-top:3px}
+.arrow{color:#27500A;font-weight:500}
+.delta-good{color:#27500A;font-weight:500}
+.delta-bad{color:#A32D2D}
+.big-val{font-size:18px;font-weight:500}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem}
+.metric .lbl{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px}
+.metric .val{font-size:17px;font-weight:500;color:var(--color-text-primary)}
+.metric .sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
+.metric.grn .val{color:#27500A}
+</style>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('diagnostico',this)">Diagnóstico</div>
+  <div class="tab" onclick="show('telemarketing',this)">Telemarketing BAFO</div>
+  <div class="tab" onclick="show('presales',this)">Presales BAFO</div>
+  <div class="tab" onclick="show('excel',this)">📋 Para el Excel</div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="panel active" id="diagnostico">
+<div class="sec-title">El problema real — ¿por qué los rates actuales están altos?</div>
+<div class="card">
+  <div class="card-title">Reverse-engineering del modelo actual (Cost / 0.70 = Price)</div>
+  <table>
+    <tr>
+      <th style="width:26%">Rol / Región</th>
+      <th class="r">Precio actual COP</th>
+      <th class="r">Precio actual USD</th>
+      <th class="r">Costo implícito (70%)</th>
+      <th class="r">Salario implícito</th>
+      <th class="c">Problema</th>
+    </tr>
+    <tr>
+      <td>Telemarketing Brazil PT</td>
+      <td class="cop">$11,840,000</td><td class="r">$2,819</td><td class="r">$1,973</td>
+      <td class="r">~$1,478 USD</td>
+      <td class="c"><span class="twarn">Calculado desde Colombia, no desde SP</span></td>
+    </tr>
+    <tr>
+      <td>Telemarketing NOLA ES</td>
+      <td class="cop">$9,250,000</td><td class="r">$2,202</td><td class="r">$1,541</td>
+      <td class="r">~$1,050 USD</td>
+      <td class="c"><span class="tok">Razonable, poco margen para bajar</span></td>
+    </tr>
+    <tr>
+      <td>Telemarketing Mexico ES</td>
+      <td class="cop">$11,840,000</td><td class="r">$2,819</td><td class="r">$1,973</td>
+      <td class="r">~$1,478 USD</td>
+      <td class="c"><span class="twarn">Calculado desde Colombia, no desde CDMX</span></td>
+    </tr>
+    <tr>
+      <td>Presales SOLA ES</td>
+      <td class="cop">$18,130,000</td><td class="r">$4,317</td><td class="r">$3,022</td>
+      <td class="r">~$1,800 USD</td>
+      <td class="c"><span class="twarn">Colombia-based con salary COP 9M</span></td>
+    </tr>
+    <tr>
+      <td>Presales Mexico ES</td>
+      <td class="cop">$18,130,000</td><td class="r">$4,317</td><td class="r">$3,022</td>
+      <td class="r">~$1,800 USD</td>
+      <td class="c"><span class="twarn">Colombia-based con salary COP 9M</span></td>
+    </tr>
+  </table>
+</div>
+
+<div class="flag" style="background:#E6F1FB;border:0.5px solid #378ADD">
+  <div class="fi blu">→</div>
+  <div class="ft">
+    <strong>La oportunidad del BAFO:</strong> Si cambias el modelo de costo base de Colombia a contratación local (São Paulo para PT, Buenos Aires para SOLA, CDMX para México), los salarios locales en USD son menores que el costo implícito actual — y puedes bajar el precio sin destruir el margen. Combinar eso con una reducción de margen del 30% → 22–24% entrega un BAFO competitivo y honesto.
+    <div class="note">Kaspersky recibirá un mejor precio, tú mantienes margen positivo, y contratas talent local top en cada ciudad.</div>
+  </div>
+</div>
+
+<div class="grid3" style="margin-top:.875rem">
+  <div class="metric grn"><div class="lbl">Reducción Telemarketing Brazil</div><div class="val">−27%</div><div class="sub">$2,819 → $2,050 USD</div></div>
+  <div class="metric grn"><div class="lbl">Reducción Presales SOLA</div><div class="val">−28%</div><div class="sub">$4,317 → $3,100 USD</div></div>
+  <div class="metric grn"><div class="lbl">Reducción Presales Mexico</div><div class="val">−14%</div><div class="sub">$4,317 → $3,700 USD</div></div>
+</div>
+</div>
+
+<!-- TELEMARKETING BAFO -->
+<div class="panel" id="telemarketing">
+<div class="sec-title">Telemarketing (renewals & SQL management) — BAFO por geografía</div>
+
+<div class="card">
+  <div class="card-title">🇧🇷 Brazil — São Paulo · Contratación local · Bilingüe PT/EN</div>
+  <table>
+    <tr><th style="width:28%">Concepto</th><th class="r">Actual</th><th class="r">BAFO</th><th class="r">Delta</th></tr>
+    <tr><td>Salary local (R$/mes)</td><td class="old">R$6,400 (~implícito CO)</td><td class="r" style="color:#27500A">R$4,800/mes</td><td class="r delta-good">−25%</td></tr>
+    <tr><td>Salary en USD</td><td class="old">$1,478</td><td class="r">$814</td><td class="r delta-good">−$664</td></tr>
+    <tr><td>Carga laboral Brasil (+68%)</td><td class="r">—</td><td class="r">$554</td><td class="r">—</td></tr>
+    <tr><td>Overhead + telecom</td><td class="r">$200</td><td class="r">$200</td><td class="r">—</td></tr>
+    <tr class="total-row"><td>Costo all-in</td><td class="old">$1,973</td><td class="r">$1,568</td><td class="r delta-good">−$405</td></tr>
+    <tr class="bafo-row"><td><strong>Precio BAFO (margen 23%)</strong></td><td class="old cop">$11,840,000</td><td class="r" style="font-size:14px;font-weight:500;color:#27500A">COP $8,610,000</td><td class="r delta-good">−27.3%</td></tr>
+    <tr><td>USD equivalente</td><td class="old">$2,819</td><td class="r" style="color:#0C447C;font-weight:500">$2,050</td><td class="r delta-good">−$769</td></tr>
+    <tr><td>Margen</td><td class="r">30%</td><td class="r" style="color:#27500A">23%</td><td class="r">−7 pp</td></tr>
+  </table>
+  <div style="font-size:10.5px;color:var(--color-text-secondary);margin-top:.625rem">R$4,800 en São Paulo es un salario competitivo para inside sales bilingüe PT/EN con 2+ años de experiencia. No es top of market pero atrae perfiles sólidos. Si quieres el top 20% sube a R$5,500 → precio sube a COP 9,200,000.</div>
+</div>
+
+<div class="card">
+  <div class="card-title">🇨🇴 NOLA — Colombia (ES) · Ajuste menor</div>
+  <table>
+    <tr><th style="width:28%">Concepto</th><th class="r">Actual</th><th class="r">BAFO</th><th class="r">Delta</th></tr>
+    <tr><td>Salario base COP</td><td class="cop">$3,800,000</td><td class="cop" style="color:#27500A">$3,800,000</td><td class="r">—</td></tr>
+    <tr><td>Salario USD</td><td class="r">$905</td><td class="r">$905</td><td class="r">—</td></tr>
+    <tr><td>Carga laboral CO (+51.3%)</td><td class="r">$464</td><td class="r">$464</td><td class="r">—</td></tr>
+    <tr><td>Overhead</td><td class="r">$195</td><td class="r">$195</td><td class="r">—</td></tr>
+    <tr class="total-row"><td>Costo all-in</td><td class="r">$1,564</td><td class="r">$1,564</td><td class="r">—</td></tr>
+    <tr class="bafo-row"><td><strong>Precio BAFO (margen 22%)</strong></td><td class="old cop">$9,250,000</td><td class="r" style="font-size:14px;font-weight:500;color:#27500A">COP $8,410,000</td><td class="r delta-good">−9%</td></tr>
+    <tr><td>USD equivalente</td><td class="old">$2,202</td><td class="r" style="color:#0C447C;font-weight:500">$2,002</td><td class="r delta-good">−$200</td></tr>
+    <tr><td>Margen</td><td class="r">30%</td><td class="r" style="color:#27500A">22%</td><td class="r">−8 pp</td></tr>
+  </table>
+  <div style="font-size:10.5px;color:var(--color-text-secondary);margin-top:.625rem">NOLA tiene el rate más bajo — poco espacio para bajar sin comprometer el perfil. COP 3,800,000 es el Renewal & SQL Specialist real. Reducción marginal del precio preservando todo el modelo de talento.</div>
+</div>
+
+<div class="card">
+  <div class="card-title">🇲🇽 México — Ciudad de México · Contratación local</div>
+  <table>
+    <tr><th style="width:28%">Concepto</th><th class="r">Actual</th><th class="r">BAFO</th><th class="r">Delta</th></tr>
+    <tr><td>Salary local (MXN/mes)</td><td class="old">MXN ~25,800 (implícito CO)</td><td class="r" style="color:#27500A">MXN 20,000</td><td class="r delta-good">−22%</td></tr>
+    <tr><td>Salary en USD</td><td class="old">$1,478</td><td class="r">$1,143</td><td class="r delta-good">−$335</td></tr>
+    <tr><td>Carga laboral MX (+38%)</td><td class="r">—</td><td class="r">$434</td><td class="r">—</td></tr>
+    <tr><td>Overhead + telecom</td><td class="r">$200</td><td class="r">$210</td><td class="r">—</td></tr>
+    <tr class="total-row"><td>Costo all-in</td><td class="old">$1,973</td><td class="r">$1,787</td><td class="r delta-good">−$186</td></tr>
+    <tr class="bafo-row"><td><strong>Precio BAFO (margen 22%)</strong></td><td class="old cop">$11,840,000</td><td class="r" style="font-size:14px;font-weight:500;color:#27500A">COP $9,660,000</td><td class="r delta-good">−18.4%</td></tr>
+    <tr><td>USD equivalente</td><td class="old">$2,819</td><td class="r" style="color:#0C447C;font-weight:500">$2,300</td><td class="r delta-good">−$519</td></tr>
+    <tr><td>Margen</td><td class="r">30%</td><td class="r" style="color:#27500A">22%</td><td class="r">−8 pp</td></tr>
+  </table>
+  <div style="font-size:10.5px;color:var(--color-text-secondary);margin-top:.625rem">MXN 20,000 ($1,143 USD) es competitivo para inside sales B2B bilingüe EN/ES en CDMX — mercado maduro por nearshoring. Si quieres top talent sube a MXN 24,000 → precio sube a COP 10,500,000.</div>
+</div>
+</div>
+
+<!-- PRESALES BAFO -->
+<div class="panel" id="presales">
+<div class="sec-title">Technical Presales Support — BAFO por geografía</div>
+
+<div class="card">
+  <div class="card-title">🇦🇷 SOLA — Buenos Aires · Contratación local · La mayor reducción posible</div>
+  <table>
+    <tr><th style="width:28%">Concepto</th><th class="r">Actual (CO-based)</th><th class="r">BAFO (BA local)</th><th class="r">Delta</th></tr>
+    <tr><td>Salario</td><td class="old">COP 9,000,000 = $2,143</td><td class="r" style="color:#27500A">$1,500 USD (BA)</td><td class="r delta-good">−$643</td></tr>
+    <tr><td>Carga laboral (+47% AR)</td><td class="old">$1,099 (CO +51.3%)</td><td class="r">$705</td><td class="r delta-good">−$394</td></tr>
+    <tr><td>LinkedIn SN + tools</td><td class="r">$250</td><td class="r">$250</td><td class="r">—</td></tr>
+    <tr><td>Overhead</td><td class="r">$280</td><td class="r">$250</td><td class="r delta-good">−$30</td></tr>
+    <tr class="total-row"><td>Costo all-in</td><td class="old">$3,772</td><td class="r">$2,705</td><td class="r delta-good">−$1,067</td></tr>
+    <tr class="bafo-row"><td><strong>Precio BAFO (margen 23%)</strong></td><td class="old cop">$18,130,000</td><td class="r" style="font-size:14px;font-weight:500;color:#27500A">COP $14,700,000</td><td class="r delta-good">−18.9%</td></tr>
+    <tr><td>USD equivalente</td><td class="old">$4,317</td><td class="r" style="color:#0C447C;font-weight:500">$3,500</td><td class="r delta-good">−$817</td></tr>
+    <tr><td>Margen</td><td class="r">30%</td><td class="r" style="color:#27500A">23%</td><td class="r">−7 pp</td></tr>
+  </table>
+  <div style="font-size:10.5px;color:var(--color-text-secondary);margin-top:.625rem">$1,500 USD en Buenos Aires contrata un perfil mid-senior de presales técnico con exposición a ciberseguridad. La comunidad tech argentina es sólida — este salario es competitivo y atrae candidatos con experiencia en IT security o soluciones enterprise.</div>
+</div>
+
+<div class="card">
+  <div class="card-title">🇲🇽 México — Colombia-based · Reducción de salario base</div>
+  <table>
+    <tr><th style="width:28%">Concepto</th><th class="r">Actual</th><th class="r">BAFO</th><th class="r">Delta</th></tr>
+    <tr><td>Salario base COP</td><td class="old cop">$9,000,000</td><td class="cop" style="color:#27500A">$7,200,000</td><td class="r delta-good">−$1,800,000 COP</td></tr>
+    <tr><td>Salario USD</td><td class="old">$2,143</td><td class="r">$1,714</td><td class="r delta-good">−$429</td></tr>
+    <tr><td>Carga laboral CO (+51.3%)</td><td class="old">$1,099</td><td class="r">$879</td><td class="r delta-good">−$220</td></tr>
+    <tr><td>LinkedIn SN + tools</td><td class="r">$250</td><td class="r">$250</td><td class="r">—</td></tr>
+    <tr><td>Overhead</td><td class="r">$280</td><td class="r">$280</td><td class="r">—</td></tr>
+    <tr class="total-row"><td>Costo all-in</td><td class="old">$3,772</td><td class="r">$3,123</td><td class="r delta-good">−$649</td></tr>
+    <tr class="bafo-row"><td><strong>Precio BAFO (margen 22%)</strong></td><td class="old cop">$18,130,000</td><td class="r" style="font-size:14px;font-weight:500;color:#27500A">COP $16,780,000</td><td class="r delta-good">−7.5%</td></tr>
+    <tr><td>USD equivalente</td><td class="old">$4,317</td><td class="r" style="color:#0C447C;font-weight:500">$3,995</td><td class="r delta-good">−$322</td></tr>
+    <tr><td>Margen</td><td class="r">30%</td><td class="r" style="color:#27500A">22%</td><td class="r">−8 pp</td></tr>
+  </table>
+  <div style="font-size:10.5px;color:var(--color-text-secondary);margin-top:.625rem">COP 7,200,000 para un Technical Presales desde Colombia sigue siendo un salario que atrae muy buenos perfiles con experiencia en soluciones tech y algo de ciberseguridad. No es el COP 9M original, pero es suficiente para este scope (no se requiere arquitectura completa de soluciones según el JD de Kaspersky).</div>
+</div>
+
+<div class="flag" style="background:#FAEEDA;border:0.5px solid #EF9F27">
+  <div class="fi warn">!</div>
+  <div class="ft">
+    <strong>Presales Mexico tiene menor margen de reducción que SOLA.</strong> Contratar localmente en CDMX empeoraría el precio (MXN 38,000+ sube el costo). La mejor palanca para México es bajar el salario base en Colombia de COP 9M → COP 7.2M. Esto es viable porque el JD de Kaspersky dice explícitamente que <em>no se requiere full solution architecture ownership</em> — un perfil mid con conocimiento de ciberseguridad y presentaciones técnicas cumple el rol.
+  </div>
+</div>
+</div>
+
+<!-- PARA EL EXCEL -->
+<div class="panel" id="excel">
+<div class="sec-title">Valores exactos para actualizar en el Excel — Exhibit C</div>
+
+<div class="card">
+  <div class="card-title">Telemarketing (renewals and SQL management) — nuevos valores por celda</div>
+  <table>
+    <tr>
+      <th style="width:28%">Campo en Excel</th>
+      <th class="c">Brazil</th>
+      <th class="c">SOLA</th>
+      <th class="c">NOLA</th>
+      <th class="c">Mexico</th>
+    </tr>
+    <tr>
+      <td>Proposed FTEs (PT)</td>
+      <td class="c" style="font-weight:500">3</td><td class="c">—</td><td class="c">—</td><td class="c">—</td>
+    </tr>
+    <tr class="bafo-row">
+      <td><strong>Price per FTE / month (PT)</strong></td>
+      <td class="c" style="font-weight:500;color:#27500A">COP 8,610,000<br><span style="font-size:10px;color:#555">≈ $2,050 USD</span></td>
+      <td class="c">—</td><td class="c">—</td><td class="c">—</td>
+    </tr>
+    <tr>
+      <td>Proposed FTEs (ES)</td>
+      <td class="c">—</td><td class="c">—</td>
+      <td class="c" style="font-weight:500">2</td>
+      <td class="c" style="font-weight:500">1</td>
+    </tr>
+    <tr class="bafo-row">
+      <td><strong>Price per FTE / month (ES)</strong></td>
+      <td class="c">—</td><td class="c">—</td>
+      <td class="c" style="font-weight:500;color:#27500A">COP 8,410,000<br><span style="font-size:10px;color:#555">≈ $2,002 USD</span></td>
+      <td class="c" style="font-weight:500;color:#27500A">COP 9,660,000<br><span style="font-size:10px;color:#555">≈ $2,300 USD</span></td>
+    </tr>
+    <tr style="background:#F5F5F5">
+      <td style="font-size:10px;color:var(--color-text-secondary)">Precio anterior</td>
+      <td class="cop">$11,840,000</td><td class="c">—</td>
+      <td class="cop">$9,250,000</td>
+      <td class="cop">$11,840,000</td>
+    </tr>
+    <tr style="background:#F5F5F5">
+      <td style="font-size:10px;color:var(--color-text-secondary)">Reducción</td>
+      <td class="c" style="color:#27500A;font-size:10px">−27.3%</td><td class="c">—</td>
+      <td class="c" style="color:#27500A;font-size:10px">−9.1%</td>
+      <td class="c" style="color:#27500A;font-size:10px">−18.4%</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">Technical Presales Support — nuevos valores por celda</div>
+  <table>
+    <tr>
+      <th style="width:28%">Campo en Excel</th>
+      <th class="c">Brazil</th>
+      <th class="c">SOLA</th>
+      <th class="c">NOLA</th>
+      <th class="c">Mexico</th>
+    </tr>
+    <tr>
+      <td>Proposed FTEs (ES)</td>
+      <td class="c">—</td>
+      <td class="c" style="font-weight:500">1</td>
+      <td class="c">—</td>
+      <td class="c" style="font-weight:500">1</td>
+    </tr>
+    <tr class="bafo-row">
+      <td><strong>Price per FTE / month (ES)</strong></td>
+      <td class="c">—</td>
+      <td class="c" style="font-weight:500;color:#27500A">COP 14,700,000<br><span style="font-size:10px;color:#555">≈ $3,500 USD</span></td>
+      <td class="c">—</td>
+      <td class="c" style="font-weight:500;color:#27500A">COP 16,780,000<br><span style="font-size:10px;color:#555">≈ $3,995 USD</span></td>
+    </tr>
+    <tr style="background:#F5F5F5">
+      <td style="font-size:10px;color:var(--color-text-secondary)">Precio anterior</td>
+      <td class="c">—</td>
+      <td class="cop">$18,130,000</td>
+      <td class="c">—</td>
+      <td class="cop">$18,130,000</td>
+    </tr>
+    <tr style="background:#F5F5F5">
+      <td style="font-size:10px;color:var(--color-text-secondary)">Reducción</td>
+      <td class="c">—</td>
+      <td class="c" style="color:#27500A;font-size:10px">−18.9%</td>
+      <td class="c">—</td>
+      <td class="c" style="color:#27500A;font-size:10px">−7.5%</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card" style="background:#EAF3DE;border-color:#8DB84E">
+  <div class="card-title" style="color:#27500A">Resumen del BAFO — impacto total</div>
+  <table>
+    <tr>
+      <th style="width:40%">Servicio / Región</th>
+      <th class="r">Precio anterior</th>
+      <th class="r">BAFO</th>
+      <th class="r">Ahorro anual para Kaspersky</th>
+    </tr>
+    <tr><td>Telemarketing Brazil (×3 FTEs)</td><td class="cop">$35,520,000/mes</td><td class="r" style="color:#27500A">$25,830,000/mes</td><td class="r delta-good">$116,280,000/año</td></tr>
+    <tr><td>Telemarketing NOLA (×2 FTEs)</td><td class="cop">$18,500,000/mes</td><td class="r" style="color:#27500A">$16,820,000/mes</td><td class="r delta-good">$20,160,000/año</td></tr>
+    <tr><td>Telemarketing Mexico (×1 FTE)</td><td class="cop">$11,840,000/mes</td><td class="r" style="color:#27500A">$9,660,000/mes</td><td class="r delta-good">$26,160,000/año</td></tr>
+    <tr><td>Presales SOLA (×1 FTE)</td><td class="cop">$18,130,000/mes</td><td class="r" style="color:#27500A">$14,700,000/mes</td><td class="r delta-good">$41,160,000/año</td></tr>
+    <tr><td>Presales Mexico (×1 FTE)</td><td class="cop">$18,130,000/mes</td><td class="r" style="color:#27500A">$16,780,000/mes</td><td class="r delta-good">$16,200,000/año</td></tr>
+    <tr class="total-row">
+      <td>TOTAL AHORRO ANUAL</td>
+      <td class="r">—</td><td class="r">—</td>
+      <td class="r" style="color:#27500A;font-size:13px">COP $219,960,000<br><span style="font-size:11px">≈ $52,371 USD/año</span></td>
+    </tr>
+  </table>
+  <div style="font-size:10.5px;color:#3B6D11;margin-top:.75rem">Margenes finales: Brazil 23% · NOLA 22% · Mexico 22% · Presales SOLA 23% · Presales Mexico 22% · Modelos sostenibles con talento local de calidad en cada ciudad.</div>
+</div>
+</div>
+
+<script>
+function show(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+</script>

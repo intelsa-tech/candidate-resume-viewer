@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidate Delivery — Web Developer & Web Analyst | SMDigital</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --orange: #ff9345;
+    --green: #a9d944;
+    --dark: #414c4c;
+    --gray-light: #f7f8f6;
+    --gray-mid: #e8ebe8;
+    --gray-text: #6b7575;
+    --white: #ffffff;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f2f0;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-mid);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .top-nav-inner {
+    max-width: 980px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: stretch; justify-content: space-between;
+  }
+  .brand-block {
+    display: flex; align-items: center; gap: 10px; padding: 14px 0; flex-shrink: 0;
+  }
+  .brand-dot {
+    width: 30px; height: 30px; border-radius: 3px;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brand-dot span { color: #fff; font-size: 13px; font-weight: 700; }
+  .brand-name { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.2; }
+  .brand-sub  { font-size: 10px; color: var(--gray-text); }
+  .role-info {
+    display: flex; align-items: center; gap: 12px; padding: 14px 0;
+  }
+  .role-title-top { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .role-sub-top   { font-size: 11px; color: var(--gray-text); }
+  .role-badge-top {
+    background: var(--orange); color: #fff;
+    font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 3px;
+    letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ── CANDIDATE SUB-NAV ── */
+  .candidate-nav-bar {
+    position: sticky; top: 59px; z-index: 20;
+    background: var(--gray-light);
+    border-bottom: 1px solid var(--gray-mid);
+  }
+  .candidate-nav-inner {
+    max-width: 980px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: stretch; overflow-x: auto; gap: 0;
+    scrollbar-width: none;
+  }
+  .candidate-nav-inner::-webkit-scrollbar { display: none; }
+  .candidate-tab {
+    cursor: pointer; border: none; background: none;
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500;
+    color: var(--gray-text);
+    padding: 12px 20px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .candidate-tab:hover { color: var(--dark); }
+  .candidate-tab.active { color: var(--orange); border-bottom-color: var(--orange); font-weight: 600; }
+
+  /* ── PAGE BODY ── */
+  .page-body {
+    max-width: 980px; margin: 0 auto; padding: 32px 24px 80px;
+  }
+
+  /* ── PROFILE HEADER ── */
+  .profile-header {
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .profile-strip       { height: 4px; background: var(--orange); }
+  .profile-strip.green { background: var(--green); }
+
+  .profile-head-inner {
+    padding: 24px 28px;
+    display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;
+  }
+  .avatar-circle {
+    width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+  }
+  .av-orange { background: #fff0e5; color: var(--orange); }
+  .av-green  { background: #f2f9e5; color: #5a8f1a; }
+
+  .profile-info { flex: 1; min-width: 0; }
+  .head-name     { font-size: 20px; font-weight: 700; color: var(--dark); }
+  .head-title    { font-size: 12px; color: var(--gray-text); margin-top: 2px; }
+  .head-location { font-size: 12px; color: var(--gray-text); margin-top: 1px; }
+
+  .profile-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+  .score-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 2.5px solid var(--orange);
+  }
+  .score-circle.green-border { border-color: var(--green); }
+  .score-num   { font-size: 22px; font-weight: 700; color: var(--dark); line-height: 1; }
+  .score-denom { font-size: 10px; color: var(--gray-text); }
+  .rec-badge { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .rec-strong { background: var(--orange); color: #fff; }
+  .rec-solid  { background: var(--green); color: #2e5500; }
+
+  /* ── TAGS ── */
+  .tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { font-size: 11px; padding: 3px 8px; border-radius: 3px; border: 1px solid var(--gray-mid); color: var(--gray-text); font-weight: 500; }
+  .tag-pos { border-color: var(--green); color: #3e6b0e; background: #f5fbea; }
+  .tag-neg { border-color: #f5c0c0; color: #a32d2d; background: #fff5f5; }
+  .tag-neu { border-color: #c8d8f0; color: #2a6fa8; background: #eef6ff; }
+  .tag-sal { border-color: #ffd4a8; color: #8a4000; background: #fff8f3; }
+
+  /* ── CONTENT GRID ── */
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .content-grid { grid-template-columns: 1fr; } }
+  .content-card { background: var(--white); border: 1px solid var(--gray-mid); border-radius: 3px; padding: 20px 22px; }
+  .content-card.full { grid-column: 1 / -1; }
+
+  .section-label {
+    font-size: 10px; font-weight: 600; color: var(--orange);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+
+  /* info table */
+  .info-table { width: 100%; }
+  .info-table tr td { padding: 5px 0; font-size: 13px; vertical-align: top; }
+  .info-table tr td:first-child { color: var(--gray-text); width: 48%; }
+  .info-table tr td:last-child  { font-weight: 500; color: var(--dark); }
+
+  /* salary highlight row */
+  .sal-row td { padding-top: 8px !important; }
+  .sal-val { color: var(--orange) !important; font-weight: 700 !important; font-size: 14px !important; }
+  .sal-note { font-size: 11px; color: var(--gray-text); font-weight: 400 !important; display: block; margin-top: 2px; }
+
+  /* bars */
+  .bar-item { margin-bottom: 10px; }
+  .bar-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .bar-name { font-size: 12px; color: var(--dark); font-weight: 500; }
+  .bar-val  { font-size: 12px; font-weight: 600; color: var(--orange); }
+  .bar-val.green-val { color: #5a8f1a; }
+  .bar-track { height: 6px; background: var(--gray-mid); border-radius: 3px; overflow: hidden; }
+  .bar-fill  { height: 100%; border-radius: 3px; background: var(--orange); }
+  .bar-fill.gfill { background: var(--green); }
+
+  /* insights */
+  .insight-block { margin-bottom: 14px; }
+  .insight-title { font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .insight-text  { font-size: 12px; color: var(--gray-text); line-height: 1.6; }
+
+  /* verdict */
+  .verdict-box {
+    grid-column: 1 / -1;
+    background: var(--gray-light);
+    border-left: 3px solid var(--orange);
+    padding: 14px 16px;
+    border-radius: 0 3px 3px 0;
+  }
+  .verdict-box.green-l { border-left-color: var(--green); }
+  .verdict-box p { font-size: 13px; color: var(--dark); line-height: 1.65; }
+
+  /* watch box */
+  .watch-box {
+    grid-column: 1 / -1;
+    background: #fff8f3; border: 1px solid #ffd4a8;
+    padding: 12px 16px; border-radius: 3px;
+  }
+  .watch-title { font-size: 11px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .watch-list  { list-style: none; }
+  .watch-list li {
+    font-size: 12px; color: #7a4a10; line-height: 1.5;
+    padding: 2px 0 2px 14px; position: relative;
+  }
+  .watch-list li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-size: 10px; top: 3px; }
+
+  /* salary box */
+  .salary-box {
+    grid-column: 1 / -1;
+    background: #fff8f3;
+    border: 1px solid #ffd4a8;
+    border-radius: 3px;
+    padding: 16px 20px;
+    display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;
+  }
+  .salary-item { flex: 1; min-width: 160px; }
+  .salary-item-label { font-size: 10px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .salary-item-val   { font-size: 18px; font-weight: 700; color: var(--dark); }
+  .salary-item-note  { font-size: 11px; color: var(--gray-text); margin-top: 3px; line-height: 1.4; }
+  .salary-divider    { width: 1px; background: var(--gray-mid); align-self: stretch; }
+
+  /* video */
+  .video-wrap { margin-top: 10px; }
+  .video-wrap video { width: 100%; border-radius: 3px; background: #000; display: block; }
+
+  /* skills pills */
+  .skills-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-pill {
+    font-size: 11px; padding: 3px 10px; border-radius: 3px;
+    background: #fff0e5; border: 1px solid #ffd4a8;
+    color: #8a4000; font-weight: 500;
+  }
+  .skill-pill.green { background: #f2f9e5; border-color: #c0df80; color: #3e6b0e; }
+
+  /* experience */
+  .exp-item { margin-bottom: 16px; }
+  .exp-item:last-child { margin-bottom: 0; }
+  .exp-title   { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .exp-company { font-size: 12px; color: var(--orange); font-weight: 500; margin-top: 1px; }
+  .exp-period  { font-size: 11px; color: var(--gray-text); margin-top: 1px; }
+  .exp-bullets { list-style: none; margin-top: 6px; padding: 0; }
+  .exp-bullets li {
+    font-size: 12px; color: var(--gray-text); line-height: 1.6;
+    padding: 2px 0 2px 14px; position: relative;
+  }
+  .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--orange); }
+
+  /* footer */
+  .page-footer {
+    max-width: 980px; margin: 40px auto 0;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    padding: 20px 24px 40px;
+    border-top: 1px solid var(--gray-mid);
+  }
+  .footer-note { font-size: 11px; color: var(--gray-text); }
+  .footer-brand { display: flex; align-items: center; gap: 8px; }
+  .footer-brand span { font-size: 11px; font-weight: 600; color: var(--orange); }
+</style>
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<div class="top-nav">
+  <div class="top-nav-inner">
+    <div class="brand-block">
+      <div class="brand-dot"><span>In</span></div>
+      <div>
+        <div class="brand-name">Intelsa BPO &amp; CX</div>
+        <div class="brand-sub">Recruitment Services</div>
+      </div>
+    </div>
+    <div class="role-info">
+      <div>
+        <div class="role-title-top">Web Developer &amp; Web Analyst</div>
+        <div class="role-sub-top">Mid-Level · Remote · SMDigital</div>
+      </div>
+      <div class="role-badge-top">Candidate Delivery — D1</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CANDIDATE TABS ── -->
+<div class="candidate-nav-bar">
+  <div class="candidate-nav-inner" id="candidateTabs"></div>
+</div>
+
+<!-- ── CONTENT ── -->
+<div class="page-body" id="pageBody"></div>
+
+<!-- ── FOOTER ── -->
+<div class="page-footer">
+  <div class="footer-note">Candidate Delivery prepared by Intelsa BPO &amp; CX Recruitment · June 2026 · Confidential</div>
+  <div class="footer-brand">
+    <div class="brand-dot" style="width:22px;height:22px;"><span style="font-size:9px">In</span></div>
+    <span>intelsa.com</span>
+  </div>
+</div>
+
+<script>
+const candidates = [
+  {
+    id: "gabriel",
+    name: "🔥 Gabriel Almendras",
+    strip: "",
+    avatarClass: "av-orange",
+    initials: "GA",
+    fullName: "Gabriel Omar Almendras Peña",
+    title: "Frontend / Full-Stack Developer · WordPress & PHP",
+    location: "Cochabamba, Bolivia · English Advanced",
+    scoreVal: "9",
+    scoreClass: "",
+    recClass: "rec-strong",
+    recLabel: "Highly Recommended",
+    tags: [
+      { label: "4+ yrs WordPress", cls: "tag-pos" },
+      { label: "React · PHP · TypeScript", cls: "tag-pos" },
+      { label: "Custom plugins & themes", cls: "tag-pos" },
+      { label: "Danish tech company exp.", cls: "tag-pos" },
+      { label: "Notice: 3 days", cls: "tag-sal" },
+      { label: "Exp: USD $1,500/mo", cls: "tag-sal" }
+    ],
+    salary: {
+      expectation: "USD $1,500 / mo",
+      notice: "3 business days",
+      range: "USD $1,000 – $1,500 / mo",
+      note: "Expectation aligns with the top of the client's salary range. No gap to manage."
+    },
+    profileRows: [
+      ["Years of Experience", "4+ years (since 2022)"],
+      ["WordPress (direct)", "3+ yrs — custom themes, plugins, APIs"],
+      ["Tech Stack", "PHP · React · TypeScript · JS · MySQL"],
+      ["Last Role", "Mid Frontend Dev — Intergraphics (Denmark)"],
+      ["CMS & Tools", "WordPress, WooCommerce, Drupal, Umbraco, Shopify"],
+      ["Education", "B.S. Computer Engineering — U.A.G.R.M. (ongoing)"],
+      ["Languages", "Spanish (Native) · English (Advanced)"],
+      ["Availability", "Remote · Immediate (3-day notice)"]
+    ],
+    skills: ["PHP", "WordPress", "React", "TypeScript", "JavaScript (ES6+)", "MySQL", "REST APIs", "CSS3 / Sass", "Git", "WooCommerce", "Shopify", "Drupal", "Umbraco", "Postman", "Agile / Scrum"],
+    skillClass: "",
+    experience: [
+      {
+        title: "Mid Frontend Developer / Full-Stack Contributor",
+        company: "Intergraphics Outsourcing (subsidiary of JFM, Denmark)",
+        period: "Sep 2025 – May 2026 · Hybrid · Full-time",
+        bullets: [
+          "Developed and maintained a sports streaming platform using React and PHP-based backend systems.",
+          "Built reusable components for a custom in-house CMS using React and TypeScript.",
+          "Integrated frontend with REST APIs and PHP backend services.",
+          "Built admin interfaces and backend endpoints for video feed management.",
+          "Implemented a configurable RSS-based video distribution system."
+        ]
+      },
+      {
+        title: "WordPress Developer",
+        company: "Intergraphics Outsourcing",
+        period: "Sep 2024 – Sep 2025 · Full-time",
+        bullets: [
+          "Developed custom WordPress themes and plugins from scratch.",
+          "Implemented subscription systems and cloud integrations.",
+          "Built API integrations with custom UI for non-technical users (league position tables, dynamic parameters).",
+          "Translated Figma designs into responsive WordPress implementations.",
+          "Optimized SEO, performance, accessibility, and security."
+        ]
+      },
+      {
+        title: "WordPress Developer",
+        company: "Almendras Producciones",
+        period: "2022 – 2024 · Santa Cruz, Bolivia",
+        bullets: [
+          "Developed and customized WordPress websites (full custom solutions and template-based).",
+          "Integrated payment gateways, APIs, and Google Tag Manager.",
+          "Managed migrations and reduced plugin dependency through custom development.",
+          "Built scalable and responsive site structures."
+        ]
+      }
+    ],
+    bars: [
+      { label: "WordPress & PHP Depth",             val: "9/10", pct: 90, green: false },
+      { label: "JavaScript / Frontend",              val: "9/10", pct: 90, green: false },
+      { label: "API Integration",                    val: "9/10", pct: 90, green: false },
+      { label: "Troubleshooting & Problem Solving",  val: "9/10", pct: 90, green: false },
+      { label: "Security & Code Quality",            val: "9/10", pct: 90, green: false },
+      { label: "English Communication",              val: "8/10", pct: 80, green: false }
+    ],
+    insights: [
+      { title: "WordPress & Technical Depth", text: "Built a custom plugin with a full UI for API parameter configuration — not just consuming an API, but exposing controls for non-technical users. This is mid-to-senior level thinking. Also consolidated multiple small plugins into a single custom one to reduce load — a mature optimization approach." },
+      { title: "API Integration", text: "Described handling an unstable, constantly-changing API with missing endpoints by building custom client-side filtering and data organization. Shows genuine problem-solving beyond basic API consumption." },
+      { title: "Security & Code Quality", text: "Identified specific anti-patterns (API keys exposed in functions.php, code snippet plugins prone to SQL injection) and proposed correct remediation (secrets stored as environment variables in hosting). Best security answer in the group." },
+      { title: "Performance Troubleshooting", text: "Correctly identified plugin bloat as the primary WP performance issue and proposed consolidation into a custom plugin — a solution that also improved maintainability. Also covered hosting and database caching as secondary factors." },
+      { title: "English Communication", text: "Fluent and natural. Used correct technical vocabulary throughout, structured complex answers clearly, and handled all questions without hesitation. B2+ confirmed — no concerns for US-client facing work." },
+      { title: "Culture & Attitude", text: "Self-aware about knowledge gaps with a proactive resolution mindset: 'If I don't know it, I have to learn it — give me time to figure out how long it'll take.' This directly matches the self-learning requirement in the JD." }
+    ],
+    watchItems: null,
+    videoUrl: "https://daily-co-call-recordings.s3.us-west-2.amazonaws.com/vapi/lOxdFnb5JhRqlAzkc71p/1780592016355",
+    verdictClass: "",
+    verdict: "<strong>Recommendation:</strong> Highly recommended. Gabriel is the top candidate in this delivery. His combination of custom WordPress development, hands-on PHP backend in a Danish production CMS, React/TypeScript frontend experience, and a security-aware mindset significantly exceeds the mid-level requirements of this role. His salary expectation of $1,500/mo sits at the top of the client range, and his 3-day notice period means he can start almost immediately. No salary gap to manage."
+  },
+  {
+    id: "cesar",
+    name: "Cesar Terrero",
+    strip: "green",
+    avatarClass: "av-green",
+    initials: "CT",
+    fullName: "Cesar Terrero",
+    title: "WordPress Developer · PHP & Full-Stack",
+    location: "Santo Domingo, Dominican Republic · English Professional",
+    scoreVal: "7",
+    scoreClass: "green-border",
+    recClass: "rec-solid",
+    recLabel: "Recommended",
+    tags: [
+      { label: "7 yrs WordPress exp.", cls: "tag-pos" },
+      { label: "Gov-scale: 700+ portals", cls: "tag-pos" },
+      { label: "Joomla → WP migration", cls: "tag-pos" },
+      { label: "English: pending B2 eval", cls: "tag-neg" },
+      { label: "Notice: 5 days", cls: "tag-sal" },
+      { label: "Exp: USD $1,900 / open to negotiate", cls: "tag-sal" }
+    ],
+    salary: {
+      expectation: "USD $1,900 / mo",
+      notice: "5 business days",
+      range: "USD $1,000 – $1,500 / mo",
+      note: "Gap vs. client range ($1,200–$1,400). He was informed of the range and expressed openness to negotiate — alignment to be confirmed before advancing."
+    },
+    profileRows: [
+      ["Years of Experience", "7 years (WordPress-focused)"],
+      ["WordPress (direct)", "3+ yrs at OGTIC — 700+ government portals"],
+      ["Tech Stack", "PHP · JS · jQuery · MySQL · REST APIs"],
+      ["Last Role", "WordPress Developer — OGTIC (Gov. DR)"],
+      ["CMS & Tools", "WordPress, Joomla, Git, GitHub, GitLab"],
+      ["Education", "ICTs Engineering — UNIBE, Santo Domingo"],
+      ["Languages", "Spanish (Native) · English (Professional — pending B2 eval)"],
+      ["Availability", "Remote · 5-day notice"]
+    ],
+    skills: ["PHP", "WordPress", "JavaScript (ES6+)", "jQuery", "MySQL", "REST APIs", "HTML5 / CSS3", "Git / GitHub / GitLab", "Joomla", "Custom Themes", "Custom Plugins", "CPT / ACF", "SEO", "Performance Optimization", "Security Hardening"],
+    skillClass: "green",
+    experience: [
+      {
+        title: "WordPress Developer",
+        company: "OGTIC — Government Office of ICTs",
+        period: "2022 – Present · Santo Domingo, DR",
+        bullets: [
+          "Designed and built responsive WordPress and Joomla websites across 700+ government portals.",
+          "Developed custom WordPress themes and plugins tailored to institutional project requirements.",
+          "Managed all technical CMS aspects — performance tuning, security hardening, and updates.",
+          "Led full Joomla-to-WordPress migration: data, schema, and database manipulation.",
+          "Consumed and integrated REST APIs to extend website functionality.",
+          "Administered and optimized MySQL databases under production workloads.",
+          "Implemented Git-based version control workflows (GitHub/GitLab).",
+          "Configured CPT and ACF for editorial flexibility; implemented SEO best practices."
+        ]
+      },
+      {
+        title: "Medical Authorization Officer",
+        company: "ARS Universal",
+        period: "2019 – 2022 · Santo Domingo Este, DR",
+        bullets: [
+          "Processed medical authorizations across nationwide centers.",
+          "Demonstrated strong attention to detail, communication, and teamwork."
+        ]
+      }
+    ],
+    bars: [
+      { label: "WordPress & PHP Depth",             val: "8/10", pct: 80, green: true },
+      { label: "JavaScript / Frontend",              val: "6/10", pct: 60, green: true },
+      { label: "API Integration",                    val: "7/10", pct: 70, green: true },
+      { label: "Troubleshooting & Problem Solving",  val: "6/10", pct: 60, green: true },
+      { label: "Security & Code Quality",            val: "6/10", pct: 60, green: true },
+      { label: "English Communication",              val: "5/10", pct: 50, green: true }
+    ],
+    insights: [
+      { title: "WordPress & Technical Depth", text: "7 years of focused WordPress experience — including 700+ government portals — is substantial real-world scale. The Joomla-to-WordPress migration (full data and schema transfer) is technically demanding and validates his MySQL and CMS depth. Strong practical profile." },
+      { title: "API Integration", text: "Understood the challenge conceptually (data mismatch between systems, security of API connections) but explanation was fragmented. The underlying knowledge appears solid — the interview communication barrier prevented a full technical assessment." },
+      { title: "Performance Troubleshooting", text: "Identified plugins as the root cause of WordPress slowness — correct instinct — but the answer remained high-level. Did not surface caching, hosting, or database optimization, which a mid-level developer would typically reach. Likely stronger in practice." },
+      { title: "Security & Code Quality", text: "Mentioned XMLRPC/JSON security and sitemap protection but the explanation trailed off. Technical assessment will be needed to properly evaluate his security posture." },
+      { title: "English Communication", text: "The primary concern from this interview. Spoken English showed noticeable fluency limitations — fragmented sentences, incomplete technical explanations. A dedicated B2 assessment is required before advancing. His written English (CV, emails) may be stronger." },
+      { title: "Salary & Availability", text: "Salary expectation ($1,900) is above the client range ($1,200–$1,400). He was informed of the range and expressed openness to negotiate. This needs to be confirmed in writing or on a follow-up call before the client interview stage." }
+    ],
+    watchItems: [
+      "English B2 evaluation is mandatory before advancing — the JD is a hard B2 minimum. Schedule a dedicated language assessment as the next step.",
+      "Salary alignment must be confirmed: $1,900 expectation vs. $1,200–$1,400 client range. He expressed openness — get a written or verbal commitment on an acceptable number.",
+      "Technical assessment will be the key filter: his CV suggests strong WP knowledge that the interview did not fully surface due to communication friction."
+    ],
+    videoUrl: "https://daily-co-call-recordings.s3.us-west-2.amazonaws.com/vapi/Dc2qp9VhhzOQqpOxRZyK/1780592383875",
+    verdictClass: "green-l",
+    verdict: "<strong>Recommendation:</strong> Recommended with conditions. Cesar's WordPress profile is credible and his 7 years of government-scale experience — including a full Joomla-to-WordPress migration across hundreds of portals — is directly relevant to this role. Two conditions must be met before advancing to the client interview: (1) English must be re-assessed and confirmed at B2 minimum, and (2) salary expectation must be formally aligned to the client range. If both are resolved, his technical background warrants the SMDigital technical assessment."
+  }
+];
+
+let currentId = candidates[0].id;
+
+function buildTabs() {
+  const nav = document.getElementById('candidateTabs');
+  nav.innerHTML = '';
+  candidates.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'candidate-tab' + (c.id === currentId ? ' active' : '');
+    btn.textContent = c.name;
+    btn.dataset.id = c.id;
+    btn.addEventListener('click', () => {
+      currentId = c.id;
+      document.querySelectorAll('.candidate-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(c.id);
+    });
+    nav.appendChild(btn);
+  });
+}
+
+function render(id) {
+  const c = candidates.find(x => x.id === id);
+  if (!c) return;
+  const body = document.getElementById('pageBody');
+
+  const tagsHtml = c.tags.map(t => `<span class="tag ${t.cls}">${t.label}</span>`).join('');
+
+  const profileHtml = c.profileRows.map(([k,v]) =>
+    `<tr><td>${k}</td><td>${v}</td></tr>`
+  ).join('');
+
+  const barValClass = c.bars[0].green ? ' green-val' : '';
+  const barFillClass = c.bars[0].green ? ' gfill' : '';
+
+  const barsHtml = c.bars.map(b => `
+    <div class="bar-item">
+      <div class="bar-top">
+        <span class="bar-name">${b.label}</span>
+        <span class="bar-val${barValClass}">${b.val}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill${barFillClass}" style="width:${b.pct}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  const skillsHtml = c.skills.map(s =>
+    `<span class="skill-pill ${c.skillClass}">${s}</span>`
+  ).join('');
+
+  const expHtml = c.experience.map(e => `
+    <div class="exp-item">
+      <div class="exp-title">${e.title}</div>
+      <div class="exp-company">${e.company}</div>
+      <div class="exp-period">${e.period}</div>
+      <ul class="exp-bullets">
+        ${e.bullets.map(b => `<li>${b}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  const insightsHtml = c.insights.map(i => `
+    <div class="insight-block">
+      <div class="insight-title">${i.title}</div>
+      <div class="insight-text">${i.text}</div>
+    </div>
+  `).join('');
+
+  const watchHtml = c.watchItems ? `
+    <div class="watch-box">
+      <div class="watch-title">Conditions &amp; Points to Probe Before Advancing</div>
+      <ul class="watch-list">
+        ${c.watchItems.map(w => `<li>${w}</li>`).join('')}
+      </ul>
+    </div>
+  ` : '';
+
+  body.innerHTML = `
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+      <div class="profile-strip ${c.strip}"></div>
+      <div class="profile-head-inner">
+        <div class="avatar-circle ${c.avatarClass}">${c.initials}</div>
+        <div class="profile-info">
+          <div class="head-name">${c.fullName}</div>
+          <div class="head-title">${c.title}</div>
+          <div class="head-location">${c.location}</div>
+          <div class="tags-row">${tagsHtml}</div>
+        </div>
+        <div class="profile-right">
+          <div class="score-circle ${c.scoreClass}">
+            <span class="score-num">${c.scoreVal}</span>
+            <span class="score-denom">/ 10</span>
+          </div>
+          <span class="rec-badge ${c.recClass}">${c.recLabel}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT GRID -->
+    <div class="content-grid">
+
+      <!-- Salary & Availability -->
+      <div class="salary-box">
+        <div class="salary-item">
+          <div class="salary-item-label">Salary Expectation</div>
+          <div class="salary-item-val">${c.salary.expectation}</div>
+          <div class="salary-item-note">${c.salary.note}</div>
+        </div>
+        <div class="salary-divider"></div>
+        <div class="salary-item">
+          <div class="salary-item-label">Notice Period</div>
+          <div class="salary-item-val">${c.salary.notice}</div>
+          <div class="salary-item-note">Available to start shortly after offer acceptance</div>
+        </div>
+        <div class="salary-divider"></div>
+        <div class="salary-item">
+          <div class="salary-item-label">Client Salary Range</div>
+          <div class="salary-item-val">${c.salary.range}</div>
+          <div class="salary-item-note">Contract or Employee (Colombia-based candidates only)</div>
+        </div>
+      </div>
+
+      <!-- Profile + Scores -->
+      <div class="content-card">
+        <div class="section-label">Candidate Profile</div>
+        <table class="info-table">${profileHtml}</table>
+        <hr style="border:none;border-top:1px solid var(--gray-mid);margin:16px 0;">
+        <div class="section-label">Interview Scores</div>
+        ${barsHtml}
+      </div>
+
+      <!-- Insights -->
+      <div class="content-card">
+        <div class="section-label">Interview Insights</div>
+        ${insightsHtml}
+      </div>
+
+      <!-- Skills -->
+      <div class="content-card full">
+        <div class="section-label">Tech Stack & Skills</div>
+        <div class="skills-wrap">${skillsHtml}</div>
+      </div>
+
+      <!-- Experience -->
+      <div class="content-card full">
+        <div class="section-label">Work Experience</div>
+        ${expHtml}
+      </div>
+
+      <!-- Watch box -->
+      ${watchHtml}
+
+      <!-- Interview Recording -->
+      <div class="content-card full">
+        <div class="section-label">Interview Recording</div>
+        <div class="video-wrap">
+          <video src="${c.videoUrl}" controls preload="auto"></video>
+        </div>
+      </div>
+
+      <!-- Verdict -->
+      <div class="verdict-box ${c.verdictClass}">
+        <p>${c.verdict}</p>
+      </div>
+
+    </div>
+  `;
+}
+
+buildTabs();
+render(currentId);
+</script>
+</body>
+</html>

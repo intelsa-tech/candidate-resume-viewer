@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparativa de Candidatos · SDR MOCA · Intelsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --intelsa-orange: #ff9345;
+  --intelsa-green: #a9d944;
+  --intelsa-dark: #414c4c;
+  --intelsa-bg: #ffffff;
+  --intelsa-muted-bg: #f7f7f7;
+  --intelsa-border: #e5e7e7;
+  --intelsa-gray: #8a9494;
+  --intelsa-warning: #e8a33d;
+  --intelsa-risk: #c0392b;
+  --intelsa-radius: 3px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: var(--intelsa-dark);
+  background: var(--intelsa-bg);
+  line-height: 1.55;
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 32px 64px; }
+.header { padding: 28px 0 20px; border-bottom: 1px solid var(--intelsa-border); margin-bottom: 24px; }
+.header .kicker { font-size: 11px; font-weight: 600; color: var(--intelsa-orange); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.header h1 { font-size: 30px; font-weight: 600; margin: 0 0 6px; color: var(--intelsa-dark); }
+.header .subtitle { font-size: 14px; color: var(--intelsa-gray); font-weight: 400; }
+.header-meta { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
+.header-meta div { font-size: 12px; color: var(--intelsa-gray); }
+.header-meta strong { color: var(--intelsa-dark); font-weight: 600; }
+
+.sect { border-left: 4px solid var(--intelsa-orange); padding: 4px 0 4px 16px; margin: 28px 0 14px; }
+.sect-title { font-weight: 600; font-size: 19px; color: var(--intelsa-dark); }
+.sect-sub { font-size: 13px; color: var(--intelsa-gray); margin-top: 2px; font-weight: 400; }
+
+/* Tier ranking overview */
+.tier-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0 8px; }
+@media (max-width: 900px) { .tier-strip { grid-template-columns: 1fr; } }
+.tier {
+  background: #fff;
+  border: 1px solid var(--intelsa-border);
+  border-radius: var(--intelsa-radius);
+  padding: 16px;
+}
+.tier-1 { border-top: 4px solid var(--intelsa-green); }
+.tier-2 { border-top: 4px solid var(--intelsa-warning); }
+.tier-3 { border-top: 4px solid var(--intelsa-risk); }
+.tier-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.tier-1 .tier-label { color: #6ba368; }
+.tier-2 .tier-label { color: var(--intelsa-warning); }
+.tier-3 .tier-label { color: var(--intelsa-risk); }
+.tier-title { font-weight: 600; font-size: 15px; color: var(--intelsa-dark); margin-bottom: 8px; }
+.tier-names { font-size: 13px; line-height: 1.7; }
+.tier-names strong { color: var(--intelsa-dark); }
+.tier-verdict { font-size: 11px; color: var(--intelsa-gray); margin-top: 8px; font-style: italic; }
+
+/* Candidate row cards */
+.cand-row {
+  border: 1px solid var(--intelsa-border);
+  border-radius: var(--intelsa-radius);
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+}
+@media (max-width: 800px) { .cand-row { grid-template-columns: 1fr; } }
+.cand-row.tier-1-row { border-left: 4px solid var(--intelsa-green); }
+.cand-row.tier-2-row { border-left: 4px solid var(--intelsa-warning); }
+.cand-row.tier-3-row { border-left: 4px solid var(--intelsa-risk); }
+.cand-head { }
+.cand-name { font-size: 18px; font-weight: 600; color: var(--intelsa-dark); margin-bottom: 3px; }
+.cand-loc { font-size: 11px; color: var(--intelsa-gray); margin-bottom: 8px; }
+.cand-meta-stat { background: var(--intelsa-muted-bg); border-radius: 3px; padding: 8px 10px; margin: 6px 0; font-size: 11px; }
+.cand-meta-stat .num { display: block; font-size: 18px; font-weight: 600; color: var(--intelsa-orange); }
+.cand-meta-stat .lbl { color: var(--intelsa-gray); text-transform: uppercase; letter-spacing: 0.4px; font-size: 9px; font-weight: 500; }
+
+.cand-body {}
+.cand-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-bottom: 10px; }
+@media (max-width: 700px) { .cand-facts { grid-template-columns: 1fr; } }
+.cand-fact { font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--intelsa-border); }
+.cand-fact .k { color: var(--intelsa-gray); font-weight: 500; margin-right: 6px; }
+.cand-fact .v { color: var(--intelsa-dark); }
+.cand-fact .v b { font-weight: 600; }
+
+.cand-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.tag-pos { background: rgba(107, 163, 104, 0.15); color: #6ba368; }
+.tag-neg { background: rgba(192, 57, 43, 0.12); color: var(--intelsa-risk); }
+.tag-warn { background: rgba(232, 163, 61, 0.15); color: var(--intelsa-warning); }
+.tag-neu { background: var(--intelsa-border); color: var(--intelsa-dark); }
+.tag-orange { background: var(--intelsa-orange); color: #fff; }
+
+.cand-verdict {
+  background: var(--intelsa-muted-bg);
+  border-radius: 3px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--intelsa-dark);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.cand-verdict b { color: var(--intelsa-orange); font-weight: 600; }
+
+.cand-timeline { font-size: 11px; margin-top: 6px; line-height: 1.7; }
+.cand-timeline .job { color: var(--intelsa-dark); }
+.cand-timeline .dur { color: var(--intelsa-gray); font-weight: 500; }
+.cand-timeline .dur.warn { color: var(--intelsa-warning); }
+.cand-timeline .dur.risk { color: var(--intelsa-risk); }
+
+/* Matrix table */
+table.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  color: var(--intelsa-dark);
+  margin: 12px 0;
+}
+table.matrix thead tr { background: var(--intelsa-orange); color: #fff; }
+table.matrix th { padding: 10px 8px; text-align: center; font-weight: 600; font-size: 11px; }
+table.matrix th:first-child { text-align: left; width: 180px; }
+table.matrix td { padding: 8px 8px; border-bottom: 1px solid var(--intelsa-border); text-align: center; vertical-align: middle; }
+table.matrix td:first-child { text-align: left; font-weight: 500; color: var(--intelsa-dark); }
+table.matrix tbody tr:nth-child(even) { background: var(--intelsa-muted-bg); }
+.cell-check { color: #6ba368; font-weight: 700; font-size: 14px; }
+.cell-x { color: var(--intelsa-risk); font-weight: 700; font-size: 14px; }
+.cell-warn { color: var(--intelsa-warning); font-weight: 700; font-size: 14px; }
+.cell-txt { font-size: 10.5px; color: var(--intelsa-dark); line-height: 1.4; }
+.score-cell { font-weight: 700; font-size: 14px; }
+.score-1 { color: #6ba368; }
+.score-2 { color: var(--intelsa-orange); }
+.score-3 { color: var(--intelsa-warning); }
+.score-4, .score-5 { color: var(--intelsa-risk); }
+
+.callout {
+  background: var(--intelsa-muted-bg);
+  border-left: 4px solid var(--intelsa-orange);
+  border-radius: 3px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--intelsa-dark);
+  line-height: 1.55;
+  margin: 14px 0;
+}
+.callout-label {
+  font-weight: 600;
+  color: var(--intelsa-orange);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.callout.green { border-left-color: var(--intelsa-green); }
+.callout.green .callout-label { color: #6ba368; }
+.callout.warn { border-left-color: var(--intelsa-warning); }
+.callout.warn .callout-label { color: var(--intelsa-warning); }
+
+.footer {
+  border-top: 1px solid var(--intelsa-border);
+  padding: 20px 24px;
+  font-size: 11px;
+  color: var(--intelsa-gray);
+  text-align: center;
+  margin-top: 40px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="kicker">MOCA · Proceso de contratación · Actualizado</div>
+  <h1>Comparativa de candidatos <span style="color:var(--intelsa-orange);">·</span> SDR MOCA</h1>
+  <div class="subtitle">Cinco candidatos evaluados contra el perfil de SDR del playbook. Ranking por tier para acelerar la decisión de entrevistas.</div>
+  <div class="header-meta">
+    <div><strong>Owner del proceso</strong> · Oscar Barrera</div>
+    <div><strong>Rol</strong> · SDR Colombia 100%</div>
+    <div><strong>Salario base</strong> · COP $2.2M + variable</div>
+    <div><strong>Ubicación esperada</strong> · Medellín presencial</div>
+    <div><strong>Candidatos evaluados</strong> · 5</div>
+  </div>
+</div>
+
+<!-- ============ RANKING TIER ============ -->
+<div class="sect">
+  <div class="sect-title">Ranking preliminar por tier</div>
+  <div class="sect-sub">Criterio: encaje con perfil SDR MOCA (ubicación, experiencia B2B pura, stack, IA, estabilidad, verticales)</div>
+</div>
+
+<div class="tier-strip">
+  <div class="tier tier-1">
+    <div class="tier-label">Tier 1 · Entrevistar sí o sí</div>
+    <div class="tier-title">Candidatos fuertes (3)</div>
+    <div class="tier-names">
+      <strong>1. Daniela Hincapié</strong> · Pereira · SDR B2B con volumen probado<br>
+      <strong>2. Gina Duarte</strong> · Bogotá (híbrido) · Senior BDR + IA<br>
+      <strong>3. Julián Bruce</strong> · Cartagena · Junior con hambre, cold email
+    </div>
+    <div class="tier-verdict">Los tres pasan al 1v1 esta semana</div>
+  </div>
+  <div class="tier tier-2">
+    <div class="tier-label">Tier 2 · Considerar con reservas</div>
+    <div class="tier-title">Un candidato (1)</div>
+    <div class="tier-names">
+      <strong>4. Luisa Fernanda Arenas</strong> · Medellín · Perfil de venta y cierre
+    </div>
+    <div class="tier-verdict">Entrevistar si Tier 1 no cierra, o si Medellín presencial es innegociable</div>
+  </div>
+  <div class="tier tier-3">
+    <div class="tier-label">Tier 3 · Probable pass</div>
+    <div class="tier-title">Un candidato (1)</div>
+    <div class="tier-names">
+      <strong>5. Juliana Ibarra Parra</strong> · Customer Success / Inside Sales
+    </div>
+    <div class="tier-verdict">No es SDR puro, sin métricas de agendamiento, rotación alta</div>
+  </div>
+</div>
+
+<!-- ============ TIER 1 · DETALLE ============ -->
+<div class="sect">
+  <div class="sect-title">Tier 1 · Candidatos fuertes</div>
+  <div class="sect-sub">Los tres perfiles que valen la entrevista de 30 minutos esta semana</div>
+</div>
+
+<!-- Daniela -->
+<div class="cand-row tier-1-row">
+  <div class="cand-head">
+    <div class="cand-name">1. Daniela Hincapié</div>
+    <div class="cand-loc">📍 Pereira, Colombia</div>
+    <div class="cand-meta-stat">
+      <div class="lbl">Volumen probado</div>
+      <div class="num">15 reuniones/mes</div>
+      <div style="font-size:10px;color:var(--intelsa-gray);margin-top:2px;">50 llamadas + 40 emails/día · 20% conv leads</div>
+    </div>
+    <div class="cand-tags">
+      <span class="tag tag-pos">SDR B2B pura</span>
+      <span class="tag tag-pos">HubSpot certificada</span>
+      <span class="tag tag-warn">Pereira</span>
+      <span class="tag tag-warn">Multi-freelance</span>
+    </div>
+  </div>
+  <div class="cand-body">
+    <div class="cand-facts">
+      <div class="cand-fact"><span class="k">Experiencia</span><span class="v"><b>~4 años</b> SDR / BDR B2B</span></div>
+      <div class="cand-fact"><span class="k">Verticales</span><span class="v">Ed-tech, tecnología, fintech, retail</span></div>
+      <div class="cand-fact"><span class="k">Stack</span><span class="v">HubSpot CRM, metodología outbound</span></div>
+      <div class="cand-fact"><span class="k">Certificaciones</span><span class="v">HubSpot Inbound + Outbound + Curso SDR Manager</span></div>
+      <div class="cand-fact"><span class="k">Formación</span><span class="v">Licenciada Pedagogía Infantil (2024)</span></div>
+      <div class="cand-fact"><span class="k">Inglés</span><span class="v">No declarado</span></div>
+    </div>
+    <div class="cand-timeline">
+      <span class="job">Callbox Latam (multi-industrias LATAM) · SDR/BDR</span> · <span class="dur">2023-2024</span> · <b>15+ reuniones/mes con C-level</b><br>
+      <span class="job">Notifika Uruguay · SDR Freelance</span> · <span class="dur">2024</span> · Tech B2B internacional<br>
+      <span class="job">Soaint (Software) · BDR por proyecto</span> · <span class="dur warn">Dic'24 - Feb'25 (3m)</span> · CTOs y gerentes innovación<br>
+      <span class="job">Prestémonos Fintech · SDR Freelance</span> · <span class="dur">Mar 2025</span><br>
+      <span class="job">Almacén el segundazo · SDR medio tiempo</span> · <span class="dur warn">May'25 - actualidad</span>
+    </div>
+    <div class="cand-verdict">
+      <b>Por qué Tier 1:</b> Es la única con experiencia SDR B2B pura, con métricas duras (50 llamadas + 40 emails/día, 15 reuniones/mes, 20% conversión) y certificaciones HubSpot reales. Prospectó decisores C-level en tech, fintech y educación. <b>Riesgo:</b> ubicación (Pereira) y patrón de freelance paralelo. Actualmente trabaja medio tiempo en almacén + otros freelances. Hay que validar si busca full-time real o quiere sumar más freelance.
+    </div>
+  </div>
+</div>
+
+<!-- Gina -->
+<div class="cand-row tier-1-row">
+  <div class="cand-head">
+    <div class="cand-name">2. Gina Duarte</div>
+    <div class="cand-loc">📍 Mosquera, Cundinamarca · abierta a híbrido Bogotá</div>
+    <div class="cand-meta-stat">
+      <div class="lbl">Volumen probado</div>
+      <div class="num">10 reuniones/mes</div>
+      <div style="font-size:10px;color:var(--intelsa-gray);margin-top:2px;">Multicanal · C-suite y directivos</div>
+    </div>
+    <div class="cand-tags">
+      <span class="tag tag-pos">5 años SDR</span>
+      <span class="tag tag-pos">IA aplicada</span>
+      <span class="tag tag-pos">Estable</span>
+      <span class="tag tag-neg">No Medellín</span>
+    </div>
+  </div>
+  <div class="cand-body">
+    <div class="cand-facts">
+      <div class="cand-fact"><span class="k">Experiencia</span><span class="v"><b>~5 años</b> SDR/BDR puro</span></div>
+      <div class="cand-fact"><span class="k">Verticales</span><span class="v">Retail, Travel, Salud, CPG (3/4 match playbook)</span></div>
+      <div class="cand-fact"><span class="k">Stack</span><span class="v">Sales Nav, Apollo, Salesforce, HubSpot, Zoho</span></div>
+      <div class="cand-fact"><span class="k">IA aplicada</span><span class="v"><b>Claude, ChatGPT</b> para research y personalización</span></div>
+      <div class="cand-fact"><span class="k">Formación</span><span class="v">Profesional Mercadeo y Publicidad + IA aplicada</span></div>
+      <div class="cand-fact"><span class="k">Inglés</span><span class="v">A2 (básico)</span></div>
+    </div>
+    <div class="cand-timeline">
+      <span class="job">Multiplica · BDR → Senior BDR (promoción interna)</span> · <span class="dur">Oct'23 - Jul'26 (33m)</span><br>
+      <span class="job">GeoVictoria · BDR / Lead Generator</span> · <span class="dur">Ago'22 - Oct'23 (14m)</span><br>
+      <span class="job">Wall Street English · Lead Generator</span> · <span class="dur">Jul'21 - Ago'22 (13m)</span><br>
+      <span class="job">Permanencia promedio: <b>20 meses</b> · sin gaps</span>
+    </div>
+    <div class="cand-verdict">
+      <b>Por qué Tier 1:</b> Único perfil que ya usa IA (Claude, ChatGPT) en su flujo de prospección, lo que encaja natural con la narrativa Trueno. Estable, con promoción interna reciente, y stack completo. <b>Riesgo:</b> ubicación (Bogotá) y auto-percepción "Senior" que puede pedir salario por encima de $2.2M. Volumen bajo (10/mes) pero calidad alta.
+    </div>
+  </div>
+</div>
+
+<!-- Julián -->
+<div class="cand-row tier-1-row">
+  <div class="cand-head">
+    <div class="cand-name">3. Julián Bruce</div>
+    <div class="cand-loc">📍 Cartagena · abierto a Medellín (presencial, híbrido o remoto)</div>
+    <div class="cand-meta-stat">
+      <div class="lbl">Volumen probado</div>
+      <div class="num">15-20 reuniones/mes</div>
+      <div style="font-size:10px;color:var(--intelsa-gray);margin-top:2px;">Foco cold email</div>
+    </div>
+    <div class="cand-tags">
+      <span class="tag tag-pos">Hambre / Junior</span>
+      <span class="tag tag-pos">Inglés B1</span>
+      <span class="tag tag-pos">Cold email</span>
+      <span class="tag tag-warn">B2C mayormente</span>
+    </div>
+  </div>
+  <div class="cand-body">
+    <div class="cand-facts">
+      <div class="cand-fact"><span class="k">Experiencia</span><span class="v"><b>18 meses</b> gestión comercial, mayoría B2C</span></div>
+      <div class="cand-fact"><span class="k">Verticales</span><span class="v">Créditos consumo (Brilla Surtigas), aduanas</span></div>
+      <div class="cand-fact"><span class="k">Stack</span><span class="v">Salesforce, HubSpot (mencionados)</span></div>
+      <div class="cand-fact"><span class="k">IA aplicada</span><span class="v">No declarado</span></div>
+      <div class="cand-fact"><span class="k">Formación</span><span class="v">Administrador de Negocios + Marketing Digital</span></div>
+      <div class="cand-fact"><span class="k">Inglés</span><span class="v"><b>B1 intermedio</b>, en desarrollo hacia B2</span></div>
+    </div>
+    <div class="cand-timeline">
+      <span class="job">Link Marketing / Brilla (Surtigas) · Gestor Comercial</span> · <span class="dur">Abr'25 - Abr'26 (12m)</span> · Telemercadeo multicanal<br>
+      <span class="job">⚠ Gap</span> · <span class="dur warn">Ago'24 - Abr'25 (~7m sin empleo declarado)</span><br>
+      <span class="job">Agencia Aduanas Jorge Numa · Auxiliar Administrativo</span> · <span class="dur">Feb'24 - Ago'24 (6m)</span>
+    </div>
+    <div class="cand-verdict">
+      <b>Por qué Tier 1:</b> Es el único hombre (diversidad del equipo), joven con hambre, dispuesto a moverse a Medellín (esto vale mucho), inglés B1 (más alto que Gina). Volumen de reuniones bueno (15-20). <b>Riesgo:</b> experiencia es B2C (créditos de consumo), no B2B. Tiene que aprender ICP corporativo. Gap de 7 meses en 2024 hay que preguntarlo. Pero es el candidato con más upside si sabes formarlo.
+    </div>
+  </div>
+</div>
+
+<!-- ============ TIER 2 · DETALLE ============ -->
+<div class="sect">
+  <div class="sect-title">Tier 2 · Considerar con reservas</div>
+  <div class="sect-sub">Único candidato basado en Medellín, pero con banderas amarillas</div>
+</div>
+
+<div class="cand-row tier-2-row">
+  <div class="cand-head">
+    <div class="cand-name">4. Luisa Fernanda Arenas</div>
+    <div class="cand-loc">📍 Medellín</div>
+    <div class="cand-meta-stat">
+      <div class="lbl">Volumen declarado</div>
+      <div class="num">40 reuniones/mes</div>
+      <div style="font-size:10px;color:var(--intelsa-gray);margin-top:2px;">40 llamadas frías/día · calificación variable</div>
+    </div>
+    <div class="cand-tags">
+      <span class="tag tag-pos">Medellín</span>
+      <span class="tag tag-pos">Alto volumen</span>
+      <span class="tag tag-warn">2 rotaciones cortas</span>
+      <span class="tag tag-neg">Sin stack moderno</span>
+    </div>
+  </div>
+  <div class="cand-body">
+    <div class="cand-facts">
+      <div class="cand-fact"><span class="k">Experiencia</span><span class="v"><b>~10 años</b> ventas + servicio (SDR reciente 5m)</span></div>
+      <div class="cand-fact"><span class="k">Perfil real</span><span class="v">Ejecutiva de ventas y cierre</span></div>
+      <div class="cand-fact"><span class="k">Stack</span><span class="v">CRM genérico, telefonía · no Apollo, no Sales Nav</span></div>
+      <div class="cand-fact"><span class="k">Formación</span><span class="v">Tecnóloga Admin. Pública</span></div>
+      <div class="cand-fact"><span class="k">Inglés</span><span class="v">No declarado</span></div>
+      <div class="cand-fact"><span class="k">IA aplicada</span><span class="v">No experiencia declarada</span></div>
+    </div>
+    <div class="cand-timeline">
+      <span class="job">HGI · Ejecutiva de ventas</span> · <span class="dur risk">Nov'25 - Feb'26 (3m) ⚠</span><br>
+      <span class="job">Bold · SDR</span> · <span class="dur warn">May'25 - Oct'25 (5m) ⚠</span><br>
+      <span class="job">Loggro · Ejecutiva clientes activos</span> · <span class="dur">Oct'21 - May'25 (43m)</span><br>
+      <span class="job">OTC Factex · Ejecutiva ventas y servicio</span> · <span class="dur">Abr'16 - Feb'21 (58m)</span>
+    </div>
+    <div class="cand-verdict">
+      <b>Por qué Tier 2:</b> Es Medellín y su volumen supera la meta del playbook (40 vs 24-36). <b>Pero:</b> perfil real es venta y cierre, no SDR puro; no maneja stack moderno; y tiene 2 rotaciones cortas seguidas después de 8+ años de estabilidad. El patrón sugiere una salida forzada de Loggro que no ha logrado reemplazar. Entrevistar solo si Tier 1 no cierra o si Medellín presencial es innegociable.
+    </div>
+  </div>
+</div>
+
+<!-- ============ TIER 3 · DETALLE ============ -->
+<div class="sect">
+  <div class="sect-title">Tier 3 · Probable pass</div>
+  <div class="sect-sub">Perfil no encaja con SDR puro del playbook</div>
+</div>
+
+<div class="cand-row tier-3-row">
+  <div class="cand-head">
+    <div class="cand-name">5. Juliana Ibarra Parra</div>
+    <div class="cand-loc">📍 Colombia (ciudad no especificada)</div>
+    <div class="cand-meta-stat" style="background:rgba(192, 57, 43, 0.05);">
+      <div class="lbl">Volumen declarado</div>
+      <div class="num" style="color:var(--intelsa-risk);">Sin métricas</div>
+      <div style="font-size:10px;color:var(--intelsa-gray);margin-top:2px;">Agendamiento LATAM, sin cifras</div>
+    </div>
+    <div class="cand-tags">
+      <span class="tag tag-pos">Inglés B2</span>
+      <span class="tag tag-neg">No es SDR</span>
+      <span class="tag tag-neg">Rotación alta</span>
+      <span class="tag tag-neg">Sin métricas</span>
+    </div>
+  </div>
+  <div class="cand-body">
+    <div class="cand-facts">
+      <div class="cand-fact"><span class="k">Perfil real</span><span class="v">Customer Success / Inside Sales / Customer Service</span></div>
+      <div class="cand-fact"><span class="k">Stack</span><span class="v">Microsoft Dynamics, Power BI, Zendesk, Netsuite</span></div>
+      <div class="cand-fact"><span class="k">Verticales</span><span class="v">Pet shop, ed-tech, tech (HP), construcción</span></div>
+      <div class="cand-fact"><span class="k">Formación</span><span class="v">Negocios Internacionales + Gerencia Logística</span></div>
+      <div class="cand-fact"><span class="k">Inglés</span><span class="v"><b>B2</b> (el mejor del grupo)</span></div>
+      <div class="cand-fact"><span class="k">IA aplicada</span><span class="v">No declarado</span></div>
+    </div>
+    <div class="cand-timeline">
+      <span class="job">StepUp Andamios · Customer Service Agent</span> · <span class="dur warn">Nov'25 - actualidad (9m)</span><br>
+      <span class="job">HP Inc · Senior Inside Sales Representative</span> · <span class="dur warn">Jul'25 - Nov'25 (4m)</span><br>
+      <span class="job">Q10 · Customer Success Manager</span> · <span class="dur warn">Oct'24 - May'25 (7m)</span><br>
+      <span class="job">Full Pets Shop · Auxiliar Compras</span> · <span class="dur">Oct'23 - Ago'24 (10m)</span>
+    </div>
+    <div class="cand-verdict">
+      <b>Por qué Tier 3:</b> Tres razones convergentes. Primero, no es SDR: su experiencia es Customer Success + Inside Sales + Customer Service (funciones de post-venta y retención, no de prospección). Segundo, sin métricas de agendamiento reales en el CV. Tercero, rotación alta (4 empleos en ~3 años, ninguno pasa de 10 meses). El inglés B2 es su punto más fuerte, pero no compensa las 3 banderas rojas. <b>Recomendación:</b> pass.
+    </div>
+  </div>
+</div>
+
+<!-- ============ MATRIZ COMPARATIVA ============ -->
+<div class="sect">
+  <div class="sect-title">Matriz comparativa · 10 criterios · 5 candidatos</div>
+  <div class="sect-sub">Vista consolidada para la reunión de decisión con David y Vanessa</div>
+</div>
+
+<table class="matrix">
+  <thead>
+    <tr>
+      <th>Criterio</th>
+      <th>Daniela<br><span style="font-weight:400;font-size:10px;">Pereira</span></th>
+      <th>Gina<br><span style="font-weight:400;font-size:10px;">Bogotá</span></th>
+      <th>Julián<br><span style="font-weight:400;font-size:10px;">Cartagena</span></th>
+      <th>Luisa<br><span style="font-weight:400;font-size:10px;">Medellín</span></th>
+      <th>Juliana<br><span style="font-weight:400;font-size:10px;">Colombia</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ubicación (Medellín presencial)</td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-warn">◐</span><br><span class="cell-txt">Se muda</span></td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-warn">?</span></td>
+    </tr>
+    <tr>
+      <td>Perfil SDR B2B puro</td>
+      <td><span class="cell-check">✓✓</span></td>
+      <td><span class="cell-check">✓✓</span></td>
+      <td><span class="cell-warn">◐</span><br><span class="cell-txt">B2C</span></td>
+      <td><span class="cell-warn">◐</span><br><span class="cell-txt">Venta</span></td>
+      <td><span class="cell-x">✗</span></td>
+    </tr>
+    <tr>
+      <td>Años en prospección</td>
+      <td><span class="cell-txt">~4</span></td>
+      <td><span class="cell-txt">~5</span></td>
+      <td><span class="cell-txt">1.5</span></td>
+      <td><span class="cell-txt">0.5</span></td>
+      <td><span class="cell-txt">0</span></td>
+    </tr>
+    <tr>
+      <td>Volumen reuniones/mes probado</td>
+      <td><span class="cell-txt">15+</span></td>
+      <td><span class="cell-txt">10</span></td>
+      <td><span class="cell-txt">15-20</span></td>
+      <td><span class="cell-txt">40</span></td>
+      <td><span class="cell-x">✗</span></td>
+    </tr>
+    <tr>
+      <td>Stack SDR moderno</td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-check">✓✓</span></td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-warn">◐</span></td>
+    </tr>
+    <tr>
+      <td>Experiencia con IA (Trueno-fit)</td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-check">✓✓</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-x">✗</span></td>
+    </tr>
+    <tr>
+      <td>Estabilidad laboral</td>
+      <td><span class="cell-warn">◐</span></td>
+      <td><span class="cell-check">✓✓</span></td>
+      <td><span class="cell-warn">◐</span></td>
+      <td><span class="cell-warn">◐</span></td>
+      <td><span class="cell-x">✗</span></td>
+    </tr>
+    <tr>
+      <td>Verticales playbook (Ecomm/Salud/Inmob/CPG)</td>
+      <td><span class="cell-warn">◐</span></td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-x">✗</span></td>
+    </tr>
+    <tr>
+      <td>Inglés</td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-warn">A2</span></td>
+      <td><span class="cell-check">B1</span></td>
+      <td><span class="cell-x">✗</span></td>
+      <td><span class="cell-check">B2</span></td>
+    </tr>
+    <tr>
+      <td>Encaje con salario $2.2M</td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-warn">◐</span></td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-check">✓</span></td>
+      <td><span class="cell-check">✓</span></td>
+    </tr>
+    <tr style="border-top:2px solid var(--intelsa-orange);background:#fff9f4 !important;font-weight:600;">
+      <td style="font-weight:700;">Ranking</td>
+      <td><span class="score-cell score-1">#1</span></td>
+      <td><span class="score-cell score-2">#2</span></td>
+      <td><span class="score-cell score-2">#3</span></td>
+      <td><span class="score-cell score-3">#4</span></td>
+      <td><span class="score-cell score-4">#5</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <div class="callout-label">Nota sobre la ubicación</div>
+  Tres de los cinco candidatos no viven en Medellín (Daniela en Pereira, Gina en Bogotá, Julián en Cartagena). El único candidato Medellín-based (Luisa) es Tier 2. Esto es una señal fuerte: <b>o el proceso de búsqueda en Medellín no está atrayendo talento SDR B2B puro</b> (que es un perfil escaso en la ciudad), <b>o la vacante no llegó a los canales correctos</b>. Antes de decidir, vale la pena publicarla en Bunny Studio, GetOnBrd, F5 o comunidades locales de SDR/Growth. Alternativamente, considerar si la posición puede ser híbrida o remota Colombia, lo que abre significativamente el pool.
+</div>
+
+<div class="callout green">
+  <div class="callout-label">Recomendación operativa</div>
+  Entrevistar a los tres de Tier 1 esta semana (Daniela, Gina, Julián) en llamadas de 30 min. Foco: <b>Daniela</b>, validar si busca full-time real y disposición a Medellín. <b>Gina</b>, validar expectativa salarial y disposición a Medellín. <b>Julián</b>, validar el gap laboral y la transición de B2C a B2B. Luisa como plan B si dos de los tres se caen. Juliana, pass.
+</div>
+
+<div class="footer">
+  Intelsa BPO &amp; CX &middot; MOCA · Comparativa de candidatos SDR (v2) &middot; Documento interno · Julio 2026 · Owner: Oscar Barrera · 5 candidatos evaluados
+</div>
+
+</div>
+</body>
+</html>
